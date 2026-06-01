@@ -204,6 +204,119 @@ const JOYLANG_DICT = [
   { root:"vidu", noun:"vidombu", verb:"viduvu", adj:"—", en:"video / record video", domain:"Digital", ex:"Anu viduvu-lo. — I record video." },
   { root:"viku", noun:"vichuombu", verb:"vichuvu", adj:"—", en:"video call", domain:"Digital", ex:"Ka anuchi vichuvu-bo? — Shall we video call?" },
   { root:"webu", noun:"webombu", verb:"—", adj:"—", en:"internet / web", domain:"Digital", ex:"Webombu-me nashilo. — I study on the internet." },
+
+  // ── BODY PARTS ──────────────────────────────────────────────
+  { root:"habo", noun:"habombu", verb:"habuvu", adj:"haboku", en:"head", domain:"Body", ex:"Habombu boloku melo. — The head is big." },
+  { root:"lubi", noun:"lubombu", verb:"lubuvu", adj:"lubook", en:"ear", domain:"Body", ex:"Anu lubombu yomilo sunuvu-ra. — I use my ear to listen." },
+  { root:"naka", noun:"nakombu", verb:"nakuvu", adj:"nakoku", en:"mouth", domain:"Body", ex:"Nakombu-me shapilo. — He/she speaks through the mouth." },
+  { root:"ochi", noun:"ochombu", verb:"ochuvu", adj:"ochoku", en:"eye", domain:"Body", ex:"Anu ochombu-chi doshilo. — I see with my eyes." },
+  { root:"padu", noun:"padombu", verb:"paduvu", adj:"padoku", en:"foot / tread", domain:"Body", ex:"Anu paduvu-lo. — I tread / walk." },
+  { root:"baki", noun:"bakombu", verb:"—", adj:"bakoku", en:"back (body)", domain:"Body", ex:"Baki bochoku melo. — The back hurts." },
+  { root:"beno", noun:"benombu", verb:"—", adj:"benoku", en:"belly / stomach", domain:"Body", ex:"Benombu chahilo. — The stomach needs food." },
+  { root:"dovi", noun:"dovombu", verb:"dovuvu", adj:"dovoku", en:"tooth", domain:"Body", ex:"Dovombu-ko danto yomilo. — Use a toothbrush for the teeth." },
+  { root:"gala", noun:"galombu", verb:"galuvu", adj:"galoku", en:"neck / embrace", domain:"Body", ex:"Galombu nishi melo. — The neck is nearby." },
+  { root:"keshi", noun:"keshombu", verb:"keshuvu", adj:"keshoku", en:"hair / groom", domain:"Body", ex:"Keshombu sundaroku melo. — The hair is beautiful." },
+  { root:"leki", noun:"lekombu", verb:"lekuvu", adj:"lekoku", en:"leg / kick", domain:"Body", ex:"Anu lekuvu-lo. — I kick." },
+  { root:"lupi", noun:"lupombu", verb:"—", adj:"lupoku", en:"lip", domain:"Body", ex:"Lupombu lalaoku melo. — The lips are red." },
+  { root:"nibu", noun:"nibombu", verb:"nibuvu", adj:"niboku", en:"tongue / lick", domain:"Body", ex:"Nibu rasilo. — The tongue tastes." },
+  { root:"penu", noun:"penombu", verb:"—", adj:"penoku", en:"chest", domain:"Body", ex:"Penombu sparilo. — The chest feels." },
+  { root:"rubi", noun:"rubombu", verb:"—", adj:"rubook", en:"blood", domain:"Body", ex:"Rubi ruboku melo. — Blood is red." },
+  { root:"tishi", noun:"tishombu", verb:"tishuvu", adj:"tishoku", en:"skin", domain:"Body", ex:"Tishombu shuchoku melo. — The skin is clean." },
+  { root:"vana", noun:"vanombu", verb:"vanuvu", adj:"vanoku", en:"finger / point", domain:"Body", ex:"Anu vana-chi yomilo. — I use my fingers." },
+
+  // ── ANIMALS ─────────────────────────────────────────────────
+  { root:"bola", noun:"boloombu", verb:"—", adj:"boloku", en:"cow", domain:"Animals", ex:"Bola gramombu-me melo. — The cow is in the village." },
+  { root:"gimu", noun:"gimombu", verb:"—", adj:"gimoku", en:"dog", domain:"Animals", ex:"Gimu jovioku melo. — The dog is happy." },
+  { root:"gona", noun:"gonoombu", verb:"—", adj:"gonoku", en:"goat", domain:"Animals", ex:"Gona gramombu nishi melo. — The goat is near the village." },
+  { root:"loku", noun:"lokombu", verb:"—", adj:"lokoku", en:"frog", domain:"Animals", ex:"Loku nadiombu nishi melo. — The frog is near the river." },
+  { root:"movu", noun:"movombu", verb:"—", adj:"movoku", en:"monkey", domain:"Animals", ex:"Movu shojulo. — The monkey laughs." },
+  { root:"numi", noun:"numombu", verb:"—", adj:"numoku", en:"fish", domain:"Animals", ex:"Numi nadiombu-me melo. — The fish is in the river." },
+  { root:"panu", noun:"panombu", verb:"—", adj:"panoku", en:"butterfly", domain:"Animals", ex:"Panu sundaroku melo. — The butterfly is beautiful." },
+  { root:"pochi", noun:"pochombu", verb:"—", adj:"pochoku", en:"pig", domain:"Animals", ex:"Pochi gramombu-me melo. — The pig is in the village." },
+  { root:"pushi", noun:"pushombu", verb:"—", adj:"pushoku", en:"cat", domain:"Animals", ex:"Pushi nalulo. — The cat sleeps." },
+  { root:"shibu", noun:"shibombu", verb:"—", adj:"shiboku", en:"rabbit", domain:"Animals", ex:"Shibu laghoku melo. — The rabbit is small." },
+  { root:"shovi", noun:"shovombu", verb:"—", adj:"shovoku", en:"bird", domain:"Animals", ex:"Shovi akasombu-me velo. — The bird goes in the sky." },
+
+  // ── SPORTS & GAMES ──────────────────────────────────────────
+  { root:"belu", noun:"belombu", verb:"beluvu", adj:"beloku", en:"play / game", domain:"Sports", ex:"Anu beluvu-lo. — I play." },
+  { root:"ruva", noun:"ruvombu", verb:"ruvuvu", adj:"ruvoku", en:"race / sprint", domain:"Sports", ex:"Venu ruvuvu-lo. — He/she races." },
+  { root:"shanu", noun:"shanombu", verb:"shanuvu", adj:"shanoku", en:"swim", domain:"Sports", ex:"Anu shanuvu-lo. — I swim." },
+  { root:"nupo", noun:"nupombu", verb:"nupuvu", adj:"nupoku", en:"march / walk steadily", domain:"Sports", ex:"Anuchi nupuvu-lo. — We march." },
+  { root:"bova", noun:"bovombu", verb:"bovuvu", adj:"bovoku", en:"climb / ascent", domain:"Sports", ex:"Anu parvatoombu-ko bovuvu-lo. — I climb the mountain." },
+
+  // ── ARTS & MUSIC ────────────────────────────────────────────
+  { root:"gana", noun:"ganombu", verb:"ganuvu", adj:"ganoku", en:"song / sing", domain:"Arts", ex:"Anu ganuvu-lo. — I sing." },
+  { root:"luvi", noun:"luvombu", verb:"luvuvu", adj:"luvoku", en:"music / make music", domain:"Arts", ex:"Luvi joviombu melo. — Music is joyful." },
+  { root:"chilu", noun:"chilombu", verb:"chiluvu", adj:"chiloku", en:"story / narrate", domain:"Arts", ex:"Venu chilombu shapilo. — He/she tells a story." },
+  { root:"nuvi", noun:"nuvombu", verb:"nuvuvu", adj:"nuvoku", en:"art / create art", domain:"Arts", ex:"Nuvi sundaroku melo. — Art is beautiful." },
+  { root:"nati", noun:"natoombu", verb:"natuvu", adj:"natoku", en:"dance", domain:"Arts", ex:"Anu natuvu-lo. — I dance." },
+
+  // ── HEALTH ──────────────────────────────────────────────────
+  { root:"bochi", noun:"bochombu", verb:"bochuvu", adj:"bochoku", en:"pain / ache", domain:"Health", ex:"Bochombu melo. — There is pain." },
+  { root:"noki", noun:"nokiombu", verb:"nokuvu", adj:"nokoku", en:"illness / sick", domain:"Health", ex:"Venu nokoku melo. — He/she is ill." },
+  { root:"vaidya", noun:"vaidyombu", verb:"—", adj:"—", en:"medicine / healing", domain:"Health", ex:"Vaidyombu sahilo. — Medicine helps." },
+  { root:"tanda", noun:"tandoombu", verb:"tanduvu", adj:"tandoku", en:"healthy / wellness", domain:"Health", ex:"Anu tandoku melo. — I am healthy." },
+
+  // ── EXTRA NATURE ────────────────────────────────────────────
+  { root:"danu", noun:"danombu", verb:"—", adj:"danoku", en:"snow", domain:"Nature", ex:"Danu belo. — Snow comes." },
+  { root:"kimi", noun:"kimombu", verb:"—", adj:"kimoku", en:"sand", domain:"Nature", ex:"Kimi nadiombu nishi melo. — Sand is near the river." },
+  { root:"kivo", noun:"kivombu", verb:"—", adj:"kivoku", en:"sea / ocean", domain:"Nature", ex:"Kivo boloku melo. — The sea is great." },
+  { root:"nola", noun:"nolombu", verb:"noluvu", adj:"noloku", en:"flower / bloom", domain:"Nature", ex:"Nola sundaroku melo. — The flower is beautiful." },
+  { root:"paruna", noun:"parunombu", verb:"—", adj:"parunoku", en:"forest", domain:"Nature", ex:"Paruna boloku melo. — The forest is big." },
+  { root:"pino", noun:"pinombu", verb:"—", adj:"pinoku", en:"lake", domain:"Nature", ex:"Pino maviombu-me melo. — The lake is full of water." },
+  { root:"naho", noun:"nahombu", verb:"nahuvu", adj:"nahoku", en:"fire / burn", domain:"Nature", ex:"Naho tapoku melo. — Fire is hot." },
+  { root:"velutu", noun:"velutombu", verb:"—", adj:"velutoku", en:"wind", domain:"Nature", ex:"Velutu belo. — The wind comes." },
+  { root:"shaju", noun:"shajombu", verb:"shajuvu", adj:"shajoku", en:"light / glow", domain:"Nature", ex:"Shaju sundaroku melo. — The light is beautiful." },
+  { root:"bushi", noun:"bushombu", verb:"—", adj:"bushoku", en:"night", domain:"Nature", ex:"Bushi belo. — Night comes." },
+  { root:"moru", noun:"morombu", verb:"—", adj:"moroku", en:"morning", domain:"Nature", ex:"Moru joviombu melo. — Morning is joyful." },
+
+  // ── EXTRA FOOD ──────────────────────────────────────────────
+  { root:"bupi", noun:"bupombu", verb:"—", adj:"bupoku", en:"salt", domain:"Food", ex:"Bupi kachombu-me melo. — Salt is in the food." },
+  { root:"jolu", noun:"jolumbu", verb:"—", adj:"joloku", en:"oil", domain:"Food", ex:"Jolu nucha yomilo. — Oil is used for cooking." },
+  { root:"kofu", noun:"kofombu", verb:"—", adj:"kofoku", en:"coffee", domain:"Food", ex:"Anu kofombu shapilo. — I drink coffee." },
+  { root:"shoka", noun:"shokombu", verb:"—", adj:"shokoku", en:"sugar / sweet", domain:"Food", ex:"Oshi shokoku melo. — That is sweet." },
+  { root:"malu", noun:"malombu", verb:"—", adj:"maloku", en:"mango", domain:"Food", ex:"Malu priyoku melo. — Mango is liked." },
+  { root:"lachi", noun:"lachombu", verb:"—", adj:"lachoku", en:"lentil / dal", domain:"Food", ex:"Lachi goloku melo. — Lentil is good." },
+  { root:"nucha", noun:"nuchombu", verb:"nuchuvu", adj:"nuchoku", en:"cook / cooking", domain:"Food", ex:"Anu nuchuvu-lo. — I cook." },
+
+  // ── EXTRA OBJECTS ───────────────────────────────────────────
+  { root:"bonu", noun:"bonumbu", verb:"—", adj:"bonoku", en:"bag / sack", domain:"Objects", ex:"Bonu kanu melo? — Where is the bag?" },
+  { root:"cholu", noun:"cholumbu", verb:"—", adj:"choloku", en:"window", domain:"Objects", ex:"Cholu pokalo. — Open the window." },
+  { root:"govi", noun:"govombu", verb:"govivu", adj:"govoku", en:"key / unlock", domain:"Objects", ex:"Govi kanu melo? — Where is the key?" },
+  { root:"lochi", noun:"lochombu", verb:"lochivu", adj:"lochoku", en:"door", domain:"Objects", ex:"Lochi pokailo. — Open the door." },
+  { root:"noku", noun:"nokumbu", verb:"—", adj:"nokuoku", en:"lamp / light source", domain:"Objects", ex:"Noku-ko pokalo. — Turn on the lamp." },
+  { root:"potu", noun:"potombu", verb:"—", adj:"potoku", en:"pot / vessel", domain:"Objects", ex:"Potu nucha-me yomilo. — The pot is used for cooking." },
+  { root:"shovi", noun:"shovumbu", verb:"—", adj:"shovoku", en:"cloth / fabric", domain:"Objects", ex:"Shovi sundaroku melo. — The cloth is beautiful." },
+  { root:"toru", noun:"torombu", verb:"—", adj:"toroku", en:"blanket", domain:"Objects", ex:"Anu torombu-ko nahombu nishi yomilo. — I use the blanket near the fire." },
+  { root:"goru", noun:"gorombu", verb:"goruvu", adj:"goroku", en:"seed / plant seed", domain:"Objects", ex:"Goru lupuvu-lo. — Plant the seed." },
+
+  // ── ABSTRACT & CONCEPTS ─────────────────────────────────────
+  { root:"gochi", noun:"gochombu", verb:"—", adj:"gochoku", en:"peace / harmony", domain:"Abstract", ex:"Gochi melo. — Peace exists." },
+  { root:"kova", noun:"kovombu", verb:"—", adj:"kovoku", en:"evil / wrong", domain:"Abstract", ex:"Oshi kovoku melo. — That is wrong." },
+  { root:"shika", noun:"shikombu", verb:"—", adj:"shikoku", en:"truth / genuine", domain:"Abstract", ex:"Shika goloku melo. — Truth is good." },
+  { root:"shona", noun:"shonombu", verb:"—", adj:"shonoku", en:"beauty / beautiful concept", domain:"Abstract", ex:"Shona priyoku melo. — Beauty is pleasing." },
+  { root:"voka", noun:"vokombu", verb:"—", adj:"vokoku", en:"courage / brave", domain:"Abstract", ex:"Voka goloku melo. — Courage is good." },
+  { root:"shabi", noun:"shabombu", verb:"—", adj:"shabook", en:"language / tongue", domain:"Abstract", ex:"Joylang shabi goloku melo. — Joylang is a good language." },
+  { root:"pori", noun:"porombu", verb:"—", adj:"poroku", en:"community / gathering", domain:"Abstract", ex:"Pori joviombu melo. — Community is joy." },
+  { root:"doku", noun:"dokombu", verb:"—", adj:"dokoku", en:"reality / truth", domain:"Abstract", ex:"Doku samilo. — Understanding reality." },
+  { root:"lovu", noun:"lovombu", verb:"lovuvu", adj:"lovoku", en:"completion / achieve", domain:"Abstract", ex:"Lovu joviombu melo. — Completion is joy." },
+
+  // ── EXTRA ACTIONS ───────────────────────────────────────────
+  { root:"rovi", noun:"rovombu", verb:"rovuvu", adj:"rovoku", en:"cry / weep", domain:"Actions", ex:"Venu rovuvu-lo. — He/she cries." },
+  { root:"gishi", noun:"gishombu", verb:"gishuvu", adj:"gishoku", en:"fall / drop", domain:"Actions", ex:"Oshi gishome. — That fell." },
+  { root:"poka", noun:"pokombu", verb:"pokauvu", adj:"pokoku", en:"open / unlock", domain:"Actions", ex:"Lochi pokauvu-lo. — Open the door." },
+  { root:"lanu", noun:"lanombu", verb:"lanuvu", adj:"lanoku", en:"buy / purchase", domain:"Actions", ex:"Anu tikitombu lanuvu-lo. — I buy a ticket." },
+  { root:"sotu", noun:"sotombu", verb:"sotuvu", adj:"sotoku", en:"sell", domain:"Actions", ex:"Venu gadiombu sotuvu-lo. — He/she sells a car." },
+  { root:"tivu", noun:"tivombu", verb:"tivuvu", adj:"tivoku", en:"carry / transport", domain:"Actions", ex:"Anu bonumbu tivuvu-lo. — I carry the bag." },
+  { root:"shupa", noun:"shupombu", verb:"shopuvu", adj:"shopoku", en:"wash / clean action", domain:"Actions", ex:"Anu maviombu yomilo shopuvu-ra. — I use water to wash." },
+  { root:"lupa", noun:"lupaombu", verb:"lupuvu", adj:"lupoku", en:"plant / grow", domain:"Actions", ex:"Anu nola lupuvu-lo. — I plant flowers." },
+  { root:"naki", noun:"nakiombu", verb:"nakivu", adj:"nakiku", en:"count / calculate", domain:"Actions", ex:"Anu eka chi nidu nakilo. — I count one and two." },
+  { root:"gelu", noun:"gelombu", verb:"geluvu", adj:"geloku", en:"teach / instruct", domain:"Actions", ex:"Guruvachi geluvu-lo. — The teacher teaches." },
+  { root:"gumo", noun:"gumombu", verb:"gumuvu", adj:"gumoku", en:"hide / conceal", domain:"Actions", ex:"Venu gumuvu-lo. — He/she hides." },
+  { root:"piku", noun:"pikombu", verb:"pikuvu", adj:"pikoku", en:"pull / drag", domain:"Actions", ex:"Anu piku-lo. — I pull." },
+  { root:"topa", noun:"topombu", verb:"topauvu", adj:"topoku", en:"push", domain:"Actions", ex:"Anu lochi topauvu-lo. — I push the door." },
+  { root:"shoha", noun:"shohombu", verb:"shohuvu", adj:"shohoku", en:"throw", domain:"Actions", ex:"Venu shohuvu-lo. — He/she throws." },
+  { root:"nipa", noun:"nipombu", verb:"nipuvu", adj:"nipoku", en:"catch / grab", domain:"Actions", ex:"Anu nipuvu-lo. — I catch." },
 ];
 
 // Build search index

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Language Tools — Joylang</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ── TOOLS PAGE STYLES ────────────────────────────────────── */
+.tools-tabs { display:flex; gap:4px; margin-bottom:24px; flex-wrap:wrap; }
+.tool-tab {
+  padding:10px 20px; border:2px solid var(--border); border-radius:8px 8px 0 0;
+  background:var(--bg); cursor:pointer; font-weight:600; font-size:.95rem;
+  color:var(--text-muted); transition:all .2s;
+}
+.tool-tab.active { background:var(--white); border-bottom-color:var(--white); color:var(--green); border-color:var(--green); }
+.tool-panel { display:none; border:2px solid var(--border); border-radius:0 8px 8px 8px; background:var(--white); padding:28px; }
+.tool-panel.active { display:block; }
+.tool-input-row { display:flex; gap:10px; align-items:stretch; flex-wrap:wrap; margin-bottom:16px; }
+.tool-input { flex:1; min-width:220px; padding:12px 16px; border:2px solid var(--border); border-radius:8px; font-size:1rem; font-family:inherit; }
+.tool-input:focus { outline:none; border-color:var(--green); }
+.tool-btn {
+  padding:12px 24px; background:var(--green); color:#fff; border:none; border-radius:8px;
+  font-weight:700; font-size:1rem; cursor:pointer; transition:background .2s;
+}
+.tool-btn:hover { background:var(--green-dark); }
+.tool-btn.secondary { background:var(--text-muted); }
+.tool-btn.secondary:hover { background:#333; }
+.tool-btn:disabled { background:#aaa; cursor:not-allowed; }
+.tool-result {
+  background:var(--green-light); border-left:4px solid var(--green);
+  border-radius:0 8px 8px 0; padding:20px; margin-top:16px; display:none;
+}
+.tool-result.visible { display:block; }
+.tool-result .result-word { font-size:1.8rem; font-weight:800; color:var(--green-dark); }
+.tool-result .result-forms { display:flex; gap:12px; flex-wrap:wrap; margin:12px 0; }
+.result-form-card {
+  background:var(--white); border:1px solid var(--border); border-radius:8px;
+  padding:10px 14px; min-width:120px;
+}
+.result-form-card .form-label { font-size:.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.05em; }
+.result-form-card .form-value { font-size:1.1rem; font-weight:700; color:var(--green-dark); }
+.tool-error { background:#fff3f3; border-left:4px solid #c62828; padding:16px 20px; border-radius:0 8px 8px 0; margin-top:12px; display:none; }
+.tool-error.visible { display:block; }
+.step-indicator { display:flex; gap:0; margin-bottom:20px; }
+.step { padding:8px 16px; background:var(--border); font-size:.85rem; font-weight:600; color:var(--text-muted); position:relative; }
+.step:not(:last-child)::after { content:'›'; margin:0 6px; }
+.step.active { background:var(--green); color:#fff; border-radius:4px; }
+.step.done { background:var(--green-light); color:var(--green-dark); border-radius:4px; }
+.lang-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:10px; margin:14px 0; }
+.lang-card {
+  border:2px solid var(--border); border-radius:8px; padding:12px; cursor:pointer;
+  transition:all .2s; background:var(--white);
+}
+.lang-card:hover { border-color:var(--green); background:var(--green-light); }
+.lang-card.selected { border-color:var(--green); background:var(--green-light); }
+.lang-card .lang-name { font-weight:700; color:var(--text); }
+.lang-card .lang-root { font-size:1.1rem; color:var(--green-dark); font-weight:600; margin-top:4px; }
+.lang-card .lang-note { font-size:.8rem; color:var(--text-muted); margin-top:2px; }
+.phonology-result { background:var(--code-bg); color:var(--code-text); padding:16px 20px; border-radius:8px; font-family:monospace; margin:12px 0; }
+.phonology-step { margin:4px 0; }
+.phonology-step .arrow { color:#888; margin:0 8px; }
+.joylang-output { font-size:2rem; font-weight:900; color:#4caf50; }
+.api-setup { background:#fff8e1; border:2px solid var(--accent); border-radius:8px; padding:20px; margin-bottom:20px; }
+.api-setup h4 { color:#f57f17; margin-bottom:8px; }
+.api-key-row { display:flex; gap:8px; margin-top:10px; }
+.api-key-input { flex:1; padding:10px 14px; border:2px solid var(--border); border-radius:8px; font-family:monospace; }
+.save-indicator { font-size:.8rem; color:var(--green); margin-top:4px; display:none; }
+.translation-output {
+  background:var(--example-bg); border-left:4px solid var(--example-border);
+  border-radius:0 8px 8px 0; padding:20px; margin-top:16px; display:none;
+}
+.translation-output.visible { display:block; }
+.translation-joy { font-size:1.4rem; font-weight:700; color:#81c784; line-height:1.6; }
+.translation-breakdown { margin-top:14px; }
+.translation-breakdown .breakdown-row { display:flex; gap:8px; align-items:baseline; padding:4px 0; border-bottom:1px solid #333; }
+.translation-breakdown .joy-word { color:#81c784; font-weight:700; min-width:160px; font-family:monospace; }
+.translation-breakdown .eng-word { color:#aaa; }
+.db-status { display:inline-flex; align-items:center; gap:6px; font-size:.85rem; padding:4px 10px; border-radius:20px; }
+.db-status.local { background:#fff3e0; color:#e65100; }
+.db-status.cloud { background:#e8f5e9; color:#2e7d32; }
+.db-status::before { content:'●'; font-size:.6rem; }
+.saved-words-list { display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:10px; margin-top:14px; }
+.saved-word-card {
+  background:var(--white); border:1px solid var(--border); border-radius:8px; padding:12px;
+  display:flex; flex-direction:column; gap:4px;
+}
+.saved-word-card .swc-joy { font-weight:800; color:var(--green-dark); font-size:1.1rem; }
+.saved-word-card .swc-en { color:var(--text-muted); font-size:.9rem; }
+.saved-word-card .swc-meta { font-size:.75rem; color:#aaa; margin-top:4px; }
+.spinner { display:inline-block; width:18px; height:18px; border:3px solid #ddd; border-top-color:var(--green); border-radius:50%; animation:spin .7s linear infinite; vertical-align:middle; margin-right:8px; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.section-divider { border:none; border-top:2px dashed var(--border); margin:28px 0; }
+textarea.tool-input { resize:vertical; min-height:80px; }
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <button class="menu-toggle">☰</button>
+  <a href="index.html" class="topnav-brand"><div class="topnav-logo">J</div><div class="topnav-title">Akash<span>Lang</span></div></a>
+  <div class="topnav-links">
+    <a href="index.html">Introduction</a><a href="construction.html">Construction &amp; Design</a><a href="word-formation.html">Word Formation</a><a href="grammar.html">Grammar</a><a href="dictionary.html">Dictionary</a><a href="sentences.html">Sentences</a><a href="n5.html">N5 Course</a><a href="n4.html">N4 Course</a><a href="tools.html" class="active">Tools</a>
+  </div>
+  <div class="topnav-search"><input type="text" placeholder="Search dictionary…" id="topSearchInput"></div>
+</nav>
+<div class="page-wrapper">
+<aside class="sidebar">
+  <div class="sidebar-heading">Tools</div>
+  <a href="#" onclick="openTab('generator');return false">Word Generator</a>
+  <a href="#" onclick="openTab('translator');return false">Sentence Translator</a>
+  <a href="#" onclick="openTab('creator');return false">Sentence Creator</a>
+  <div class="sidebar-heading">Saved Data</div>
+  <a href="#" onclick="openTab('saved');return false">My Words &amp; Sentences</a>
+  <div class="sidebar-heading">Setup</div>
+  <a href="#" onclick="openTab('setup');return false">API &amp; Database Config</a>
+  <div class="sidebar-heading">Reference</div>
+  <a href="dictionary.html">Dictionary</a>
+  <a href="grammar.html">Grammar</a>
+  <a href="word-formation.html">Word Formation</a>
+</aside>
+<main class="main-content">
+  <div class="breadcrumb"><a href="index.html">Introduction</a><span class="breadcrumb-sep">›</span><span class="current">Language Tools</span></div>
+  <h1 class="article-title">Joylang Language Tools</h1>
+  <p class="article-subtitle">Generate new words, translate sentences, and create Joylang content — powered by Joylang grammar rules and AI.</p>
+
+  <div class="article-meta">
+    <span class="badge badge-green">Interactive</span>
+    <span class="badge badge-blue">AI-Powered</span>
+    <span id="dbStatusBadge" class="db-status local">Local Storage</span>
+  </div>
+
+  <div class="tools-tabs">
+    <button class="tool-tab active" onclick="openTab('generator')">Word Generator</button>
+    <button class="tool-tab" onclick="openTab('translator')">Sentence Translator</button>
+    <button class="tool-tab" onclick="openTab('creator')">Sentence Creator</button>
+    <button class="tool-tab" onclick="openTab('saved')">My Words &amp; Sentences</button>
+    <button class="tool-tab" onclick="openTab('setup')">Setup</button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- TAB 1: WORD GENERATOR                                      -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div class="tool-panel active" id="panel-generator">
+    <h2>Word Generator</h2>
+    <p>Enter an English concept. The system checks if a Joylang word already exists. If not, it guides you through creating one using the 5-step root sourcing process and Joylang phonology rules.</p>
+
+    <div class="step-indicator" id="gen-steps">
+      <span class="step active" id="step1">1. Search</span>
+      <span class="step" id="step2">2. Pick Root</span>
+      <span class="step" id="step3">3. Phonology</span>
+      <span class="step" id="step4">4. Build Forms</span>
+    </div>
+
+    <!-- Step 1: Search -->
+    <div id="gen-step1">
+      <label style="display:block;font-weight:600;margin-bottom:8px;">What English concept do you want to express?</label>
+      <div class="tool-input-row">
+        <input type="text" id="genInput" class="tool-input" placeholder="e.g. rain, happiness, to fly, engineer…" onkeydown="if(event.key==='Enter')searchWord()">
+        <button class="tool-btn" onclick="searchWord()">Search</button>
+      </div>
+      <div class="tool-result" id="gen-found">
+        <div style="font-weight:700;color:var(--green-dark);margin-bottom:8px;">✓ Word already exists in Joylang!</div>
+        <div class="result-word" id="gen-found-root"></div>
+        <div class="result-forms" id="gen-found-forms"></div>
+        <div id="gen-found-ex" style="font-style:italic;color:var(--text-muted);margin-top:8px;"></div>
+        <button class="tool-btn secondary" style="margin-top:14px" onclick="genReset()">Search another word</button>
+      </div>
+      <div class="tool-result" id="gen-notfound" style="background:#fff8e1;border-left-color:var(--accent);">
+        <div style="font-weight:700;color:#f57f17;">No existing word found for "<span id="gen-notfound-query"></span>"</div>
+        <p style="margin-top:8px;">Let's create a new Joylang word! Follow the 3 remaining steps.</p>
+        <button class="tool-btn" style="margin-top:10px" onclick="goToStep2()">Continue → Choose a Root</button>
+      </div>
+      <div class="tool-error" id="gen-error"></div>
+    </div>
+
+    <!-- Step 2: Root selection from 10 languages -->
+    <div id="gen-step2" style="display:none;">
+      <h3>Choose a Root Language</h3>
+      <p>Select which of Joylang's 10 source languages to draw your root from, then pick or edit the suggested root word.</p>
+      <p style="color:var(--text-muted);font-size:.9rem;">Looking for roots for: <strong id="gen-concept-display"></strong></p>
+      <div class="lang-grid" id="langGrid"></div>
+      <div id="root-editor" style="display:none;margin-top:16px;">
+        <label style="font-weight:600;display:block;margin-bottom:8px;">Root suggestion from <span id="chosen-lang-name"></span>:</label>
+        <div class="tool-input-row">
+          <input type="text" id="rootInput" class="tool-input" placeholder="Edit root if needed (only a-z letters)">
+          <button class="tool-btn" onclick="goToStep3()">Apply Joylang Phonology →</button>
+        </div>
+        <p style="font-size:.85rem;color:var(--text-muted);margin-top:6px;">You can edit the suggestion. Only Roman letters (a–z). The system will enforce Joylang phonology in the next step.</p>
+      </div>
+      <button class="tool-btn secondary" style="margin-top:16px" onclick="genReset()">← Start Over</button>
+    </div>
+
+    <!-- Step 3: Phonology conversion -->
+    <div id="gen-step3" style="display:none;">
+      <h3>Applying Joylang Phonology</h3>
+      <p>The raw root is transformed to meet Joylang sound rules.</p>
+      <div class="phonology-result" id="phonology-display"></div>
+      <div style="margin-top:16px;">
+        <label style="font-weight:600;display:block;margin-bottom:8px;">Final Joylang root (you may adjust):</label>
+        <div class="tool-input-row">
+          <input type="text" id="joyRootInput" class="tool-input" placeholder="Joylang root">
+          <button class="tool-btn" onclick="goToStep4()">Generate Word Forms →</button>
+        </div>
+      </div>
+      <button class="tool-btn secondary" style="margin-top:12px" onclick="goToStep2()">← Change Root</button>
+    </div>
+
+    <!-- Step 4: Final word forms + save -->
+    <div id="gen-step4" style="display:none;">
+      <h3>Generated Word Forms</h3>
+      <div class="tool-result visible" id="gen-final-result">
+        <div class="result-word" id="gen-final-root"></div>
+        <div class="result-forms" id="gen-final-forms"></div>
+        <div id="gen-collision-warn" style="color:#c62828;font-weight:600;display:none;margin:8px 0;">⚠ Warning: this root is close to existing words. Double-check before saving.</div>
+        <hr class="section-divider" style="margin:16px 0;">
+        <h4 style="margin-bottom:10px;">Save this word</h4>
+        <div class="tool-input-row" style="flex-wrap:wrap;gap:10px;">
+          <input type="text" id="save-domain" class="tool-input" style="min-width:160px" placeholder="Domain (e.g. Nature, Actions…)">
+          <input type="text" id="save-example" class="tool-input" placeholder="Example sentence (optional)">
+        </div>
+        <button class="tool-btn" onclick="saveNewWord()" style="margin-top:10px">Save to My Words</button>
+        <button class="tool-btn secondary" onclick="genReset()" style="margin-top:10px;margin-left:8px">Generate Another</button>
+        <div id="save-confirm" style="color:var(--green);font-weight:600;margin-top:10px;display:none;">✓ Word saved!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- TAB 2: SENTENCE TRANSLATOR                                 -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div class="tool-panel" id="panel-translator">
+    <h2>Sentence Translator</h2>
+    <p>Translate any English sentence into Joylang. Uses the Claude AI with full knowledge of Joylang grammar rules. Requires an Anthropic API key (set up in the <strong>Setup</strong> tab).</p>
+
+    <div id="translator-api-warn" class="api-setup" style="display:none;">
+      <h4>⚙ API Key Required</h4>
+      <p>This tool uses the Claude AI API. Please add your Anthropic API key in the <a href="#" onclick="openTab('setup');return false">Setup tab</a> to enable translation.</p>
+    </div>
+
+    <div id="translator-mode-select" style="margin-bottom:16px;">
+      <label style="font-weight:600;margin-bottom:8px;display:block;">Translation Mode</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="tool-btn" id="mode-ai" onclick="setTransMode('ai')" style="background:var(--green)">AI Translation (Claude)</button>
+        <button class="tool-btn secondary" id="mode-rule" onclick="setTransMode('rule')">Rule-Based (offline)</button>
+      </div>
+      <p style="font-size:.85rem;color:var(--text-muted);margin-top:8px;" id="mode-desc">AI mode uses Claude to translate with full grammar understanding. Rule-based works offline using dictionary lookup + SOV reordering.</p>
+    </div>
+
+    <label style="font-weight:600;display:block;margin-bottom:8px;">English sentence to translate:</label>
+    <div class="tool-input-row">
+      <textarea id="translateInput" class="tool-input" placeholder="e.g. I am very happy to see my friend today." rows="3"></textarea>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <button class="tool-btn" id="translateBtn" onclick="translateSentence()">Translate</button>
+      <button class="tool-btn secondary" onclick="document.getElementById('translateInput').value='';clearTransResult()">Clear</button>
+    </div>
+
+    <div class="translation-output" id="trans-output">
+      <div style="font-size:.8rem;color:#888;margin-bottom:8px;">Joylang Translation</div>
+      <div class="translation-joy" id="trans-joy"></div>
+      <div class="translation-breakdown" id="trans-breakdown"></div>
+      <hr style="border-color:#333;margin:16px 0;">
+      <button class="tool-btn" onclick="saveSentence('translator')" style="margin-top:8px">Save this Sentence</button>
+      <div id="trans-save-confirm" style="color:#81c784;margin-top:8px;display:none;">✓ Sentence saved!</div>
+    </div>
+    <div class="tool-error" id="trans-error"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- TAB 3: SENTENCE CREATOR                                    -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div class="tool-panel" id="panel-creator">
+    <h2>Sentence Creator</h2>
+    <p>When direct translation is ambiguous or impossible, the Sentence Creator builds original Joylang sentences. Describe what you want to say and the AI will construct a grammatically correct Joylang sentence — creating new words via the Word Generator if needed.</p>
+
+    <div id="creator-api-warn" class="api-setup" style="display:none;">
+      <h4>⚙ API Key Required</h4>
+      <p>This tool uses the Claude AI API. Please add your Anthropic API key in the <a href="#" onclick="openTab('setup');return false">Setup tab</a> to enable sentence creation.</p>
+    </div>
+
+    <label style="font-weight:600;display:block;margin-bottom:8px;">What do you want to express? (describe in English)</label>
+    <textarea id="creatorInput" class="tool-input" placeholder="e.g. I want to express excitement about eating spicy food with my grandmother who lives far away." rows="4" style="width:100%;margin-bottom:12px;"></textarea>
+
+    <div style="margin-bottom:16px;">
+      <label style="font-weight:600;display:block;margin-bottom:8px;">Complexity level</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="tool-btn" id="cx-simple" onclick="setComplexity('simple')">Simple (N5)</button>
+        <button class="tool-btn secondary" id="cx-medium" onclick="setComplexity('medium')">Conversational (N4)</button>
+        <button class="tool-btn secondary" id="cx-rich" onclick="setComplexity('rich')">Rich (evidentials + conjunctions)</button>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:8px;align-items:center;">
+      <button class="tool-btn" id="creatorBtn" onclick="createSentence()">Create Sentence</button>
+      <button class="tool-btn secondary" onclick="document.getElementById('creatorInput').value='';clearCreatorResult()">Clear</button>
+    </div>
+
+    <div class="translation-output" id="creator-output">
+      <div style="font-size:.8rem;color:#888;margin-bottom:8px;">Created Sentence</div>
+      <div class="translation-joy" id="creator-joy"></div>
+      <div class="translation-breakdown" id="creator-breakdown"></div>
+      <div id="creator-new-words" style="display:none;margin-top:14px;">
+        <div style="color:#f9a825;font-weight:700;margin-bottom:8px;">New words used:</div>
+        <div id="creator-new-words-list"></div>
+      </div>
+      <hr style="border-color:#333;margin:16px 0;">
+      <button class="tool-btn" onclick="saveSentence('creator')" style="margin-top:8px">Save this Sentence</button>
+      <div id="creator-save-confirm" style="color:#81c784;margin-top:8px;display:none;">✓ Sentence saved!</div>
+    </div>
+    <div class="tool-error" id="creator-error"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- TAB 4: SAVED WORDS & SENTENCES                             -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div class="tool-panel" id="panel-saved">
+    <h2>My Words &amp; Sentences</h2>
+    <p>All words and sentences you have created are stored here. They are saved to Firebase cloud (if configured) or locally in your browser.</p>
+
+    <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center;">
+      <span id="saved-db-status" class="db-status local">Local Storage</span>
+      <button class="tool-btn secondary" onclick="loadSaved()">Refresh</button>
+      <button class="tool-btn secondary" onclick="exportData()">Export JSON</button>
+    </div>
+
+    <h3>My Words (<span id="word-count">0</span>)</h3>
+    <div class="saved-words-list" id="saved-words-list">
+      <p style="color:var(--text-muted);">No words saved yet. Use the Word Generator to create words.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <h3>My Sentences (<span id="sentence-count">0</span>)</h3>
+    <div id="saved-sentences-list" style="display:flex;flex-direction:column;gap:10px;">
+      <p style="color:var(--text-muted);">No sentences saved yet. Use the Translator or Creator tools.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- TAB 5: SETUP                                               -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div class="tool-panel" id="panel-setup">
+    <h2>Setup &amp; Configuration</h2>
+
+    <!-- API KEY -->
+    <h3>Anthropic API Key</h3>
+    <div class="callout callout-tip">
+      <strong>How to get your API key:</strong>
+      <ol style="margin-top:8px;padding-left:20px;">
+        <li>Go to <strong>console.anthropic.com</strong> and sign in (or create a free account).</li>
+        <li>Click your profile → <strong>API Keys</strong>.</li>
+        <li>Click <strong>Create Key</strong>, name it "Joylang Tools", and copy it.</li>
+        <li>Paste it below and click <strong>Save</strong>.</li>
+      </ol>
+      <p style="margin-top:8px;color:#c62828;font-size:.9rem;"><strong>Note:</strong> Your API key is stored in your browser's localStorage only. It is never sent to any server other than Anthropic's API. For a shared/public website, consider setting up a backend proxy instead.</p>
+    </div>
+    <div class="api-key-row">
+      <input type="password" id="apiKeyInput" class="api-key-input" placeholder="sk-ant-…">
+      <button class="tool-btn" onclick="saveApiKey()">Save Key</button>
+      <button class="tool-btn secondary" onclick="clearApiKey()">Clear</button>
+    </div>
+    <div id="api-key-status" style="margin-top:8px;font-size:.9rem;"></div>
+
+    <hr class="section-divider">
+
+    <!-- FIREBASE -->
+    <h3>Firebase Database (Cloud Storage)</h3>
+    <div class="callout callout-tip">
+      <strong>Set up free Firebase Firestore in 5 steps:</strong>
+      <ol style="margin-top:8px;padding-left:20px;">
+        <li>Go to <strong>console.firebase.google.com</strong> and sign in with your Google account.</li>
+        <li>Click <strong>Add project</strong> → name it "joylang" → click through setup (disable Analytics is fine).</li>
+        <li>In the left sidebar click <strong>Build → Firestore Database</strong> → <strong>Create database</strong> → choose <strong>Start in test mode</strong> → pick a region close to you.</li>
+        <li>In the left sidebar click <strong>Project settings</strong> (gear icon) → scroll to <strong>Your apps</strong> → click <strong>&lt;/&gt; Web</strong> → name it "joylang-tools" → click <strong>Register app</strong>.</li>
+        <li>Copy the <code>firebaseConfig</code> object shown and paste each value into the fields below.</li>
+      </ol>
+      <p style="margin-top:8px;color:var(--text-muted);font-size:.9rem;">The free Spark plan gives you 50,000 reads/day, 20,000 writes/day, and 1 GB storage — more than enough for this project.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;" id="fbConfigGrid">
+      <div>
+        <label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:4px;">API Key</label>
+        <input type="text" id="fb-apiKey" class="tool-input" placeholder="AIza…">
+      </div>
+      <div>
+        <label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:4px;">Auth Domain</label>
+        <input type="text" id="fb-authDomain" class="tool-input" placeholder="yourproject.firebaseapp.com">
+      </div>
+      <div>
+        <label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:4px;">Project ID</label>
+        <input type="text" id="fb-projectId" class="tool-input" placeholder="yourproject">
+      </div>
+      <div>
+        <label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:4px;">Storage Bucket</label>
+        <input type="text" id="fb-storageBucket" class="tool-input" placeholder="yourproject.appspot.com">
+      </div>
+      <div>
+        <label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:4px;">Messaging Sender ID</label>
+        <input type="text" id="fb-messagingSenderId" class="tool-input" placeholder="123456789">
+      </div>
+      <div>
+        <label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:4px;">App ID</label>
+        <input type="text" id="fb-appId" class="tool-input" placeholder="1:123:web:abc…">
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:14px;">
+      <button class="tool-btn" onclick="saveFirebaseConfig()">Save &amp; Connect Firebase</button>
+      <button class="tool-btn secondary" onclick="clearFirebaseConfig()">Clear Firebase Config</button>
+    </div>
+    <div id="fb-status" style="margin-top:10px;font-size:.9rem;"></div>
+
+    <hr class="section-divider">
+
+    <h3>Current Status</h3>
+    <div id="setup-status-panel" style="display:flex;flex-direction:column;gap:8px;"></div>
+  </div>
+
+</main>
+</div>
+<footer class="site-footer">
+  <p>Joylang · A Friendship Auxiliary Language · <a href="https://github.com/amanakash112-del/akashlang.bhairavi" target="_blank">GitHub</a></p>
+</footer>
+
+<script src="js/dictionary-data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/tools.js"></script>
+</body>
+</html>
