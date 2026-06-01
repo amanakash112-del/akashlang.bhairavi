@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dictionary — Joylang</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="topnav">
+  <button class="menu-toggle">☰</button>
+  <a href="index.html" class="topnav-brand"><div class="topnav-logo">J</div><div class="topnav-title">Akash<span>Lang</span></div></a>
+  <div class="topnav-links">
+    <a href="index.html">Introduction</a><a href="construction.html">Construction &amp; Design</a><a href="word-formation.html">Word Formation</a><a href="grammar.html">Grammar</a><a href="dictionary.html">Dictionary</a><a href="sentences.html">Sentences</a><a href="n5.html">N5 Course</a><a href="n4.html">N4 Course</a>
+  </div>
+  <div class="topnav-search"><input type="text" placeholder="Search dictionary…" id="topSearchInput"></div>
+</nav>
+<div class="page-wrapper">
+<aside class="sidebar">
+  <div class="sidebar-heading">Domains</div>
+  <a href="#" data-domain="all" class="filter-link active">All Words</a>
+  <a href="#" data-domain="Nature">Nature</a>
+  <a href="#" data-domain="People">People</a>
+  <a href="#" data-domain="Actions">Actions</a>
+  <a href="#" data-domain="Movement">Movement</a>
+  <a href="#" data-domain="Thinking">Thinking</a>
+  <a href="#" data-domain="Communication">Communication</a>
+  <a href="#" data-domain="Perception">Perception</a>
+  <a href="#" data-domain="Social">Social</a>
+  <a href="#" data-domain="Emotion">Emotions</a>
+  <a href="#" data-domain="Quality">Quality</a>
+  <a href="#" data-domain="Colours">Colours</a>
+  <a href="#" data-domain="Time">Time</a>
+  <a href="#" data-domain="Places">Places</a>
+  <a href="#" data-domain="Objects">Objects</a>
+  <a href="#" data-domain="Food">Food &amp; Drink</a>
+  <a href="#" data-domain="Transport">Transport</a>
+  <a href="#" data-domain="Home">Home Appliances</a>
+  <a href="#" data-domain="Office">Office &amp; Work</a>
+  <a href="#" data-domain="Toiletries">Toiletries</a>
+  <a href="#" data-domain="Digital">Digital &amp; Comms</a>
+  <a href="#" data-domain="Technology">Technology</a>
+  <a href="#" data-domain="Core">Core / Grammar</a>
+  <div class="sidebar-heading">How to Read</div>
+  <a href="#how-to-read">Card Guide</a>
+  <a href="#class-neutral">Class-Neutral Roots</a>
+  <a href="#color-verbs">Colour Verbs</a>
+</aside>
+<main class="main-content">
+  <div class="breadcrumb"><a href="index.html">Introduction</a><span class="breadcrumb-sep">›</span><span class="current">Dictionary</span></div>
+  <h1 class="article-title">Joylang Dictionary</h1>
+  <p class="article-subtitle">Complete vocabulary — roots, class forms, meanings, and examples. 10,000+ words drawn from Hindi, Arabic, Mandarin, Japanese, Swahili, Spanish, Tamil, Turkish, English &amp; Yoruba.</p>
+
+  <div class="dict-controls">
+    <div class="dict-search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="dictSearch" placeholder="Search in Joylang or English… (e.g. water, mavi, friend)" autocomplete="off">
+    </div>
+    <div class="dict-filter" id="domainFilter">
+      <button class="filter-btn active" data-domain="all">All</button>
+      <button class="filter-btn" data-domain="Nature">Nature</button>
+      <button class="filter-btn" data-domain="People">People</button>
+      <button class="filter-btn" data-domain="Emotion">Emotions</button>
+      <button class="filter-btn" data-domain="Actions">Actions</button>
+      <button class="filter-btn" data-domain="Places">Places</button>
+      <button class="filter-btn" data-domain="Food">Food</button>
+      <button class="filter-btn" data-domain="Transport">Transport</button>
+      <button class="filter-btn" data-domain="Digital">Digital</button>
+      <button class="filter-btn" data-domain="Colours">Colours</button>
+      <button class="filter-btn" data-domain="Time">Time</button>
+    </div>
+  </div>
+  <div class="dict-stats" id="dictStats">Loading dictionary…</div>
+  <div class="dict-grid" id="dictGrid"></div>
+
+  <div class="article-divider"></div>
+
+  <h2 id="how-to-read">How to Read a Dictionary Card</h2>
+  <div class="callout callout-tip">
+    <strong>Card Structure</strong>
+    Each card shows: <strong>Root</strong> (the base concept) · <strong>Part-of-speech tag</strong> · <strong>English meaning</strong> · <strong>Domain</strong><br>
+    Below: Noun form (-ombu) · Verb dictionary form (-uvu) · Adjective form (-oku)<br>
+    Then: a usage example sentence.
+  </div>
+
+  <h2 id="class-neutral">Understanding Class-Neutral Roots</h2>
+  <p>Every root in Joylang is class-neutral — it carries meaning but no inherent word class. The class is assigned by the suffix:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Suffix</th><th>Class</th><th>Example (root: keshi = hair)</th></tr></thead>
+    <tbody>
+      <tr><td class="td-joy">-ombu</td><td>Noun</td><td class="td-joy">keshombu = the hair, a hair</td></tr>
+      <tr><td class="td-joy">-uvu</td><td>Verb (citation)</td><td class="td-joy">keshuvu = to groom / to style hair</td></tr>
+      <tr><td class="td-joy">-oku</td><td>Adjective</td><td class="td-joy">keshoku = hair-like / hairy</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="color-verbs">Colour Verbs — Actually Valid</h2>
+  <p>Colour roots used as verbs mean "to make something become that colour". These are intentional and useful:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Joylang Verb</th><th>Meaning</th><th>Example Use</th></tr></thead>
+    <tbody>
+      <tr><td class="td-joy">boruvu</td><td>to brown / to make brown</td><td class="td-joy">Anu kashobu-ko boruvu-lo. (I am browning the bread.)</td></tr>
+      <tr><td class="td-joy">kiruvu</td><td>to yellow / to make yellow</td><td class="td-joy">Parna-chi kiruvu-me. (The leaves have yellowed.)</td></tr>
+      <tr><td class="td-joy">veluvu</td><td>to green / to make green</td><td class="td-joy">Barisha-chi gardiombu veluvu-me. (The rain has greened the garden.)</td></tr>
+      <tr><td class="td-joy">lakuvu</td><td>to blacken / to make black</td><td class="td-joy">Dhuanu-chi akashu lakuvu-me. (The smoke has blackened the sky.)</td></tr>
+      <tr><td class="td-joy">laluvu</td><td>to redden / to make red</td><td class="td-joy">Surya vosilo akashu laluvu-lo. (The sunset reddens the sky.)</td></tr>
+    </tbody>
+  </table></div>
+</main>
+</div>
+<footer class="site-footer">
+  <p>Joylang · A Friendship Auxiliary Language · <a href="https://github.com/amanakash112-del/akashlang.bhairavi" target="_blank">GitHub</a></p>
+</footer>
+<script src="js/dictionary-data.js"></script>
+<script src="js/main.js"></script>
+<script>
+(function() {
+  const domainTagColors = {
+    'Nature':'#e8f5e9','People':'#e3f2fd','Actions':'#f3e5f5','Movement':'#fff3e0',
+    'Thinking':'#e0f2f1','Communication':'#fce4ec','Perception':'#fff8e1',
+    'Social':'#e8eaf6','Emotion':'#fce4ec','Quality':'#f1f8e9',
+    'Colours':'#fff9c4','Time':'#e8f5e9','Places':'#e3f2fd','Objects':'#f5f5f5',
+    'Food':'#fff3e0','Transport':'#e0f7fa','Home':'#f3e5f5','Office':'#e8eaf6',
+    'Toiletries':'#fce4ec','Digital':'#e1f5fe','Technology':'#e0f2f1',
+    'Core':'#f5f5f5'
+  };
+
+  let currentDomain = 'all';
+  let currentQuery = '';
+
+  function tagFor(entry) {
+    if (entry.verb && entry.verb !== '—') return 'verb';
+    if (entry.noun && entry.noun !== '—') return 'noun';
+    if (entry.adj && entry.adj !== '—') return 'adj';
+    return 'root';
+  }
+
+  function renderCards(entries) {
+    const grid = document.getElementById('dictGrid');
+    const stats = document.getElementById('dictStats');
+    stats.textContent = `Showing ${entries.length} of ${JOYLANG_DICT.length} entries`;
+    if (entries.length === 0) {
+      grid.innerHTML = '<div class="no-results"><div class="icon">🔍</div><p>No results found. Try a different search term.</p></div>';
+      return;
+    }
+    grid.innerHTML = entries.map(e => {
+      const bgColor = domainTagColors[e.domain] || '#f5f5f5';
+      const forms = [];
+      if (e.noun && e.noun !== '—') forms.push(`<span title="Noun">N: <span>${e.noun}</span></span>`);
+      if (e.verb && e.verb !== '—') forms.push(`<span title="Verb">V: <span>${e.verb}</span></span>`);
+      if (e.adj && e.adj !== '—') forms.push(`<span title="Adjective">Adj: <span>${e.adj}</span></span>`);
+      return `<div class="dict-card">
+        <div class="dict-card-header">
+          <div class="dict-word">${e.root}</div>
+          <span class="td-tag tag-${tagFor(e)}">${e.domain}</span>
+        </div>
+        <div class="dict-meaning">${e.en}</div>
+        ${forms.length ? `<div class="dict-forms">${forms.join(' &nbsp;·&nbsp; ')}</div>` : ''}
+        ${e.ex ? `<div class="dict-example">${e.ex}</div>` : ''}
+      </div>`;
+    }).join('');
+  }
+
+  function update() {
+    renderCards(searchDict(currentQuery, currentDomain));
+  }
+
+  // Search input
+  const input = document.getElementById('dictSearch');
+  input.addEventListener('input', e => { currentQuery = e.target.value; update(); });
+
+  // URL param ?q=
+  const urlQ = new URLSearchParams(location.search).get('q');
+  if (urlQ) { input.value = urlQ; currentQuery = urlQ; }
+
+  // Domain filter buttons
+  document.getElementById('domainFilter').addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentDomain = btn.dataset.domain;
+    update();
+  });
+
+  // Sidebar domain links
+  document.querySelectorAll('.filter-link').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      currentDomain = link.dataset.domain;
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.domain === currentDomain);
+      });
+      update();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Top nav search
+  const topInput = document.getElementById('topSearchInput');
+  if (topInput) {
+    topInput.addEventListener('input', e => { currentQuery = e.target.value; input.value = e.target.value; update(); });
+  }
+
+  update();
+})();
+</script>
+</body>
+</html>

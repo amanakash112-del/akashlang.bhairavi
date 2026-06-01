@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joylang — A Friendship Auxiliary Language</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <button class="menu-toggle" aria-label="Menu">☰</button>
+  <a href="index.html" class="topnav-brand">
+    <div class="topnav-logo">J</div>
+    <div class="topnav-title">Akash<span>Lang</span></div>
+  </a>
+  <div class="topnav-links">
+    <a href="index.html">Introduction</a>
+    <a href="construction.html">Construction &amp; Design</a>
+    <a href="word-formation.html">Word Formation</a>
+    <a href="grammar.html">Grammar</a>
+    <a href="dictionary.html">Dictionary</a>
+    <a href="sentences.html">Sentences</a>
+    <a href="n5.html">N5 Course</a>
+    <a href="n4.html">N4 Course</a>
+  </div>
+  <div class="topnav-search">
+    <input type="text" placeholder="Search dictionary…" aria-label="Search dictionary">
+  </div>
+</nav>
+
+<div class="page-wrapper">
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-heading">On This Page</div>
+  <a href="#what-is-joylang">What Is Joylang?</a>
+  <a href="#core-values">Core Values</a>
+  <a href="#quick-facts">Quick Facts</a>
+  <a href="#design-choices">Design Choices Summary</a>
+  <a href="#phase1-purpose">Phase 1 — Purpose &amp; Typology</a>
+  <a href="#phase1-phonology">Phonology Overview</a>
+  <a href="#phase1-morphology">Morphology Overview</a>
+  <a href="#phase1-syntax">Syntax Overview</a>
+  <a href="#phase1-semantics">Semantics &amp; Pragmatics</a>
+  <a href="#explore">Explore Joylang</a>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Constructed Language · Joylang-Auxlang Hybrid</div>
+    <h1>Joylang — <span class="highlight">A Language for Friendship</span></h1>
+    <p>A phonetically perfect, genderless, tonal-free auxiliary language designed for cross-cultural communication. Simple enough for anyone. Playful enough for friends.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">10,000+</div><div class="label">Vocabulary Words</div></div>
+      <div class="hero-stat"><div class="num">19</div><div class="label">Consonants</div></div>
+      <div class="hero-stat"><div class="num">5</div><div class="label">Vowels</div></div>
+      <div class="hero-stat"><div class="num">7</div><div class="label">Grammatical Cases</div></div>
+      <div class="hero-stat"><div class="num">0</div><div class="label">Irregular Verbs</div></div>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <span class="current">Introduction</span>
+  </div>
+
+  <!-- SECTION: WHAT IS JOYLANG -->
+  <h2 id="what-is-joylang">What Is Joylang?</h2>
+  <p>Joylang is a <strong>constructed auxiliary language</strong> (conlang) — an invented language designed so that speakers of very different native tongues can communicate easily, warmly, and playfully. It is not a replacement for your native language; it is a bridge.</p>
+  <p>Imagine a group of friends from India, Japan, Spain, Nigeria, Turkey, and Brazil. Each has a rich language. Each has spent years mastering it. But when they meet, none of them has a shared tongue that is equally easy and equally foreign for everyone. <strong>Joylang is designed to solve that problem.</strong></p>
+  <p>It is nobody's native language — which means the playing field is level for everyone. The language is officially classified as a <strong>Joylang-Auxlang Hybrid</strong>: mostly easy and accessible like a pure auxiliary language, but with a slight cultural warmth and personality that gives friend-groups a sense of ownership.</p>
+
+  <div class="callout callout-tip">
+    <strong>Design Motto</strong>
+    "Simplicity. Playfulness. Universal Accessibility." — Every decision in Joylang's design is made against these three values.
+  </div>
+
+  <!-- SECTION: CORE VALUES -->
+  <h2 id="core-values">Three Core Values</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Value</th><th>What It Means in Practice</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Simplicity</strong></td><td>No irregular verbs. No grammatical gender. No tones. No exceptions. Every rule applies 100% of the time.</td></tr>
+        <tr><td><strong>Playfulness</strong></td><td>Words are chosen to sound a little delightful. Grammar is gentle, not military. Making mistakes is encouraged.</td></tr>
+        <tr><td><strong>Universal Accessibility</strong></td><td>Sounds exist in Hindi, Arabic, Japanese, Spanish, Swahili, Tamil, Turkish, English, Mandarin, and Yoruba. Everyone can pronounce every word.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION: QUICK FACTS -->
+  <h2 id="quick-facts">Quick Facts</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Feature</th><th>Joylang's Answer</th></tr></thead>
+      <tbody>
+        <tr><td>Language Type</td><td>Joylang-Auxlang Hybrid (friendship auxiliary language)</td></tr>
+        <tr><td>Word Order</td><td>SOV — Subject, Object, Verb (like Japanese, Turkish, Hindi)</td></tr>
+        <tr><td>Morphology</td><td>Lightly agglutinative — words built by adding predictable suffixes</td></tr>
+        <tr><td>Grammatical Gender</td><td>None — all pronouns gender-neutral by default</td></tr>
+        <tr><td>Tones</td><td>None — pitch conveys emotion, not word meaning</td></tr>
+        <tr><td>Script</td><td>Roman (primary) + Devanagari (alternative) · Own script planned</td></tr>
+        <tr><td>Vocabulary Sources</td><td>Hindi, Arabic, Mandarin, Japanese, Swahili, Spanish, Tamil, Turkish, English, Yoruba</td></tr>
+        <tr><td>Phoneme Inventory</td><td>5 vowels + 19 consonants (including 3 digraphs: sh, ch, ng)</td></tr>
+        <tr><td>Irregular Forms</td><td>Zero</td></tr>
+        <tr><td>Cases</td><td>7 cases: Nominative, Accusative, Dative, Genitive, Locative, Ablative, Vocative</td></tr>
+        <tr><td>Tenses</td><td>3: Past (-me), Present (-lo), Future (-bo)</td></tr>
+        <tr><td>Aspects</td><td>2: Progressive (-shi-), Perfect (-vi-)</td></tr>
+        <tr><td>Formality Registers</td><td>2 levels (casual and formal, via pronoun and optional vocabulary choice)</td></tr>
+        <tr><td>Stress Rule</td><td>Always penultimate (second-to-last syllable) — no exceptions</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION: CONLANG TYPES -->
+  <h2 id="phase1-purpose">Phase 1 — Purpose &amp; Language Typology</h2>
+  <h3>Types of Constructed Languages</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Type</th><th>Full Name</th><th>Description</th><th>Examples</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Auxlang</strong></td><td>Auxiliary Language</td><td>Designed for communication between people of different native tongues. Prioritises simplicity and neutrality.</td><td>Esperanto, Ido</td></tr>
+        <tr><td><strong>Artlang</strong></td><td>Artistic Language</td><td>Built for fictional worlds, aesthetics, or cultural expression. Beauty and consistency matter more than ease.</td><td>Tolkien's Elvish (Quenya), Dothraki</td></tr>
+        <tr><td><strong>Engelang</strong></td><td>Engineered Language</td><td>Built around a logical or philosophical system. Often very precise, sometimes experimental.</td><td>Lojban, Ithkuil</td></tr>
+        <tr><td><strong>Joylang ✓</strong></td><td>Friendship Language</td><td>Built for a specific group, emphasising shared identity, culture, and fun. Rules can be flexible.</td><td>Pig Latin (simple example)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Formality Registers</h3>
+  <p>Joylang uses <strong>two formality registers</strong>: one casual (for friends) and one polite (for elders/strangers). Like Hindi's <em>tum/aap</em> distinction. The difference is expressed through pronoun choice and optional vocabulary selection — not through complex grammatical changes.</p>
+
+  <!-- SECTION: PHONOLOGY OVERVIEW -->
+  <h2 id="phase1-phonology">Phonology Overview</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Feature</th><th>Decision</th><th>Rationale</th></tr></thead>
+      <tbody>
+        <tr><td>Consonant Inventory</td><td>Moderate — 19 consonants</td><td>Comfortable range, allows variety without overwhelming learners</td></tr>
+        <tr><td>Vowel System</td><td>5 pure vowels only (a, e, i, o, u)</td><td>Maximum simplicity — like Spanish or Japanese</td></tr>
+        <tr><td>Syllable Structure</td><td>CV and CVC + limited CCV</td><td>Allows natural-feeling consonant clusters but not complex ones</td></tr>
+        <tr><td>Stress &amp; Rhythm</td><td>Syllable-timed + Penultimate stress</td><td>Most common pattern on Earth (Latin, Italian, Polish, Swahili, Indonesian)</td></tr>
+        <tr><td>Tone System</td><td>No tones</td><td>Pitch changes convey emotion; matches Indian language backgrounds</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Sound Category Overview</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Category</th><th>Description</th><th>Examples in Joylang</th></tr></thead>
+      <tbody>
+        <tr><td>Stops / Plosives</td><td>Air fully blocked then released</td><td>p, b, t, d, k, g</td></tr>
+        <tr><td>Fricatives</td><td>Air passes through a narrow gap creating friction</td><td>f, v, s, h, sh</td></tr>
+        <tr><td>Nasals</td><td>Air flows through nasal cavity</td><td>m, n, ng</td></tr>
+        <tr><td>Approximants</td><td>Airflow narrowed but not enough for friction</td><td>y, l, r</td></tr>
+        <tr><td>Affricates</td><td>Stop that releases into a fricative</td><td>ch, j</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION: WRITING SYSTEM -->
+  <h3>Writing System</h3>
+  <p>Joylang uses a <strong>perfectly phonetic spelling system</strong>: what is written is exactly what is spoken. No silent letters. No exceptions. It currently uses two scripts:</p>
+  <ul>
+    <li><strong>Roman alphabet</strong> — primary international script, no diacritics needed</li>
+    <li><strong>Devanagari</strong> — alternative script, natural for Indian-origin speakers</li>
+    <li><strong>Own script</strong> — planned for the future with rounded, friendly glyphs</li>
+  </ul>
+
+  <!-- SECTION: MORPHOLOGY OVERVIEW -->
+  <h2 id="phase1-morphology">Morphology Overview</h2>
+  <h3>Morphological Types</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Type</th><th>How It Works</th><th>Languages</th><th>Ease</th></tr></thead>
+      <tbody>
+        <tr><td>Isolating / Analytic</td><td>Words don't change. Grammar shown by word order and helper words.</td><td>Mandarin, Vietnamese</td><td>Very easy</td></tr>
+        <tr><td><strong>Lightly Agglutinative ✓</strong></td><td>Stable roots with simple, stackable suffixes. One suffix = one meaning.</td><td>Turkish, Finnish, Tamil</td><td>Easy to medium</td></tr>
+        <tr><td>Fusional (Synthetic)</td><td>Endings fuse multiple meanings into one.</td><td>Latin, Russian, Hindi (partly)</td><td>Medium to hard</td></tr>
+        <tr><td>Polysynthetic</td><td>Entire sentences packed into one complex word.</td><td>Inuit languages</td><td>Very hard</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Joylang chose <strong>Lightly Agglutinative</strong>: meaning is built by sticking predictable suffixes to stable root words. Each suffix has exactly one job. No suffix blends two meanings together.</p>
+
+  <!-- SECTION: SYNTAX OVERVIEW -->
+  <h2 id="phase1-syntax">Syntax Overview</h2>
+  <h3>Basic Word Order: SOV</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Order</th><th>Description</th><th>Languages</th><th>% World Languages</th></tr></thead>
+      <tbody>
+        <tr style="background:#e8f5e9"><td><strong>SOV ✓</strong></td><td>Subject-Object-Verb</td><td>Hindi, Tamil, Telugu, Japanese, Turkish, Korean</td><td>~45%</td></tr>
+        <tr><td>SVO</td><td>Subject-Verb-Object</td><td>English, Mandarin, Swahili, French</td><td>~42%</td></tr>
+        <tr><td>VSO</td><td>Verb-Subject-Object</td><td>Arabic, Irish</td><td>~9%</td></tr>
+        <tr><td>Others</td><td>VOS, OVS, OSV</td><td>Rare languages</td><td>~4%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="example-block">
+    <div class="joy">Mika vanuko kachilo.</div>
+    <div class="eng">Mika rice eats. → "Mika eats rice."</div>
+    <div class="note">SOV structure: Subject [Mika] → Object [vanuko] → Verb [kachilo]</div>
+  </div>
+
+  <!-- SECTION: SEMANTICS -->
+  <h2 id="phase1-semantics">Semantics &amp; Pragmatics</h2>
+  <h3>Colour Vocabulary</h3>
+  <p>Joylang uses the <strong>standard 11-colour system</strong> (Berlin &amp; Kay) plus light/dark shade modifiers:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Joylang</th><th>Colour</th><th>Joylang</th><th>Colour</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">laka</td><td>black</td><td class="td-joy">bora</td><td>brown</td></tr>
+        <tr><td class="td-joy">shiva</td><td>white</td><td class="td-joy">naro</td><td>orange</td></tr>
+        <tr><td class="td-joy">lala</td><td>red</td><td class="td-joy">rosi</td><td>pink</td></tr>
+        <tr><td class="td-joy">velu</td><td>green</td><td class="td-joy">paru</td><td>purple</td></tr>
+        <tr><td class="td-joy">bolu</td><td>blue</td><td class="td-joy">giru</td><td>grey</td></tr>
+        <tr><td class="td-joy">kiro</td><td>yellow</td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-tip">
+    <strong>Shade Modifiers</strong>
+    <code>lumi</code> = light shade &nbsp;·&nbsp; <code>daki</code> = dark shade<br>
+    Examples: <code>lumi lala</code> = light red (pink) &nbsp;·&nbsp; <code>daki bolu</code> = dark blue (navy)
+  </div>
+
+  <h3>Evidentiality</h3>
+  <p>Joylang has <strong>optional evidential particles</strong> that indicate the speaker's source of knowledge. They attach at the end of the clause before any question particle. Omitting the particle makes no claim about the source.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Particle</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">diru</td><td>I saw it directly / personal observation</td></tr>
+        <tr><td class="td-joy">shoru</td><td>I heard it / hearsay</td></tr>
+        <tr><td class="td-joy">niru</td><td>I infer it / logical deduction</td></tr>
+        <tr><td class="td-joy">boru</td><td>I read it / from a source or text</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Politeness System</h3>
+  <p>Joylang has a <strong>two-level pronoun distinction</strong>: one informal pronoun set for friends and one formal set for elders and strangers. This is similar to the <em>tum/aap</em> distinction in Hindi or <em>tu/vous</em> in French.</p>
+
+  <!-- SECTION: DESIGN CHOICES -->
+  <h2 id="design-choices">Complete Design Choices Summary</h2>
+  <div class="table-wrap summary-table">
+    <table>
+      <thead><tr><th>#</th><th>Topic</th><th>Chosen Design</th></tr></thead>
+      <tbody>
+        <tr><td>1.1</td><td>Language Identity</td><td>Joylang-Auxlang Hybrid</td></tr>
+        <tr><td>1.2</td><td>Formality Registers</td><td>Two registers (casual + polite)</td></tr>
+        <tr><td>2.1</td><td>Consonant Inventory</td><td>Moderate — 19 consonants</td></tr>
+        <tr><td>2.2</td><td>Vowel System</td><td>5 pure vowels only (a, e, i, o, u)</td></tr>
+        <tr><td>2.3</td><td>Syllable Structure</td><td>CV, CVC, and limited CCV (stop + liquid)</td></tr>
+        <tr><td>2.4</td><td>Stress &amp; Rhythm</td><td>Syllable-timed + Penultimate stress</td></tr>
+        <tr><td>2.5</td><td>Tone System</td><td>No tones (pitch = emotion only)</td></tr>
+        <tr><td>3.1</td><td>Writing System</td><td>Roman + Devanagari (own script later)</td></tr>
+        <tr><td>3.2</td><td>Writing Direction</td><td>Left-to-right (LTR)</td></tr>
+        <tr><td>4.1</td><td>Morphological Type</td><td>Lightly Agglutinative</td></tr>
+        <tr><td>4.2</td><td>Grammatical Gender</td><td>None — all nouns gender-neutral</td></tr>
+        <tr><td>4.3</td><td>Case System</td><td>7 cases (Nom, Acc, Dat, Gen, Loc, Abl, Voc)</td></tr>
+        <tr><td>4.4</td><td>Tense / Aspect</td><td>Tense + Aspect (3 tenses × 2 aspects)</td></tr>
+        <tr><td>4.5</td><td>Pluralisation</td><td>Single suffix -chi for all nouns</td></tr>
+        <tr><td>5.1</td><td>Word Order</td><td>SOV (flexible due to case markers)</td></tr>
+        <tr><td>5.2</td><td>Modifier Placement</td><td>Mixed — adjectives before nouns, adverbs before verbs</td></tr>
+        <tr><td>5.3</td><td>Question Formation</td><td>Particle ka at sentence-initial position</td></tr>
+        <tr><td>5.4</td><td>Negation</td><td>Prefix ve- before the verb</td></tr>
+        <tr><td>6.1</td><td>Colour Vocabulary</td><td>Standard 11-colour system + light/dark modifiers</td></tr>
+        <tr><td>6.2</td><td>Evidentiality</td><td>Optional evidential particles (diru, shoru, niru, boru)</td></tr>
+        <tr><td>6.3</td><td>Politeness System</td><td>Two-level pronoun distinction (informal/formal)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EXPLORE SECTION -->
+  <h2 id="explore">Explore Joylang</h2>
+  <div class="section-grid">
+    <a href="construction.html" class="section-card">
+      <div class="icon">🏗️</div>
+      <div class="sc-title">Construction &amp; Design</div>
+      <div class="sc-desc">Phases 1–6: phonology, grammar, script, and full design decisions</div>
+    </a>
+    <a href="word-formation.html" class="section-card">
+      <div class="icon">🧱</div>
+      <div class="sc-title">Word Formation</div>
+      <div class="sc-desc">Roots, suffixes, compounds, reduplication, loanword rules</div>
+    </a>
+    <a href="grammar.html" class="section-card">
+      <div class="icon">📐</div>
+      <div class="sc-title">Grammar</div>
+      <div class="sc-desc">All 18 grammar categories, full case system, tense &amp; aspect</div>
+    </a>
+    <a href="dictionary.html" class="section-card">
+      <div class="icon">📖</div>
+      <div class="sc-title">Dictionary</div>
+      <div class="sc-desc">Searchable lexicon with 10,000+ words, meanings, and examples</div>
+    </a>
+    <a href="sentences.html" class="section-card">
+      <div class="icon">💬</div>
+      <div class="sc-title">Sentence List</div>
+      <div class="sc-desc">50 must-know sentences, idioms, domain sentences, dialogues</div>
+    </a>
+    <a href="n5.html" class="section-card">
+      <div class="icon">🌱</div>
+      <div class="sc-title">N5 Course</div>
+      <div class="sc-desc">Absolute beginner — sounds, pronouns, basic sentences, questions</div>
+    </a>
+    <a href="n4.html" class="section-card">
+      <div class="icon">🚀</div>
+      <div class="sc-title">N4 Course</div>
+      <div class="sc-desc">Conversational level — case system, aspect, derivation, numbers</div>
+    </a>
+  </div>
+
+</main>
+</div>
+
+<footer class="site-footer">
+  <p>Joylang · A Friendship Auxiliary Language · Built with ❤️ across cultures · <a href="https://github.com/amanakash112-del/akashlang.bhairavi" target="_blank">GitHub</a></p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

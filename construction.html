@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Language Construction &amp; Design — Joylang</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <button class="menu-toggle">☰</button>
+  <a href="index.html" class="topnav-brand">
+    <div class="topnav-logo">J</div>
+    <div class="topnav-title">Akash<span>Lang</span></div>
+  </a>
+  <div class="topnav-links">
+    <a href="index.html">Introduction</a>
+    <a href="construction.html">Construction &amp; Design</a>
+    <a href="word-formation.html">Word Formation</a>
+    <a href="grammar.html">Grammar</a>
+    <a href="dictionary.html">Dictionary</a>
+    <a href="sentences.html">Sentences</a>
+    <a href="n5.html">N5 Course</a>
+    <a href="n4.html">N4 Course</a>
+  </div>
+  <div class="topnav-search"><input type="text" placeholder="Search dictionary…"></div>
+</nav>
+
+<div class="page-wrapper">
+<aside class="sidebar">
+  <div class="sidebar-heading">Phase 2 — Phonology</div>
+  <a href="#three-tier">Three-Tier System</a>
+  <a href="#vowels" class="level2">Tier 1 — Vowels</a>
+  <a href="#consonants" class="level2">Tier 2 — Consonants</a>
+  <a href="#tier3" class="level2">Tier 3 — Advanced</a>
+  <a href="#phonotactics">Phonotactics</a>
+  <a href="#stress">Stress &amp; Rhythm</a>
+  <a href="#allophony">Allophony</a>
+  <div class="sidebar-heading">Phase 3 — Grammar</div>
+  <a href="#grammar-type">Grammar Type</a>
+  <a href="#word-order">Word Order</a>
+  <a href="#cases">Case System</a>
+  <a href="#verb-conjugation">Verb Conjugation</a>
+  <a href="#adjectives">Adjectives</a>
+  <a href="#adverbs">Adverbs</a>
+  <a href="#postpositions">Postpositions</a>
+  <div class="sidebar-heading">Phase 4 — Pronouns</div>
+  <a href="#pronouns">Pronoun Table</a>
+  <a href="#gender-spec">Gender Specification</a>
+  <a href="#reflexive">Reflexive Pronouns</a>
+  <a href="#demonstratives">Demonstratives</a>
+  <a href="#interrogative">Interrogative Pronouns</a>
+  <div class="sidebar-heading">Phase 5 — Semantics</div>
+  <a href="#evidentiality">Evidentiality</a>
+  <a href="#colours">Colour Vocabulary</a>
+  <div class="sidebar-heading">Phase 6 — Writing</div>
+  <a href="#writing-resolved">Spelling Resolution</a>
+  <a href="#devanagari">Devanagari Script</a>
+  <a href="#romanization">Romanization</a>
+  <a href="#own-script">Future Script</a>
+  <a href="#summary-phases">Summary — Phases 2–6</a>
+</aside>
+
+<main class="main-content">
+  <div class="breadcrumb">
+    <a href="index.html">Introduction</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="current">Language Construction &amp; Design</span>
+  </div>
+
+  <h1 class="article-title">Language Construction &amp; Design</h1>
+  <p class="article-subtitle">Phases 2–6: Phonology, Grammar, Pronouns, Semantics, and Writing System</p>
+  <div class="article-meta">
+    <span class="badge badge-green">Phases 2–6</span>
+    <span class="badge badge-blue">Design Document</span>
+    <span class="badge badge-gold">Carry-forward from Phase 1</span>
+  </div>
+
+  <div class="callout callout-note">
+    <strong>Carry-Forward from Phase 1</strong>
+    Purpose: Joylang-Auxlang Hybrid · Easy pronunciation globally · Fun, slightly funny sound · Medium speaking speed · No gender unless biologically needed · SOV word order · Lightly Agglutinative grammar · Latin script (Devanagari working, own script later) · Two formality registers
+  </div>
+
+  <!-- ======================================== PHASE 2 -->
+  <h2 id="three-tier">Phase 2 — Phonology: The Three-Tier System</h2>
+  <p>Phase 2 finalizes the exact sound system. Joylang uses a three-tier architecture: everyday core sounds, universally accessible consonants, and an advanced set reserved for experimental use.</p>
+
+  <h2 id="vowels">Tier 1 — Core Vowels</h2>
+  <p>These five vowels exist in almost every major language — Hindi, Spanish, Italian, Japanese, Swahili, Tamil. A speaker of any of these has <strong>zero learning cost</strong>.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Roman</th><th>Devanagari</th><th>Sound</th><th>English Hint</th><th>Hindi Example</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">a</td><td>अ</td><td>"a" in "father"</td><td>spa</td><td>अब (ab)</td></tr>
+        <tr><td class="td-joy">i</td><td>इ</td><td>"i" in "machine"</td><td>feet</td><td>इस (is)</td></tr>
+        <tr><td class="td-joy">u</td><td>उ</td><td>"u" in "flute"</td><td>food</td><td>उस (us)</td></tr>
+        <tr><td class="td-joy">e</td><td>ए</td><td>"e" in "bed"</td><td>get</td><td>एक (ek)</td></tr>
+        <tr><td class="td-joy">o</td><td>ओ</td><td>"o" in "go"</td><td>so</td><td>ओर (or)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-note">
+    <strong>Note on Phase 1 Revision</strong>
+    The seven-vowel system from Phase 1 (adding schwa and ae) was revised. Both are moved to Tier 3 (Advanced), as they are absent in most Asian and African languages.
+  </div>
+
+  <h2 id="consonants">Tier 2 — Core Consonants (Regular Alphabet)</h2>
+  <p><strong>Filtering Rule:</strong> A consonant is included in Tier 2 only if it appears naturally in at least four of these language families: Indo-Aryan, Dravidian, East Asian, Semitic, Romance, Germanic, Bantu. Total: <strong>19 sounds</strong>.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Roman</th><th>Devanagari</th><th>Sound</th><th>Example</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">p</td><td>प</td><td>p</td><td>"p" in "pen"</td><td>Universal stop</td></tr>
+        <tr><td class="td-joy">b</td><td>ब</td><td>b</td><td>"b" in "bat"</td><td>Universal stop</td></tr>
+        <tr><td class="td-joy">t</td><td>त</td><td>t</td><td>"t" in "top"</td><td>Use dental t (Hindi-style), not retroflex</td></tr>
+        <tr><td class="td-joy">d</td><td>द</td><td>d</td><td>"d" in "dog"</td><td>Dental, not retroflex</td></tr>
+        <tr><td class="td-joy">k</td><td>क</td><td>k</td><td>"k" in "kite"</td><td>Universal stop</td></tr>
+        <tr><td class="td-joy">g</td><td>ग</td><td>g</td><td>"g" in "go"</td><td>Universal stop</td></tr>
+        <tr><td class="td-joy">m</td><td>म</td><td>m</td><td>"m" in "man"</td><td>Universal nasal</td></tr>
+        <tr><td class="td-joy">n</td><td>न</td><td>n</td><td>"n" in "nun"</td><td>Universal nasal</td></tr>
+        <tr><td class="td-joy">s</td><td>स</td><td>s</td><td>"s" in "sun"</td><td>Universal fricative (never z-sound)</td></tr>
+        <tr><td class="td-joy">f</td><td>f</td><td>f</td><td>"f" in "fan"</td><td>Globally recognisable; included to reach moderate inventory</td></tr>
+        <tr><td class="td-joy">v</td><td>व</td><td>v</td><td>"v" in "vine"</td><td>May be pronounced as w — both acceptable</td></tr>
+        <tr><td class="td-joy">h</td><td>ह</td><td>h</td><td>"h" in "hat"</td><td>Universal fricative</td></tr>
+        <tr><td class="td-joy">l</td><td>ल</td><td>l</td><td>"l" in "love"</td><td>Universal approximant</td></tr>
+        <tr><td class="td-joy">r</td><td>र</td><td>r</td><td>"r" in "run"</td><td>Use a soft, single-tap r</td></tr>
+        <tr><td class="td-joy">y</td><td>य</td><td>y</td><td>"y" in "yes"</td><td>Universal glide</td></tr>
+        <tr><td class="td-joy">ch</td><td>च</td><td>ch</td><td>"ch" in "chair"</td><td>Very common across Indian + global languages</td></tr>
+        <tr><td class="td-joy">j</td><td>ज</td><td>j</td><td>"j" in "jump"</td><td>Common globally</td></tr>
+        <tr><td class="td-joy">sh</td><td>श</td><td>sh</td><td>"sh" in "shine"</td><td>Common in Hindi, English, Arabic, Persian</td></tr>
+        <tr><td class="td-joy">ng</td><td>ं</td><td>ng</td><td>"ng" in "sing"</td><td>Word-final only</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-tip">
+    <strong>Digraph Rule</strong>
+    <strong>sh</strong>, <strong>ch</strong>, and <strong>ng</strong> are digraphs — two letters, one sound. When counting consonants or checking word structure, treat each as ONE sound. Never split them.
+  </div>
+
+  <h2 id="tier3">Tier 3 — Advanced Alphabet</h2>
+  <p>Reserved for the experimental offshoot and for speakers who want to add more texture. <strong>Not used in standard writing or speech.</strong></p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Category</th><th>Sounds Included</th></tr></thead>
+      <tbody>
+        <tr><td>Indian retroflexes</td><td>T, Th, D, Dh, N (retroflex)</td></tr>
+        <tr><td>Indian aspirates</td><td>Ph, Bh, Kh, Gh, Chh, Jh</td></tr>
+        <tr><td>Arabic/Semitic</td><td>Kh (guttural), Gh (guttural), Ayn, H (deep)</td></tr>
+        <tr><td>European</td><td>z, th (voiced), th (unvoiced), zh, gamma</td></tr>
+        <tr><td>East Asian approximants</td><td>Unrounded u, y-rounded</td></tr>
+        <tr><td>African</td><td>Click consonants, labial-velar kp, gb</td></tr>
+        <tr><td>Tonal markers</td><td>High, low, falling markers for tonal experimental branch</td></tr>
+        <tr><td>Rare vowels</td><td>ae, schwa, o-umlaut, y-umlaut, open-e</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PHONOTACTICS -->
+  <h2 id="phonotactics">Phonotactics — Word Shape Rules</h2>
+  <p>Chosen Structure: <strong>CVCV with Controlled Extensions</strong>. Every root word tries to follow the shape CV·CV (Consonant-Vowel repeated).</p>
+
+  <h3>Basic Rule — The CVCV Pattern</h3>
+  <div class="example-block">
+    <div class="joy">mala → m-a-l-a ✓</div>
+    <div class="joy">kito → k-i-t-o ✓</div>
+    <div class="joy">venu → v-e-n-u ✓</div>
+    <div class="joy">shabi → sh-a-b-i ✓</div>
+  </div>
+
+  <h3>Extended Rule — CVC Endings</h3>
+  <p>When grammar suffixes are added, a word may end in a consonant. A word may end in a consonant <strong>only</strong> if that consonant is: <strong>n, m, s, l, r</strong> — the softest, most universally pronounceable final consonants.</p>
+
+  <h3>Syllable Structure Summary</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Pattern</th><th>Allowed?</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>CV</td><td>✓ Yes</td><td>ma, ki, to</td></tr>
+        <tr><td>CVC (final only, soft consonants)</td><td>✓ Yes</td><td>man, kil</td></tr>
+        <tr><td>CVCV</td><td>✓ Yes (standard)</td><td>mala, kito</td></tr>
+        <tr><td>CVCVC (with suffix)</td><td>✓ Yes</td><td>malachi</td></tr>
+        <tr><td>VCV (vowel-start)</td><td>✓ Yes</td><td>anu, ema</td></tr>
+        <tr><td>CCV (limited stop+liquid only)</td><td>✓ Limited</td><td>pranu, klibo, trenu</td></tr>
+        <tr><td>CCVC</td><td>✗ No — Tier 3 only</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-warn">
+    <strong>⚠ Common Mistake</strong>
+    Never end a word with: p, b, t, d, k, g, f, v, h, sh, ch, j. Words may only end in vowels (a e i o u) or the soft consonants n m s l r.
+  </div>
+
+  <!-- STRESS -->
+  <h2 id="stress">Stress &amp; Rhythm — Syllable-Timed + Penultimate Stress</h2>
+  <p><strong>Rhythm type:</strong> Syllable-timed — every syllable takes roughly equal time (like Spanish, French, Swahili).</p>
+  <p><strong>Stress Rule:</strong> Stress always falls on the <strong>second-to-last syllable (penultimate)</strong>. No exceptions.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Word</th><th>Stress Pattern</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">mala</td><td><strong>MA</strong>-la</td></tr>
+        <tr><td class="td-joy">kitome</td><td>ki-<strong>TO</strong>-me</td></tr>
+        <tr><td class="td-joy">venushabi</td><td>ve-nu-<strong>SHA</strong>-bi</td></tr>
+        <tr><td class="td-joy">kachilo</td><td>ka-<strong>CHI</strong>-lo</td></tr>
+        <tr><td class="td-joy">kachishilo</td><td>ka-chi-<strong>SHI</strong>-lo</td></tr>
+        <tr><td class="td-joy">mavombu</td><td>ma-<strong>VOM</strong>-bu</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-tip">
+    <strong>Why Penultimate?</strong>
+    It is the most common stress pattern on Earth (Latin, Italian, Polish, Swahili, Indonesian). It is perfectly predictable — no exceptions. It gives the language a pleasant, bouncy rhythm. Stress never changes a word's meaning.
+  </div>
+
+  <!-- ALLOPHONY -->
+  <h2 id="allophony">Allophony — Minimal and Optional</h2>
+  <p>Joylang is <strong>pronunciation-tolerant</strong>. No speaker is corrected for natural accent variation within Tier 2 sounds.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Phoneme</th><th>Natural Variation</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">r</td><td>May be lightly rolled by Indian/Spanish speakers</td><td>Always fine</td></tr>
+        <tr><td class="td-joy">v</td><td>May be pronounced as w by some speakers</td><td>Always fine</td></tr>
+        <tr><td class="td-joy">e</td><td>May sound slightly like "ay" for English speakers</td><td>Always fine</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PHASE 3 -->
+  <h2 id="grammar-type">Phase 3 — Grammar: Lightly Agglutinative</h2>
+  <p>Meaning is built by sticking suffixes to root words in a predictable order. Structure:</p>
+  <div class="callout callout-rule">
+    <strong>Core Grammar Formula</strong>
+    ROOT + [object-marker] + [tense-marker] + [plural-marker]<br>
+    Every suffix has exactly one job. No suffix blends two meanings together.
+  </div>
+
+  <h2 id="word-order">Word Order: SOV with Flexibility</h2>
+  <p>Full sentence structure: <strong>[Subject] [Adverb] [Object] [Verb]</strong></p>
+  <div class="example-block">
+    <div class="joy">Mika helo vanu kita.</div>
+    <div class="eng">Mika quickly rice eat. → "Mika quickly eats rice."</div>
+  </div>
+  <p><strong>Flexibility Rule:</strong> Because this language uses case markers (suffixes that show who is subject, who is object), the word order can be changed for emphasis without confusion:</p>
+  <div class="example-block">
+    <div class="joy">Vanu Mika kita.</div>
+    <div class="eng">→ It is RICE that Mika eats. (object fronted)</div>
+    <div class="joy">Kita Mika vanu.</div>
+    <div class="eng">→ EATING is what Mika does to rice. (verb fronted — poetic)</div>
+    <div class="note">Standard order is SOV. Deviation is allowed for emphasis.</div>
+  </div>
+
+  <h2 id="cases">Case System</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Case</th><th>Suffix</th><th>Role</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Nominative</td><td class="td-joy">-sa</td><td>Subject (doer)</td><td class="td-joy">Mikasa = Mika (doing something)</td></tr>
+        <tr><td>Accusative</td><td class="td-joy">-ko</td><td>Object (receiver)</td><td class="td-joy">vanuko = rice (being eaten)</td></tr>
+        <tr><td>Dative</td><td class="td-joy">-ra</td><td>Indirect object (to/for)</td><td class="td-joy">satoombu-ra = to the friend</td></tr>
+        <tr><td>Genitive</td><td class="td-joy">-ni</td><td>Possession</td><td class="td-joy">Mikani = Mika's</td></tr>
+        <tr><td>Locative</td><td class="td-joy">-me</td><td>Location / time</td><td class="td-joy">bolome = in/at the city</td></tr>
+        <tr><td>Ablative</td><td class="td-joy">-ta</td><td>From / by means of</td><td class="td-joy">bolota = from the city</td></tr>
+        <tr><td>Vocative</td><td class="td-joy">-e</td><td>Addressing someone</td><td class="td-joy">Mikae = Hey, Mika!</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-tip">
+    <strong>Nominative Note</strong>
+    The nominative suffix -sa is OPTIONAL when the subject is obvious from context (just like Hindi drops <em>ne</em> in many sentences). All other cases are required.
+  </div>
+  <div class="callout callout-tip">
+    <strong>Fun Note — Vocative -e</strong>
+    The vocative suffix -e makes names end in a vowel sound, giving every call a warm, musical quality: "Mikae! Tomoe! Venushie!"
+  </div>
+
+  <!-- VERB CONJUGATION -->
+  <h2 id="verb-conjugation">Verb Conjugation</h2>
+  <h3>Tense Suffixes</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Tense</th><th>Suffix</th><th>Example (root: kachi = eat)</th></tr></thead>
+      <tbody>
+        <tr><td>Present</td><td class="td-joy">-lo</td><td class="td-joy">kachilo = (is) eating</td></tr>
+        <tr><td>Past</td><td class="td-joy">-me</td><td class="td-joy">kachime = ate</td></tr>
+        <tr><td>Future</td><td class="td-joy">-bo</td><td class="td-joy">kachibu = will eat</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Subject Agreement:</strong> This language does NOT change verb form based on subject. The verb stays the same for I, you, he, she, we, they.</p>
+  <div class="example-block">
+    <div class="joy">Mika kachilo. → Mika eats.</div>
+    <div class="joy">Anu kachilo.  → I eat.</div>
+    <div class="joy">Chelu kachilo. → They eat.</div>
+  </div>
+
+  <h3>Negation</h3>
+  <p>Add the prefix <strong>no-</strong> (standard: <strong>ve-</strong>) before the verb:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Positive</th><th>Negative</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">kachilo = eats</td><td class="td-joy">vekachilo = does not eat</td></tr>
+        <tr><td class="td-joy">kachime = ate</td><td class="td-joy">vekachime = did not eat</td></tr>
+        <tr><td class="td-joy">kachibu = will eat</td><td class="td-joy">vekachibu = will not eat</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Questions</h3>
+  <p>Add the particle <strong>ka</strong> at the very beginning of the sentence (sentence-initial).</p>
+  <div class="example-block">
+    <div class="joy">Mika vanuko kachilo.</div>
+    <div class="eng">Mika eats rice.</div>
+    <div class="joy">Ka Mika vanuko kachilo?</div>
+    <div class="eng">Does Mika eat rice?</div>
+  </div>
+
+  <h3>Question Words</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Joylang</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">kenu</td><td>who</td></tr>
+        <tr><td class="td-joy">chenu</td><td>what</td></tr>
+        <tr><td class="td-joy">kanu</td><td>where</td></tr>
+        <tr><td class="td-joy">manu</td><td>when</td></tr>
+        <tr><td class="td-joy">yenu</td><td>why</td></tr>
+        <tr><td class="td-joy">henu</td><td>how</td></tr>
+        <tr><td class="td-joy">lokenu</td><td>how many / how much / which</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Aspect — Ongoing vs Completed</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Aspect</th><th>Suffix added to verb</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Simple (default)</td><td>(none extra)</td><td class="td-joy">kachime = ate</td></tr>
+        <tr><td>Progressive (ongoing)</td><td class="td-joy">-shi-</td><td class="td-joy">kachishilo = is eating right now</td></tr>
+        <tr><td>Perfect (just finished)</td><td class="td-joy">-vi-</td><td class="td-joy">kachivime = has eaten</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-rule">
+    <strong>Aspect Order Rule</strong>
+    ROOT + ASPECT + TENSE<br>
+    Only 4 core combinations used in practice: (1) Present Simple -lo, (2) Past Simple -me, (3) Present Progressive -shilo, (4) Past Perfect -vime. Future -bo uses Simple form only.
+  </div>
+
+  <!-- ADJECTIVES -->
+  <h2 id="adjectives">Adjective Placement</h2>
+  <p>Adjectives always come <strong>BEFORE</strong> the noun they describe. They do NOT change form regardless of the noun's case, number, or anything else.</p>
+  <div class="example-block">
+    <div class="joy">lala mala = red flower</div>
+    <div class="eng">(lala = red, mala = flower)</div>
+    <div class="joy">lala malachi = red flowers</div>
+    <div class="eng">(single plural suffix -chi used for all nouns)</div>
+  </div>
+
+  <!-- ADVERBS -->
+  <h2 id="adverbs">Adverb Formation</h2>
+  <p><strong>Rule:</strong> Adjective + Suffix <strong>-nu</strong> = Adverb. Placement: Adverbs come <em>after</em> the verb.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Adjective</th><th>Meaning</th><th>Adverb</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">helo</td><td>fast</td><td class="td-joy">helonu</td><td>quickly</td></tr>
+        <tr><td class="td-joy">sabi</td><td>gentle</td><td class="td-joy">sabinu</td><td>gently</td></tr>
+        <tr><td class="td-joy">loku</td><td>big</td><td class="td-joy">lokunu</td><td>greatly</td></tr>
+        <tr><td class="td-joy">dhira</td><td>slow</td><td class="td-joy">dhirenu</td><td>slowly</td></tr>
+        <tr><td class="td-joy">bolo</td><td>big/great</td><td class="td-joy">bolonu</td><td>very/greatly</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="example-block">
+    <div class="joy">Mika vanuko kachilo helonu.</div>
+    <div class="eng">Mika eats rice quickly.</div>
+  </div>
+
+  <!-- POSTPOSITIONS -->
+  <h2 id="postpositions">Postpositions</h2>
+  <p>Because word order is SOV, Joylang uses <strong>postpositions</strong> (like Hindi) rather than prepositions (like English). A postposition comes AFTER the noun it governs.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Postposition</th><th>Meaning</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">boshi</td><td>inside / from</td><td class="td-joy">bolome boshi = inside the city</td></tr>
+        <tr><td class="td-joy">pela</td><td>near / about / for (also: please)</td><td class="td-joy">bolome pela = near the city</td></tr>
+        <tr><td class="td-joy">nishi</td><td>above / near</td><td class="td-joy">bolome nishi = above the city</td></tr>
+        <tr><td class="td-joy">tama</td><td>below / until</td><td class="td-joy">bolome tama = below the city</td></tr>
+        <tr><td class="td-joy">komi</td><td>together with</td><td class="td-joy">Mika komi = with Mika</td></tr>
+        <tr><td class="td-joy">sela</td><td>without</td><td class="td-joy">Mika sela = without Mika</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PHASE 4 -->
+  <h2 id="pronouns">Phase 4 — Pronoun System</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Person</th><th>Singular</th><th>Plural (+chi)</th><th>Reflexive (+shi)</th></tr></thead>
+      <tbody>
+        <tr><td>1st (speaker)</td><td class="td-joy">anu = I</td><td class="td-joy">anuchi = we</td><td class="td-joy">anushi = myself</td></tr>
+        <tr><td>2nd (listener)</td><td class="td-joy">tenu = you</td><td class="td-joy">tenuchi = you all</td><td class="td-joy">tenushi = yourself</td></tr>
+        <tr><td>3rd (other)</td><td class="td-joy">venu = they/he/she</td><td class="td-joy">venuchi = they (pl.)</td><td class="td-joy">venushi = themselves</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>All third-person pronouns are <strong>gender-neutral by default</strong>. Plural is formed by adding <strong>-chi</strong> to the singular pronoun.</p>
+
+  <h2 id="gender-spec">Gender Specification — When Needed</h2>
+  <p>Gender is specified only when biologically relevant. It is added as a <strong>modifier word</strong>, not a pronoun change.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Modifier</th><th>Meaning</th><th>Usage</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">maru</td><td>biologically male</td><td class="td-joy">maru venu = he (male)</td></tr>
+        <tr><td class="td-joy">firu</td><td>biologically female</td><td class="td-joy">firu venu = she (female)</td></tr>
+        <tr><td class="td-joy">biru</td><td>non-binary / unspecified</td><td class="td-joy">biru venu = they (explicit)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-tip"><strong>Rule</strong> Never mandatory. Always optional. Never changes grammar.</div>
+
+  <h2 id="reflexive">Reflexive Pronouns</h2>
+  <p>Formed by adding <strong>-shi</strong> to any pronoun:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Pronoun</th><th>Reflexive</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">anu = I</td><td class="td-joy">anushi = myself</td></tr>
+        <tr><td class="td-joy">tenu = you</td><td class="td-joy">tenushi = yourself</td></tr>
+        <tr><td class="td-joy">venu = they</td><td class="td-joy">venushi = themselves</td></tr>
+        <tr><td class="td-joy">anuchi = we</td><td class="td-joy">anuchishi = ourselves</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="demonstratives">Demonstrative Pronouns</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Word</th><th>Meaning</th><th>Plural</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">eshi</td><td>this (near speaker)</td><td class="td-joy">eshichi</td></tr>
+        <tr><td class="td-joy">oshi</td><td>that (away from speaker)</td><td class="td-joy">oshichi</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="interrogative">Interrogative Pronouns</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Joylang</th><th>Meaning</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">kenu</td><td>who</td><td class="td-joy">Ka kenu belo? — Who came?</td></tr>
+        <tr><td class="td-joy">chenu</td><td>what</td><td class="td-joy">Ka chenu eshi melo? — What is this?</td></tr>
+        <tr><td class="td-joy">kanu</td><td>where</td><td class="td-joy">Ka kanu tenu melo? — Where are you?</td></tr>
+        <tr><td class="td-joy">manu</td><td>when</td><td class="td-joy">Ka manu tenu belobo? — When will you come?</td></tr>
+        <tr><td class="td-joy">yenu</td><td>why</td><td class="td-joy">Ka yenu tenu vekachilo? — Why don't you eat?</td></tr>
+        <tr><td class="td-joy">henu</td><td>how</td><td class="td-joy">Ka henu tenu nashilo? — How do you learn?</td></tr>
+        <tr><td class="td-joy">lokenu</td><td>which / how many</td><td class="td-joy">Ka lokenu sato tenu doshilo? — Which friend did you see?</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Pronoun Case Marking</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Case</th><th>Suffix</th><th>Example with anu</th></tr></thead>
+      <tbody>
+        <tr><td>Nominative</td><td class="td-joy">-sa (optional)</td><td class="td-joy">anusa or anu = I (subject)</td></tr>
+        <tr><td>Accusative</td><td class="td-joy">-ko</td><td class="td-joy">anuko = me (object)</td></tr>
+        <tr><td>Genitive</td><td class="td-joy">-ni</td><td class="td-joy">anuni = my</td></tr>
+        <tr><td>Locative</td><td class="td-joy">-me</td><td class="td-joy">anume = at me / on me</td></tr>
+        <tr><td>Ablative</td><td class="td-joy">-ta</td><td class="td-joy">anuta = from me</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PHASE 5 -->
+  <h2 id="evidentiality">Phase 5 — Evidentiality</h2>
+  <p>Evidential particles are <strong>optional</strong> and indicate the speaker's source of information. They attach at the end of the clause before any question particle. Omitting the particle makes no claim about the source.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Particle</th><th>Meaning</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">diru</td><td>I saw it directly</td><td class="td-joy">Mika vanuko kachilo diru. = Mika is eating rice (I saw it).</td></tr>
+        <tr><td class="td-joy">shoru</td><td>I heard it (hearsay)</td><td class="td-joy">Venu velo shoru. = He went, apparently.</td></tr>
+        <tr><td class="td-joy">niru</td><td>I infer it (seems logical)</td><td class="td-joy">Tenu nashishilo niru. = You seem to be studying.</td></tr>
+        <tr><td class="td-joy">boru</td><td>I read it / from a source</td><td class="td-joy">Joylang goloku melo boru. = Joylang is good (I read it).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="colours">Colour Vocabulary — Standard 11-Colour System</h2>
+  <p>The language uses the 11 basic colour terms (Berlin &amp; Kay). Light/dark shades use modifiers <strong>lumi</strong> (light) and <strong>daki</strong> (dark) before the colour word.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Joylang</th><th>Colour</th><th>Shade Examples</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">laka</td><td>black</td><td class="td-joy">lumi laka = dark grey</td></tr>
+        <tr><td class="td-joy">shiva</td><td>white</td><td class="td-joy">daki shiva = off-white</td></tr>
+        <tr><td class="td-joy">lala</td><td>red</td><td class="td-joy">lumi lala = light red (pink); daki lala = dark red</td></tr>
+        <tr><td class="td-joy">velu</td><td>green</td><td class="td-joy">lumi velu = light green; daki velu = dark green</td></tr>
+        <tr><td class="td-joy">bolu</td><td>blue</td><td class="td-joy">lumi bolu = light blue; daki bolu = navy</td></tr>
+        <tr><td class="td-joy">kiro</td><td>yellow</td><td class="td-joy">daki kiro = gold/amber</td></tr>
+        <tr><td class="td-joy">bora</td><td>brown</td><td class="td-joy">lumi bora = tan/beige</td></tr>
+        <tr><td class="td-joy">naro</td><td>orange</td><td class="td-joy">daki naro = burnt orange</td></tr>
+        <tr><td class="td-joy">rosi</td><td>pink</td><td class="td-joy">daki rosi = deep pink / rose</td></tr>
+        <tr><td class="td-joy">paru</td><td>purple</td><td class="td-joy">lumi paru = lavender</td></tr>
+        <tr><td class="td-joy">giru</td><td>grey</td><td class="td-joy">daki giru = charcoal</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PHASE 6 -->
+  <h2 id="writing-resolved">Phase 6 — Writing System: The Contradiction Resolved</h2>
+  <p>Phase 1 had an apparent contradiction:</p>
+  <ul>
+    <li>Chosen: Historical spelling — spelling preserves history</li>
+    <li>But also stated: No silent letters, One sound = one spelling</li>
+  </ul>
+  <p><strong>Resolution:</strong> Historical spelling is dropped. The language uses <strong>perfectly phonetic spelling</strong>, matching the stated design constraints.</p>
+  <div class="callout callout-rule">
+    <strong>New Spelling Rule</strong>
+    What is written is exactly what is spoken. No exceptions. No silent letters. No irregular spellings.
+  </div>
+
+  <h2 id="devanagari">Devanagari Script</h2>
+  <p>Natural fit for Indian-origin primary speakers. Already phonetically organized (each character = one sound). Widely available on keyboards and devices across South Asia.</p>
+
+  <h3>Vowels (Tier 1)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Sound</th><th>Independent Form</th><th>Vowel Mark (after consonant)</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">a</td><td>अ</td><td>(inherent, no mark)</td><td>क = ka</td></tr>
+        <tr><td class="td-joy">i</td><td>इ</td><td>ि</td><td>कि = ki</td></tr>
+        <tr><td class="td-joy">u</td><td>उ</td><td>ु</td><td>कु = ku</td></tr>
+        <tr><td class="td-joy">e</td><td>ए</td><td>े</td><td>के = ke</td></tr>
+        <tr><td class="td-joy">o</td><td>ओ</td><td>ो</td><td>को = ko</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Phonetic Spelling Rules</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Rule</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td>One symbol = one sound</td><td>Always. No exceptions.</td></tr>
+        <tr><td>No silent letters</td><td>Every written character is pronounced</td></tr>
+        <tr><td>No doubled letters</td><td>Doubling is never used to change pronunciation</td></tr>
+        <tr><td>Vowel always explicit</td><td>The inherent "a" in Devanagari is always assumed present unless halant is written</td></tr>
+        <tr><td>Loanwords adapted</td><td>Foreign words respelled phonetically to match Tier 2 sounds</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="romanization">Romanization (For International Use)</h2>
+  <p>No diacritics needed in romanization because Tier 2 sounds map cleanly to these combinations:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Sound</th><th>Roman</th><th>Sound</th><th>Roman</th></tr></thead>
+      <tbody>
+        <tr><td>अ / a</td><td>a</td><td>प / p</td><td>p</td></tr>
+        <tr><td>इ / i</td><td>i</td><td>ब / b</td><td>b</td></tr>
+        <tr><td>उ / u</td><td>u</td><td>त / t</td><td>t</td></tr>
+        <tr><td>ए / e</td><td>e</td><td>द / d</td><td>d</td></tr>
+        <tr><td>ओ / o</td><td>o</td><td>क / k</td><td>k</td></tr>
+        <tr><td>म / m</td><td>m</td><td>च / ch</td><td>ch</td></tr>
+        <tr><td>न / n</td><td>n</td><td>ज / j</td><td>j</td></tr>
+        <tr><td>स / s</td><td>s</td><td>श / sh</td><td>sh</td></tr>
+        <tr><td>ल / l</td><td>l</td><td>ग / g</td><td>g</td></tr>
+        <tr><td>र / r</td><td>r</td><td>व / v</td><td>v</td></tr>
+        <tr><td>य / y</td><td>y</td><td>ह / h</td><td>h</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="own-script">Future Own Script — Design Principles</h2>
+  <p>When the own script is developed, it must follow these principles:</p>
+  <ul>
+    <li><strong>One glyph = one sound.</strong> No ambiguity.</li>
+    <li><strong>Vowels are full letters</strong>, not marks added to consonants. (Unlike Devanagari's vowel marks.)</li>
+    <li><strong>Direction:</strong> Left-to-right (matches global digital standard).</li>
+    <li><strong>Aesthetic:</strong> Rounded, friendly shapes — matching the fun and warm personality of the language.</li>
+    <li><strong>Legibility:</strong> Each glyph distinct enough that even messy handwriting is readable.</li>
+    <li><strong>Tier marking:</strong> A built-in way to mark Tier 3 sounds without extra notation.</li>
+  </ul>
+
+  <!-- SUMMARY -->
+  <h2 id="summary-phases">Summary — Phases 2–6</h2>
+  <div class="table-wrap summary-table">
+    <table>
+      <thead><tr><th>Topic</th><th>Decision</th></tr></thead>
+      <tbody>
+        <tr><td>Vowels</td><td>5 core (a, i, u, e, o) — universal Tier 1. Schwa and ae moved to Tier 3.</td></tr>
+        <tr><td>Consonants Tier 2</td><td>19 sounds: p b t d k g m n s f l r y v h ch j sh ng</td></tr>
+        <tr><td>Consonants Tier 3</td><td>All remaining world sounds: retroflexes, aspirates, clicks, Arabic, European, tonal</td></tr>
+        <tr><td>Word Shape</td><td>CVCV base. CVC endings allowed (n m s l r only). No clusters in Tier 2.</td></tr>
+        <tr><td>Stress</td><td>Syllable-timed rhythm. Penultimate stress. Fixed. No exceptions.</td></tr>
+        <tr><td>Allophony</td><td>Minimal. Natural accent variation tolerated. Pronunciation-tolerant.</td></tr>
+        <tr><td>Grammar Type</td><td>Lightly Agglutinative (confirmed)</td></tr>
+        <tr><td>Word Order</td><td>SOV standard. Flexible for emphasis due to case markers.</td></tr>
+        <tr><td>Cases</td><td>7 cases: Nom (-sa), Acc (-ko), Dat (-ra), Gen (-ni), Loc (-me), Abl (-ta), Voc (-e)</td></tr>
+        <tr><td>Tense</td><td>Past (-me), Present (-lo), Future (-bo)</td></tr>
+        <tr><td>Aspect</td><td>Progressive (-shi-), Perfect (-vi-)</td></tr>
+        <tr><td>Negation</td><td>Prefix ve- before verb</td></tr>
+        <tr><td>Questions</td><td>Particle ka sentence-initial. Question words: kenu chenu kanu manu yenu henu lokenu</td></tr>
+        <tr><td>Adjectives</td><td>Before noun. Never change form.</td></tr>
+        <tr><td>Adverbs</td><td>Root/adj + -nu. Come after verb.</td></tr>
+        <tr><td>Postpositions</td><td>After noun (SOV-consistent): boshi pela nishi tama komi sela</td></tr>
+        <tr><td>Pronouns</td><td>anu (I), tenu (you), venu (they/he/she). Plural: add -chi.</td></tr>
+        <tr><td>Gender in Pronouns</td><td>Gender-neutral default. Optional modifiers: maru (male), firu (female), biru (non-binary).</td></tr>
+        <tr><td>Reflexive</td><td>Pronoun + -shi</td></tr>
+        <tr><td>Demonstratives</td><td>eshi (this), oshi (that)</td></tr>
+        <tr><td>Script</td><td>Devanagari (working script). Own script in future.</td></tr>
+        <tr><td>Spelling System</td><td>Perfectly phonetic. One symbol = one sound. No silent letters. No exceptions.</td></tr>
+        <tr><td>Romanization</td><td>Clean Roman: a i u e o / p b t d k g m n s l r y v h ch j sh ng</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+</div>
+
+<footer class="site-footer">
+  <p>Joylang · A Friendship Auxiliary Language · <a href="https://github.com/amanakash112-del/akashlang.bhairavi" target="_blank">GitHub</a></p>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>

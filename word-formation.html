@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Formation Rules — Joylang</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <button class="menu-toggle">☰</button>
+  <a href="index.html" class="topnav-brand">
+    <div class="topnav-logo">J</div>
+    <div class="topnav-title">Akash<span>Lang</span></div>
+  </a>
+  <div class="topnav-links">
+    <a href="index.html">Introduction</a>
+    <a href="construction.html">Construction &amp; Design</a>
+    <a href="word-formation.html">Word Formation</a>
+    <a href="grammar.html">Grammar</a>
+    <a href="dictionary.html">Dictionary</a>
+    <a href="sentences.html">Sentences</a>
+    <a href="n5.html">N5 Course</a>
+    <a href="n4.html">N4 Course</a>
+  </div>
+  <div class="topnav-search"><input type="text" placeholder="Search dictionary…"></div>
+</nav>
+
+<div class="page-wrapper">
+<aside class="sidebar">
+  <div class="sidebar-heading">Word Formation Rules</div>
+  <a href="#philosophy">Design Philosophy</a>
+  <a href="#root-architecture">Root Architecture</a>
+  <a href="#root-length" class="level2">Root Length</a>
+  <a href="#phonotactic-constraints" class="level2">Phonotactic Constraints</a>
+  <a href="#root-sourcing">Root Sourcing Process</a>
+  <a href="#phonesthetics" class="level2">Phonesthetics Guide</a>
+  <a href="#class-suffixes">Class Suffix System</a>
+  <a href="#noun-class" class="level2">Noun: -ombu</a>
+  <a href="#verb-class" class="level2">Verb: -uvu</a>
+  <a href="#adj-class" class="level2">Adjective: -oku</a>
+  <a href="#class-in-sentences" class="level2">Class Forms in Sentences</a>
+  <a href="#derivational">Derivational Suffixes</a>
+  <a href="#agent" class="level2">-vachi (Agent)</a>
+  <a href="#abstract" class="level2">-chimu (Abstract)</a>
+  <a href="#adj-from-noun" class="level2">-jiku (Adj from Noun)</a>
+  <a href="#diminutive" class="level2">-ichu (Diminutive)</a>
+  <a href="#augmentative" class="level2">-ongu (Augmentative)</a>
+  <a href="#stacking">Stacking Suffixes</a>
+  <a href="#negation-prefix">Negation: ve-</a>
+  <a href="#compounds">Compound Words</a>
+  <a href="#reduplication">Reduplication</a>
+  <a href="#boundary-rules">Phonological Boundary Rules</a>
+  <a href="#elision" class="level2">Rule 1 — Same-Vowel Elision</a>
+  <a href="#hiatus" class="level2">Rule 2 — Cross-Vowel Hiatus</a>
+  <a href="#geminate" class="level2">Rule 3 — Geminate Safety</a>
+  <a href="#loanwords">Loanword Adaptation</a>
+  <a href="#sound-substitution" class="level2">Sound Substitution Map</a>
+  <a href="#master-table">Master Reference Table</a>
+</aside>
+
+<main class="main-content">
+  <div class="breadcrumb">
+    <a href="index.html">Introduction</a><span class="breadcrumb-sep">›</span>
+    <span class="current">Word Formation Rules</span>
+  </div>
+
+  <h1 class="article-title">Word Formation Rules</h1>
+  <p class="article-subtitle">Phase 7 — Morphology &amp; Derivation Design Document</p>
+  <div class="article-meta">
+    <span class="badge badge-green">Phase 7</span>
+    <span class="badge badge-blue">Morphology &amp; Derivation</span>
+  </div>
+
+  <!-- PHILOSOPHY -->
+  <h2 id="philosophy">Design Philosophy</h2>
+  <p>Every word-formation decision was made against three non-negotiable principles:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Principle</th><th>Meaning in Practice</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Easy to pronounce</strong></td><td>Every derived word must be speakable by a global speaker on first attempt. Tier 2 sounds only. No illegal consonant clusters at morpheme boundaries.</td></tr>
+        <tr><td><strong>Slightly funny</strong></td><td>Suffixes are chosen so derived words sound playful and unexpected — matching the Joylang personality (fun, warm, slightly silly).</td></tr>
+        <tr><td><strong>Unrecognizable from root</strong></td><td>A derived form should not obviously reveal its root. Learners must genuinely acquire derived vocabulary rather than guessing.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Each suffix choice is supported by cross-linguistic evidence, not personal preference. Every suffix and prefix was stress-tested across 10 roots from 5 language families (Indo-Aryan, Semitic, Sino-Tibetan, Japonic, Niger-Congo) before finalisation.</p>
+
+  <!-- ROOT ARCHITECTURE -->
+  <h2 id="root-architecture">Root Word Architecture</h2>
+  <p>Every root word is a <strong>neutral stem</strong> — it carries meaning but no inherent word class. The class (noun, verb, adjective) is assigned by attaching a class suffix.</p>
+  <div class="callout callout-rule">
+    <strong>Root Citation Form</strong>
+    CVCV (preferred) or CVCVCV (3-syllable, for complex/abstract concepts)<br>
+    <strong>Stem</strong> = root minus its final vowel: mavi → mav- | shaju → shaj- | pani → pan-<br>
+    <strong>Class suffix replaces the final vowel:</strong> mavi → mav + ombu = mavombu (noun)
+  </div>
+
+  <h3 id="root-length">Root Length</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Length</th><th>Syllables</th><th>When to Use</th><th>Example Roots</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Standard</strong></td><td>2 (CVCV)</td><td>All common, everyday concepts</td><td class="td-joy">mavi (water), sato (friend), hape (wind)</td></tr>
+        <tr><td><strong>Extended</strong></td><td>3 (CVCVCV)</td><td>Abstract, technical, or complex concepts</td><td class="td-joy">nakameli, yashoburi</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Two-syllable roots are strongly preferred. Three-syllable roots should be used sparingly and only when no clean two-syllable blend exists.</p>
+
+  <h3 id="phonotactic-constraints">Phonotactic Constraints on Roots</h3>
+  <ul>
+    <li>Allowed syllable shapes: CV, CVC (word-final, soft consonants n m s l r ng only), CVCV (standard), limited CCV (stop + liquid: pr, br, kr, pl, kl, tr, dr)</li>
+    <li>Tier 2 sounds only: p b t d k g m n ng f s l r y v h ch j sh</li>
+    <li>Stress falls on the penultimate syllable — fixed, no exceptions</li>
+    <li>Syllable-timed rhythm — every syllable takes roughly equal duration</li>
+  </ul>
+
+  <!-- ROOT SOURCING -->
+  <h2 id="root-sourcing">Root Sourcing Process</h2>
+  <p>Roots use a mixed strategy: <strong>cross-language phonetic blending</strong> combined with <strong>phonesthetics</strong> (sound symbolism). The five-step process below must be followed for every new root.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Step</th><th>Action</th><th>Example — creating a root for "water"</th></tr></thead>
+      <tbody>
+        <tr><td>1 — Survey</td><td>Find how the concept sounds in 5–6 target languages: Hindi, Arabic, Mandarin, Japanese, Swahili, and one other.</td><td>Hindi: pāni | Arabic: mā' | Mandarin: shuǐ | Japanese: mizu | Swahili: maji</td></tr>
+        <tr><td>2 — Extract</td><td>Identify the most recurring sounds and vowel shapes across the list.</td><td>Recurring: m (Arabic, Japanese, Swahili), dominant vowels a and i, nasals throughout</td></tr>
+        <tr><td>3 — Blend</td><td>Combine the most common phonemes into a Tier 2-compatible CVCV shape.</td><td>m + a + v + i = mavi (v added for flowing-water phonesthetics)</td></tr>
+        <tr><td>4 — Phonesthetics check</td><td>Does this sound feel right? Apply cross-linguistic sound symbolism.</td><td>mavi — v is a fricative, feels like flow and movement. ✓</td></tr>
+        <tr><td>5 — Collision check</td><td>Confirm the root does not sound like any existing Joylang root, suffix, or particle.</td><td>mavi is clear of all existing vocabulary. ✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="phonesthetics">Phonesthetics Quick Guide</h3>
+  <p>Cross-linguistic sound symbolism research — these patterns are empirically attested across unrelated languages:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Sounds</th><th>Feel / Meaning Association</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">l, m, n, v</td><td>warm, gentle, flowing, familiar</td></tr>
+        <tr><td class="td-joy">k, t, p</td><td>sharp, clear, precise, decisive</td></tr>
+        <tr><td class="td-joy">sh, ch, j</td><td>soft, flowing, playful</td></tr>
+        <tr><td class="td-joy">r</td><td>active, dynamic, rolling</td></tr>
+        <tr><td class="td-joy">h</td><td>open, airy, relaxed</td></tr>
+        <tr><td class="td-joy">o, u</td><td>heavy, concrete, large (use for tangible/physical concepts)</td></tr>
+        <tr><td class="td-joy">i, e</td><td>light, active, animate (use for action or motion concepts)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CLASS SUFFIXES -->
+  <h2 id="class-suffixes">Word Classes — Class Suffix System</h2>
+  <p>Roots are class-neutral. Attaching a class suffix signals how the word is being used grammatically. The suffix <strong>replaces the root's final vowel</strong> (stem extraction rule).</p>
+  <div class="callout callout-rule">
+    <strong>Rule</strong>
+    Class suffix = drop root's final vowel + attach suffix<br>
+    mavi → stem: mav- → mav + ombu = <strong>mavombu</strong> (a water / water-thing, noun)
+  </div>
+
+  <div class="suffix-grid">
+    <div class="suffix-card">
+      <div class="suffix-name">-ombu</div>
+      <div class="suffix-fn">Noun class</div>
+      <div class="suffix-ex">mav + ombu = mavombu</div>
+      <p>Back vowel o signals concrete, tangible referents. Nasal-stop cluster -mb- is universally easy to pronounce (found in Bantu, common in natural speech). Final u closes it with weight.</p>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-name">-uvu</div>
+      <div class="suffix-fn">Verb class (dictionary form)</div>
+      <div class="suffix-ex">mav + uvu = mavuvu</div>
+      <p>Fricative v carries cross-linguistic action energy. The u-v-u mirror pattern is rare and highly memorable. Completely distinct from -ombu.</p>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-name">-oku</div>
+      <div class="suffix-fn">Adjective class</div>
+      <div class="suffix-ex">mav + oku = mavoku</div>
+      <p>Velar stop k is the sharpest, most categorising consonant — it pins down a quality. Short, punchy, unmistakable.</p>
+    </div>
+  </div>
+
+  <h3>Class Forms from One Root — Full Example</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Root</th><th>Meaning</th><th>Noun (-ombu)</th><th>Verb (-uvu)</th><th>Adjective (-oku)</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">sato</td><td>friend</td><td class="td-joy">satoombu</td><td class="td-joy">satuvu</td><td class="td-joy">satoku</td></tr>
+        <tr><td class="td-joy">mavi</td><td>water</td><td class="td-joy">mavombu</td><td class="td-joy">mavuvu</td><td class="td-joy">mavoku</td></tr>
+        <tr><td class="td-joy">jovi</td><td>joy</td><td class="td-joy">jovombu</td><td class="td-joy">jovuvu</td><td class="td-joy">jovoku</td></tr>
+        <tr><td class="td-joy">kachi</td><td>eat</td><td class="td-joy">kachombu</td><td class="td-joy">kachuvu</td><td class="td-joy">kachoku</td></tr>
+        <tr><td class="td-joy">rona</td><td>love</td><td class="td-joy">ronombu</td><td class="td-joy">ronuvu</td><td class="td-joy">ronoku</td></tr>
+        <tr><td class="td-joy">shoju</td><td>laugh</td><td class="td-joy">shojombu</td><td class="td-joy">shojuvu</td><td class="td-joy">shojoku</td></tr>
+        <tr><td class="td-joy">nalu</td><td>sleep</td><td class="td-joy">nalombu</td><td class="td-joy">naluvu</td><td class="td-joy">naloku</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="class-in-sentences">Class Forms in Sentences</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Context</th><th>Form</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>Dictionary / standalone</td><td class="td-joy">mavombu</td><td>water (as a thing)</td></tr>
+        <tr><td>As subject (nominative)</td><td class="td-joy">mavombu-sa</td><td>water (as the doer)</td></tr>
+        <tr><td>Verb — present tense</td><td class="td-joy">kachilo</td><td>eats (root + -lo, NOT -uvu-lo)</td></tr>
+        <tr><td>Verb — negated</td><td class="td-joy">vekachilo</td><td>does not eat</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-warn">
+    <strong>⚠ Verb Tense Rule</strong>
+    Tense attaches to the ROOT, not to -uvu. The -uvu form is only for dictionary citation.<br>
+    ✗ Wrong: satuvu-lo &nbsp;&nbsp; ✓ Right: sato-lo (befriends)
+  </div>
+
+  <!-- DERIVATIONAL SUFFIXES -->
+  <h2 id="derivational">Derivational Suffixes</h2>
+  <p>Derivational suffixes create new words from existing roots. They attach to the <strong>full root</strong> (keeping its final vowel), not the bare stem. The phonological boundary rules in the Boundary Rules section apply.</p>
+
+  <div class="suffix-grid">
+    <div class="suffix-card">
+      <div class="suffix-name" id="agent">-vachi</div>
+      <div class="suffix-fn">Agent noun — one who does</div>
+      <div class="suffix-ex">mavi+vachi = mavivachi</div>
+      <div class="suffix-ex">sato+vachi = satovachi</div>
+      <p>Fricative v + affricate ch + front vowel i. Agent suffixes cross-linguistically use dynamic fricatives. Front vowel i links to animate/human referents.</p>
+      <p><em>mavivachi = swimmer, water-carrier<br>satovachi = one who makes friends</em></p>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-name" id="abstract">-chimu</div>
+      <div class="suffix-fn">Abstract noun — the concept/quality</div>
+      <div class="suffix-ex">mavi+chimu = mavichimu</div>
+      <div class="suffix-ex">sato+chimu = satochimu</div>
+      <p>Affricate ch creates a conceptual cut away from the concrete thing. Nasal final -mu gives weight — nasal endings appear in abstract/philosophical terms across unrelated languages.</p>
+      <p><em>mavichimu = hydrology, the concept of water<br>satochimu = friendship as a concept</em></p>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-name" id="adj-from-noun">-jiku</div>
+      <div class="suffix-fn">Adjective from noun — relating to / -like</div>
+      <div class="suffix-ex">mavi+jiku = mavijiku</div>
+      <div class="suffix-ex">sato+jiku = satojiku</div>
+      <p>Affricate j onset creates distance from the source noun. Velar k + u ending is crisp and relational — analogous to -ic, -al, -ish (English) and -ique (French).</p>
+      <p><em>mavijiku = aquatic, water-related<br>satojiku = friendly, friend-like</em></p>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-name" id="diminutive">-ichu</div>
+      <div class="suffix-fn">Diminutive — small / cute</div>
+      <div class="suffix-ex">mavi+ichu → mavichu</div>
+      <div class="suffix-ex">sato+ichu = satichu</div>
+      <p>Front high vowel i cross-linguistically signals smallness (Sapir 1929, Ultan 1978). Affricate ch adds playfulness. The word literally sounds small and cute when spoken.</p>
+      <p><em>mavichu = a tiny drop (i+i elision applies)<br>satichu = a little friend, a buddy</em></p>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-name" id="augmentative">-ongu</div>
+      <div class="suffix-fn">Augmentative — big / intense</div>
+      <div class="suffix-ex">mavi+ongu = maviongu</div>
+      <div class="suffix-ex">sato+ongu → satongu</div>
+      <p>Direct opposite of -ichu by sound symbolism. Back vowel o + velar nasal ng (deepest, most resonant nasal) + back vowel u = maximum acoustic weight. Physically lowers the voice when spoken.</p>
+      <p><em>maviongu = a flood, massive body of water<br>satongu = a great friend (o+o elision)</em></p>
+    </div>
+  </div>
+
+  <h3 id="stacking">Stacking Derivational Suffixes</h3>
+  <p>Derivational suffixes can be stacked, but only <strong>one level deep</strong> in standard Joylang. Two stacked derivational suffixes is Tier 3 (advanced/poetic) usage.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Form</th><th>Analysis</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">mavichimujiku</td><td>mavi + chimu + jiku</td><td>relating to the philosophy/concept of water</td></tr>
+        <tr><td class="td-joy">satovachiongu</td><td>sato + vachi + ongu</td><td>a great friend-maker, a very sociable person</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- NEGATION PREFIX -->
+  <h2 id="negation-prefix">Negation Prefix — ve-</h2>
+  <p>The negation prefix <strong>ve-</strong> attaches to the beginning of the verb class form (-uvu form). It is the <strong>only productive prefix</strong> in standard Joylang.</p>
+  <div class="callout callout-rule">
+    <strong>Rule</strong>
+    ve- + verb root + tense = negated verb<br>
+    mavuvu (to flow) → ve + kachilo = <strong>vekachilo</strong> (does not eat)
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Positive</th><th>Negated</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">mavuvu</td><td class="td-joy">vemavuvu</td><td>does not flow</td></tr>
+        <tr><td class="td-joy">satuvu</td><td class="td-joy">vesatuvu</td><td>does not befriend</td></tr>
+        <tr><td class="td-joy">kachilo</td><td class="td-joy">vekachilo</td><td>does not eat (present)</td></tr>
+        <tr><td class="td-joy">kachime</td><td class="td-joy">vekachime</td><td>did not eat (past)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Why ve-?</strong></p>
+  <ul>
+    <li>Short — one syllable, minimal phonological weight added</li>
+    <li>Phonologically distinct — v is a fricative, no other suffix or prefix begins with v</li>
+    <li>Zero conflicts — does not clash with any case, tense, aspect, plural, question, or evidential marker</li>
+    <li>Slightly funny — vemavuvu, vesatuvu have a buzzy, defiant quality appropriate for negation</li>
+  </ul>
+
+  <h3>Negating Non-Verb Forms</h3>
+  <p>Negation applies to verb forms only. To express "not X" about a noun or adjective, convert the concept to its verb form first, then negate:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Intended Meaning</th><th>Correct Form</th><th>Gloss</th></tr></thead>
+      <tbody>
+        <tr><td>not watery</td><td class="td-joy">vemavuvu / vemavoku melo</td><td>does not have water-like quality / is not watery</td></tr>
+        <tr><td>friendless / no friends</td><td class="td-joy">vesatuvu</td><td>one who does not befriend</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- COMPOUNDS -->
+  <h2 id="compounds">Compound Word Formation</h2>
+  <h3>Order — Head-Last (Modifier First)</h3>
+  <p>Compound words follow SOV logic: the <strong>modifier comes first</strong>, the head concept last. The head is the main meaning; the modifier narrows or qualifies it.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Modifier (first)</th><th>Head (last)</th><th>Compound Form</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">mavi (water)</td><td class="td-joy">yasha (mountain)</td><td class="td-joy">maviyasha</td><td>a mountain with a waterfall / water-mountain</td></tr>
+        <tr><td class="td-joy">sato (friend)</td><td class="td-joy">naka (river)</td><td class="td-joy">satonaka</td><td>a river of friendship (poetic)</td></tr>
+        <tr><td class="td-joy">naho (fire)</td><td class="td-joy">shimi (tree)</td><td class="td-joy">nahoshimi</td><td>fire-tree (a tree associated with fire)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Phonotactic Rules at Compound Boundary</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Situation</th><th>Rule</th><th>Correct Form</th></tr></thead>
+      <tbody>
+        <tr><td>Root 1 ends in vowel + Root 2 starts with consonant</td><td>Join directly — no change needed</td><td class="td-joy">mavi + yasha = maviyasha ✓</td></tr>
+        <tr><td>Root 1 ends in vowel + Root 2 starts with SAME vowel</td><td>Same-vowel elision: drop Root 1's final vowel</td><td class="td-joy">moto + ombu → mot + ombu = motombu ✓</td></tr>
+        <tr><td>Root 1 ends in vowel + Root 2 starts with DIFFERENT vowel</td><td>Keep both — glide resolves naturally in speech</td><td class="td-joy">shaju + ongu = shajuongu ✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Stress in Compounds</h3>
+  <p>A compound is treated as a single phonological word. The standard penultimate stress rule applies to the full compound:</p>
+  <div class="example-block">
+    <div class="joy">mavi-yasha → ma-vi-YA-sha</div>
+    <div class="note">Penultimate stress applied to full compound word</div>
+  </div>
+
+  <!-- REDUPLICATION -->
+  <h2 id="reduplication">Partial Reduplication</h2>
+  <p>Repeating the first syllable (CV) of a root as a prefix signals <strong>habitual action, ongoing repetition, or intensification</strong> of a quality.</p>
+  <div class="callout callout-rule">
+    <strong>Rule</strong>
+    Copy the first CV syllable of the root → prepend it as a prefix.<br>
+    For digraph-starting roots (sh, ch), take the first 3 characters: shoju → sho + shoju = shoshoju
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Root</th><th>Reduplicated</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">kachi (eat)</td><td class="td-joy">ka-kachi</td><td>eat habitually / keep eating</td></tr>
+        <tr><td class="td-joy">mavoku (watery)</td><td class="td-joy">ma-mavoku</td><td>extremely watery / completely drenched</td></tr>
+        <tr><td class="td-joy">satuvu (befriend)</td><td class="td-joy">sa-satuvu</td><td>constantly making friends</td></tr>
+        <tr><td class="td-joy">jovi (joy)</td><td class="td-joy">jo-jovi</td><td>extremely joyful / intensely joyful state</td></tr>
+        <tr><td class="td-joy">nalu (sleep)</td><td class="td-joy">na-nalu</td><td>deeply asleep / chronic sleeper</td></tr>
+        <tr><td class="td-joy">shoju (laugh)</td><td class="td-joy">sho-shoju</td><td>always laughing</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Applied to</th><th>Effect</th><th>Example</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>Verb root</td><td>Habitual or repeated action</td><td class="td-joy">ka-kachi</td><td>eats all the time, is a habitual eater</td></tr>
+        <tr><td>Adjective root</td><td>Intensified quality</td><td class="td-joy">ma-mavoku</td><td>extremely watery, completely soaked</td></tr>
+        <tr><td>Noun root</td><td>Collective or mass noun (poetic)</td><td class="td-joy">sha-shaju</td><td>many suns / the fullness of sunlight</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-tip">
+    <strong>Tier 1 Feature</strong>
+    Reduplication is the only word-formation process that attaches before the root. It is Tier 1 (standard) usage and requires no special marking in writing.
+  </div>
+
+  <!-- BOUNDARY RULES -->
+  <h2 id="boundary-rules">Phonological Rules at Morpheme Boundaries</h2>
+  <p>Three rules govern what happens when roots meet suffixes. These rules are standard phonological phenomena found in Swahili, Finnish, Japanese, and Turkish.</p>
+
+  <h3 id="elision">Rule 1 — Same-Vowel Elision (Active Rule)</h3>
+  <p>When a root's final vowel is <strong>identical</strong> to the first vowel of the suffix, <strong>drop the root's final vowel</strong> before attaching.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Root</th><th>Suffix</th><th>Raw (incorrect)</th><th>Corrected</th><th>Rule Triggered</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">pani (ends in i)</td><td class="td-joy">-ichu (starts with i)</td><td>paniichu</td><td class="td-joy">panichu</td><td>i + i → drop root i</td></tr>
+        <tr><td class="td-joy">moto (ends in o)</td><td class="td-joy">-ongu (starts with o)</td><td>motoongu</td><td class="td-joy">motongu</td><td>o + o → drop root o</td></tr>
+        <tr><td class="td-joy">sato (ends in o)</td><td class="td-joy">-ongu (starts with o)</td><td>satoongu</td><td class="td-joy">satongu</td><td>o + o → drop root o</td></tr>
+        <tr><td class="td-joy">shimi (ends in i)</td><td class="td-joy">-ichu (starts with i)</td><td>shimiichu</td><td class="td-joy">shimichu</td><td>i + i → drop root i</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="hiatus">Rule 2 — Cross-Vowel Hiatus (No Correction Needed)</h3>
+  <p>When a root ends in one vowel and a suffix begins with a <strong>different vowel</strong>, keep both. The sequence resolves naturally as a glide in speech.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Sequence</th><th>Example</th><th>Spoken Resolution</th></tr></thead>
+      <tbody>
+        <tr><td>u + i</td><td class="td-joy">shaju + ichu = shajuichu</td><td>sha-ju-i-chu → "ju" glides naturally into "i"</td></tr>
+        <tr><td>o + i</td><td class="td-joy">naho + ichu = nahoichu</td><td>na-ho-i-chu → "ho" glides naturally into "i"</td></tr>
+        <tr><td>a + o</td><td class="td-joy">yasha + ongu = yashaongu</td><td>ya-sha-on-gu → clean transition, no issue</td></tr>
+        <tr><td>u + o</td><td class="td-joy">yolu + ongu = yoluongu</td><td>yo-lu-on-gu → smooth, no issue</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="geminate">Rule 3 — Geminate Consonant Safety (Rarely Triggered)</h3>
+  <p>If a root's stem-final consonant is identical to a suffix's opening consonant, insert <strong>-o-</strong> as a linking vowel.</p>
+  <div class="callout callout-note">
+    <strong>Note</strong>
+    This rule was not triggered once across 90 test derivations (10 roots × 9 affixes). It exists as a safety net for future vocabulary. When in doubt, insert -o-.
+  </div>
+
+  <!-- LOANWORDS -->
+  <h2 id="loanwords">Loanword Adaptation</h2>
+  <p>Loanwords are borrowed only when no clean blended root can be invented. The priority is always to <strong>create a new root first</strong>. When borrowing, adapt — do not copy directly.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Step</th><th>Rule</th><th>Example: English "sport"</th></tr></thead>
+      <tbody>
+        <tr><td>1 — Replace non-Tier-2 sounds</td><td>Swap any sound outside Tier 2 with the closest Tier 2 equivalent.</td><td>sport → sipor (sp-cluster broken by inserting vowel i)</td></tr>
+        <tr><td>2 — Adapt syllable shape</td><td>Get as close to CVCV as possible. CVC word-endings are allowed.</td><td>sipor → siporu (final vowel added)</td></tr>
+        <tr><td>3 — Add class suffix</td><td>Treat as a regular Joylang root and attach the appropriate class suffix.</td><td>sipor + ombu = siporombu (sport as a noun)</td></tr>
+        <tr><td>4 — Proper nouns exempt</td><td>Names of people and places need no class suffix. Vocative -e applies normally.</td><td>London → Londone (calling), Londonsa (subject)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="sound-substitution">Sound Substitution Map</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Non-Tier-2 Sound</th><th>Substitute</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>z</td><td class="td-joy">s</td><td>zero → sero</td></tr>
+        <tr><td>th (voiced, as in "this")</td><td class="td-joy">d</td><td>this → disu</td></tr>
+        <tr><td>th (unvoiced, as in "think")</td><td class="td-joy">s</td><td>think → sinku</td></tr>
+        <tr><td>w</td><td class="td-joy">v</td><td>window → vindovu</td></tr>
+        <tr><td>x / ks cluster</td><td class="td-joy">k + s separated by vowel</td><td>box → bokasu</td></tr>
+        <tr><td>Retroflex T D N (Indian)</td><td class="td-joy">dental t / d / n</td><td>standard dental substitution</td></tr>
+        <tr><td>f</td><td class="td-joy">f (already Tier 2 ✓)</td><td>fan → fanu (no change needed)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- MASTER TABLE -->
+  <h2 id="master-table">Master Reference Table</h2>
+  <p>Complete reference for all word-formation elements. Every entry was stress-tested across 10 roots from 5 language families before finalisation.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Element</th><th>Form</th><th>Attaches to</th><th>Result (root: mavi = water)</th><th>Basis</th></tr></thead>
+      <tbody>
+        <tr><td>Noun class</td><td class="td-joy">-ombu</td><td>Stem (root − final vowel)</td><td class="td-joy">mav+ombu = mavombu</td><td>Back vowels = concrete; -mb- = universal nasal-stop</td></tr>
+        <tr><td>Verb class</td><td class="td-joy">-uvu</td><td>Stem</td><td class="td-joy">mav+uvu = mavuvu</td><td>Fricative v = action; u-v-u mirror = memorable</td></tr>
+        <tr><td>Adj class</td><td class="td-joy">-oku</td><td>Stem</td><td class="td-joy">mav+oku = mavoku</td><td>Velar k = classification; punchy pattern</td></tr>
+        <tr><td>Agent</td><td class="td-joy">-vachi</td><td>Full root</td><td class="td-joy">mavi+vachi = mavivachi</td><td>v+ch = dynamic agent; final i = human</td></tr>
+        <tr><td>Abstract noun</td><td class="td-joy">-chimu</td><td>Full root</td><td class="td-joy">mavi+chimu = mavichimu</td><td>ch = conceptual cut; -mu = philosophical weight</td></tr>
+        <tr><td>Adj from noun</td><td class="td-joy">-jiku</td><td>Full root</td><td class="td-joy">mavi+jiku = mavijiku</td><td>j onset = distance from noun; -iku = relational</td></tr>
+        <tr><td>Diminutive</td><td class="td-joy">-ichu</td><td>Full root</td><td class="td-joy">mavi+ichu → mavichu</td><td>i = small (sound symbolism); ch = playful</td></tr>
+        <tr><td>Augmentative</td><td class="td-joy">-ongu</td><td>Full root</td><td class="td-joy">mavi+ongu = maviongu</td><td>o+ng+u = maximum acoustic weight</td></tr>
+        <tr><td>Negation</td><td class="td-joy">ve-</td><td>Verb class form</td><td class="td-joy">ve+mavuvu = vemavuvu</td><td>Fricative v = oppositional; no conflicts</td></tr>
+        <tr><td>Partial reduplication</td><td class="td-joy">CV- prefix</td><td>Full root</td><td class="td-joy">ma-mavi = mamavi</td><td>First syllable repeated = habitual/intense</td></tr>
+        <tr><td>Compound (head-last)</td><td class="td-joy">ROOT₁+ROOT₂</td><td>Two full roots</td><td class="td-joy">mavi+yasha = maviyasha</td><td>SOV-consistent; modifier first, head last</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-rule">
+    <strong>Phonological Boundary Rules — Always Apply</strong>
+    1. <strong>Same-vowel elision</strong>: root's final vowel = suffix's first vowel → drop root's final vowel.<br>
+    &nbsp;&nbsp;&nbsp;pani+ichu → panichu | sato+ongu → satongu | moto+ombu → motombu<br>
+    2. <strong>Cross-vowel hiatus</strong>: different vowels at boundary → keep both, glide resolves in speech.<br>
+    3. <strong>Geminate safety</strong>: stem-final consonant = suffix-first consonant → insert -o- linking vowel.
+  </div>
+
+</main>
+</div>
+
+<footer class="site-footer">
+  <p>Joylang · A Friendship Auxiliary Language · <a href="https://github.com/amanakash112-del/akashlang.bhairavi" target="_blank">GitHub</a></p>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>

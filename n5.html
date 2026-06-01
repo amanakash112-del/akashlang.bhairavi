@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N5 Beginner Course — Joylang</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="topnav">
+  <button class="menu-toggle">☰</button>
+  <a href="index.html" class="topnav-brand"><div class="topnav-logo">J</div><div class="topnav-title">Akash<span>Lang</span></div></a>
+  <div class="topnav-links">
+    <a href="index.html">Introduction</a><a href="construction.html">Construction &amp; Design</a><a href="word-formation.html">Word Formation</a><a href="grammar.html">Grammar</a><a href="dictionary.html">Dictionary</a><a href="sentences.html">Sentences</a><a href="n5.html">N5 Course</a><a href="n4.html">N4 Course</a>
+  </div>
+  <div class="topnav-search"><input type="text" placeholder="Search dictionary…"></div>
+</nav>
+<div class="page-wrapper">
+<aside class="sidebar">
+  <div class="sidebar-heading">N5 — Chapters</div>
+  <a href="#" onclick="showChapter('ch1');return false">Ch 1 — What Is Joylang?</a>
+  <a href="#" onclick="showChapter('ch2');return false">Ch 2 — Sounds &amp; Pronunciation</a>
+  <a href="#" onclick="showChapter('ch3');return false">Ch 3 — Writing Joylang</a>
+  <a href="#" onclick="showChapter('ch4');return false">Ch 4 — First Words</a>
+  <a href="#" onclick="showChapter('ch5');return false">Ch 5 — Basic Sentence Structure</a>
+  <a href="#" onclick="showChapter('ch6');return false">Ch 6 — Saying No: ve-</a>
+  <a href="#" onclick="showChapter('ch7');return false">Ch 7 — Asking Questions: ka</a>
+  <a href="#" onclick="showChapter('ch8');return false">Ch 8 — Word Classes</a>
+  <div class="sidebar-heading">Navigate</div>
+  <a href="n4.html">→ N4 Course</a>
+  <a href="grammar.html">Full Grammar Reference</a>
+</aside>
+<main class="main-content">
+  <div class="breadcrumb"><a href="index.html">Introduction</a><span class="breadcrumb-sep">›</span><span class="current">N5 — Beginner Course</span></div>
+  <h1 class="article-title">N5 — Absolute Beginner Course</h1>
+  <p class="article-subtitle">From Zero to Basic Joylang · Chapters 1–8 · No prior language knowledge needed.</p>
+  <div class="article-meta">
+    <span class="badge badge-green">N5 Level</span>
+    <span class="badge badge-blue">8 Chapters</span>
+    <span class="badge badge-gold">Exercises with Answers</span>
+  </div>
+
+  <div class="chapter-nav" id="chapterNav">
+    <button class="chapter-btn" data-chapter="ch1">Ch 1</button>
+    <button class="chapter-btn" data-chapter="ch2">Ch 2</button>
+    <button class="chapter-btn" data-chapter="ch3">Ch 3</button>
+    <button class="chapter-btn" data-chapter="ch4">Ch 4</button>
+    <button class="chapter-btn" data-chapter="ch5">Ch 5</button>
+    <button class="chapter-btn" data-chapter="ch6">Ch 6</button>
+    <button class="chapter-btn" data-chapter="ch7">Ch 7</button>
+    <button class="chapter-btn" data-chapter="ch8">Ch 8</button>
+  </div>
+
+  <!-- CHAPTER 1 -->
+  <div class="chapter-section" id="ch1">
+    <h2>Chapter 1 — What Is Joylang?</h2>
+    <p>Joylang is a <strong>constructed auxiliary language</strong> — an invented language designed so that speakers of very different languages can communicate easily, warmly, and playfully. It is not a replacement for your native language; it is a bridge.</p>
+    <p>Imagine a group of friends from India, Japan, Spain, Nigeria, Turkey, and Brazil. Each has a rich language. Each has spent years mastering it. But when they meet, none of them has a shared tongue that is equally easy and equally foreign for everyone. <strong>Joylang is designed to solve that problem.</strong> It is nobody's native language — which means the playing field is level for everyone.</p>
+
+    <h3>Three Core Values</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Value</th><th>What It Means in Practice</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Simplicity</strong></td><td>No irregular verbs. No grammatical gender. No tones. No exceptions. Every rule applies 100% of the time.</td></tr>
+        <tr><td><strong>Playfulness</strong></td><td>Words are chosen to sound a little delightful. Grammar is gentle, not military. Making mistakes is encouraged.</td></tr>
+        <tr><td><strong>Universal Accessibility</strong></td><td>Sounds exist in Hindi, Arabic, Japanese, Spanish, Swahili, Tamil, Turkish, English, Mandarin, and Yoruba. Everyone can pronounce every word.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Quick Facts</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Feature</th><th>Joylang's Answer</th></tr></thead>
+      <tbody>
+        <tr><td>Word order</td><td>SOV — Subject, Object, Verb (like Japanese, Turkish, Hindi)</td></tr>
+        <tr><td>Morphology</td><td>Lightly agglutinative — words built by adding suffixes</td></tr>
+        <tr><td>Grammatical gender</td><td>None</td></tr>
+        <tr><td>Tones</td><td>None</td></tr>
+        <tr><td>Script</td><td>Roman (this course) + Devanagari (alternative)</td></tr>
+        <tr><td>Vocabulary sources</td><td>Hindi, Arabic, Mandarin, Japanese, Swahili, Spanish, Tamil, Turkish, English, Yoruba</td></tr>
+        <tr><td>Phoneme inventory</td><td>5 vowels + 19 consonants (including 3 digraphs: sh, ch, ng)</td></tr>
+        <tr><td>Irregular forms</td><td>Zero</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="practice-box">
+      <h4>✏ Practice — Chapter 1</h4>
+      <ol>
+        <li>Say the name 'Joylang' aloud three times. Notice where the stress falls.</li>
+        <li>Write one sentence about why you want to learn Joylang.</li>
+        <li>Think of one friend from a different culture you'd like to speak Joylang with someday.</li>
+      </ol>
+      <button class="answer-toggle">Show Answers</button>
+      <div class="answer-box">
+        <ol>
+          <li>Stress falls on 'Joy' — JOY-lang. This is penultimate stress in the two-syllable word.</li>
+          <li>Free answer — write anything! The goal is just to start thinking in Joylang terms.</li>
+          <li>Free answer — there are no wrong answers.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 2 -->
+  <div class="chapter-section" id="ch2">
+    <h2>Chapter 2 — Sounds &amp; Pronunciation</h2>
+    <p>Joylang uses only sounds that exist in the most widely spoken languages on Earth. If you speak any of the 10 source languages, you can already make every sound in Joylang.</p>
+
+    <h3>The 5 Vowels</h3>
+    <p>Joylang has exactly 5 vowels. They are always pronounced the same way — there are no 'silent' vowels and no vowel shifts.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Vowel</th><th>Sounds Like</th><th>English Hint</th><th>Example in Joylang</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">a</td><td>father</td><td>the 'a' in 'spa'</td><td class="td-joy">mavi (water)</td></tr>
+        <tr><td class="td-joy">e</td><td>bed</td><td>the 'e' in 'get'</td><td class="td-joy">melo (is/exists)</td></tr>
+        <tr><td class="td-joy">i</td><td>see</td><td>the 'ee' in 'feet'</td><td class="td-joy">kachi (eat)</td></tr>
+        <tr><td class="td-joy">o</td><td>go</td><td>the 'o' in 'so'</td><td class="td-joy">sato (friend)</td></tr>
+        <tr><td class="td-joy">u</td><td>moon</td><td>the 'oo' in 'food'</td><td class="td-joy">kuvu (verb suffix)</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout callout-rule"><strong>Vowel Rule</strong> Every vowel is always pronounced clearly. There are no schwa sounds (like the 'a' in 'about'). What you see is what you say.</div>
+
+    <h3>The 19 Consonants</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Sound</th><th>Written as</th><th>Sounds like</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>p</td><td class="td-joy">p</td><td>pin (never aspirated)</td><td class="td-joy">pani (water — source word)</td></tr>
+        <tr><td>b</td><td class="td-joy">b</td><td>bat</td><td class="td-joy">belo (come)</td></tr>
+        <tr><td>t</td><td class="td-joy">t</td><td>stop (dental, not retroflex)</td><td class="td-joy">tenu (you)</td></tr>
+        <tr><td>d</td><td class="td-joy">d</td><td>dog (dental)</td><td class="td-joy">dilo (give)</td></tr>
+        <tr><td>k</td><td class="td-joy">k</td><td>sky (not aspirated)</td><td class="td-joy">kachi (eat)</td></tr>
+        <tr><td>g</td><td class="td-joy">g</td><td>go</td><td class="td-joy">goloku (good)</td></tr>
+        <tr><td>m</td><td class="td-joy">m</td><td>moon</td><td class="td-joy">mavi (water)</td></tr>
+        <tr><td>n</td><td class="td-joy">n</td><td>no</td><td class="td-joy">nalu (sleep)</td></tr>
+        <tr><td>ng ★</td><td class="td-joy">ng</td><td>sing (word-final only)</td><td class="td-joy">nganu (end-of-word only)</td></tr>
+        <tr><td>f</td><td class="td-joy">f</td><td>fun</td><td class="td-joy">filo (feel)</td></tr>
+        <tr><td>s</td><td class="td-joy">s</td><td>sun (never z-sound)</td><td class="td-joy">sato (friend)</td></tr>
+        <tr><td>v</td><td class="td-joy">v</td><td>vine (or w — both fine)</td><td class="td-joy">venu (they)</td></tr>
+        <tr><td>h</td><td class="td-joy">h</td><td>hat</td><td class="td-joy">henu (how)</td></tr>
+        <tr><td>sh ★</td><td class="td-joy">sh</td><td>shoe</td><td class="td-joy">shoju (laugh)</td></tr>
+        <tr><td>ch ★</td><td class="td-joy">ch</td><td>chair</td><td class="td-joy">chimu (abstract suffix)</td></tr>
+        <tr><td>j</td><td class="td-joy">j</td><td>jump</td><td class="td-joy">jovi (happy)</td></tr>
+        <tr><td>l</td><td class="td-joy">l</td><td>light</td><td class="td-joy">lilo (take)</td></tr>
+        <tr><td>r</td><td class="td-joy">r</td><td>soft tap (like Spanish r)</td><td class="td-joy">rona (love)</td></tr>
+        <tr><td>y</td><td class="td-joy">y</td><td>yes</td><td class="td-joy">yenu (why)</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout callout-note"><strong>★ Digraph Rule</strong> sh, ch, and ng are DIGRAPHS — two letters, one sound. When you count consonants or check word structure, treat sh as ONE sound, ch as ONE sound, ng as ONE sound. Never split them.</div>
+
+    <h3>Stress Rule</h3>
+    <div class="callout callout-rule"><strong>The Stress Rule</strong> Stress ALWAYS falls on the second-to-last syllable (penultimate stress). No exceptions.</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Word</th><th>Stress</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">mavi</td><td><strong>MA</strong>-vi</td></tr>
+        <tr><td class="td-joy">sato</td><td><strong>SA</strong>-to</td></tr>
+        <tr><td class="td-joy">kachilo</td><td>ka-<strong>CHI</strong>-lo</td></tr>
+        <tr><td class="td-joy">mavombu</td><td>ma-<strong>VOM</strong>-bu</td></tr>
+        <tr><td class="td-joy">shapishilo</td><td>sha-pi-<strong>SHI</strong>-lo</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Syllable Structure</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Pattern</th><th>Examples</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>CV-CV (preferred)</td><td class="td-joy">mavi, sato, jovi, rona</td><td>Two syllables, perfectly clean</td></tr>
+        <tr><td>CV-CV-CV (extended)</td><td class="td-joy">mavombu, kachilo</td><td>Three syllables for derived forms</td></tr>
+        <tr><td>CVC (allowed)</td><td class="td-joy">kon, mas</td><td>Final consonant: n m s l r only</td></tr>
+        <tr><td>CCV-CV (limited clusters)</td><td class="td-joy">pravi, kromi</td><td>Only: pr br kr pl kl tr dr</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout callout-warn"><strong>⚠ Common Mistake</strong> Never end a word with: p, b, t, d, k, g, f, v, h, sh, ch, j. Words may only end in vowels (a e i o u) or the soft consonants n m s l r.</div>
+
+    <div class="practice-box">
+      <h4>✏ Practice — Chapter 2</h4>
+      <ol>
+        <li>Pronounce: mavi, sato, kachi, shoju, rona, jovi</li>
+        <li>Mark the stress: shapishilo, mavombuchi, kachivime</li>
+        <li>Which word has an illegal final consonant? 'vetek', 'matur', 'goshal'</li>
+      </ol>
+      <button class="answer-toggle">Show Answers</button>
+      <div class="answer-box"><ol>
+        <li>MA-vi, SA-to, KA-chi, SHO-ju, RO-na, JO-vi</li>
+        <li>sha-pi-SHI-lo · ma-VOM-bu-chi · ka-chi-VI-me</li>
+        <li>'vetek' ends in 'k' — ILLEGAL. 'matur' ends in 'r' — allowed. 'goshal' ends in 'l' — allowed.</li>
+      </ol></div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 3 -->
+  <div class="chapter-section" id="ch3">
+    <h2>Chapter 3 — Writing Joylang</h2>
+    <p>Joylang uses Roman letters as its primary writing system. The spelling is <strong>perfectly phonetic</strong> — every letter always represents exactly one sound, and every sound is always represented by the same letter(s).</p>
+    <div class="callout callout-rule"><strong>Phonetic Writing Rule</strong> What you see is what you say. What you hear is what you write. No exceptions.</div>
+
+    <h3>Letter Map</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Write</th><th>Say</th><th>Write</th><th>Say</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">a</td><td>as in 'spa'</td><td class="td-joy">n</td><td>as in 'no'</td></tr>
+        <tr><td class="td-joy">b</td><td>as in 'bat'</td><td class="td-joy">ng</td><td>as in 'sing'</td></tr>
+        <tr><td class="td-joy">ch</td><td>as in 'chair'</td><td class="td-joy">o</td><td>as in 'go'</td></tr>
+        <tr><td class="td-joy">d</td><td>as in 'dog'</td><td class="td-joy">p</td><td>as in 'pin'</td></tr>
+        <tr><td class="td-joy">e</td><td>as in 'bed'</td><td class="td-joy">r</td><td>soft tap</td></tr>
+        <tr><td class="td-joy">f</td><td>as in 'fun'</td><td class="td-joy">s</td><td>as in 'sun'</td></tr>
+        <tr><td class="td-joy">g</td><td>as in 'go'</td><td class="td-joy">sh</td><td>as in 'shoe'</td></tr>
+        <tr><td class="td-joy">h</td><td>as in 'hat'</td><td class="td-joy">t</td><td>as in 'stop'</td></tr>
+        <tr><td class="td-joy">i</td><td>as in 'see'</td><td class="td-joy">u</td><td>as in 'food'</td></tr>
+        <tr><td class="td-joy">j</td><td>as in 'jump'</td><td class="td-joy">v / w</td><td>as in 'vine'</td></tr>
+        <tr><td class="td-joy">k</td><td>as in 'sky'</td><td class="td-joy">y</td><td>as in 'yes'</td></tr>
+        <tr><td class="td-joy">l</td><td>as in 'light'</td><td class="td-joy">m</td><td>as in 'moon'</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Word Boundaries — Suffix Attachment</h3>
+    <p>In Joylang, suffixes attach directly to roots without spaces. A case suffix, tense suffix, or class suffix is always written as part of the word:</p>
+    <div class="example-block">
+      <div class="joy">sato-ombu → satoombu → friend (noun form)</div>
+      <div class="joy">kachi-lo → kachilo → eats (present tense)</div>
+      <div class="joy">mavombu-ko → mavombuko → water (accusative)</div>
+      <div class="note">Hyphens are used in teaching materials to show boundaries. In normal writing, no hyphen is used.</div>
+    </div>
+
+    <h3>Same-Vowel Elision</h3>
+    <p>When a root ends in a vowel and a suffix begins with the <strong>same vowel</strong>, drop the root's final vowel before attaching.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Root</th><th>Suffix</th><th>Without Elision</th><th>With Elision (correct)</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">pani</td><td class="td-joy">-ichu</td><td>paniichu</td><td class="td-joy">panichu ✓</td></tr>
+        <tr><td class="td-joy">sato</td><td class="td-joy">-ongu</td><td>satoongu</td><td class="td-joy">satongu ✓</td></tr>
+        <tr><td class="td-joy">mavi</td><td class="td-joy">-ichu</td><td>maviichu</td><td class="td-joy">mavichu ✓</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout callout-warn"><strong>⚠ Common Mistake</strong> Elision only happens when the SAME vowel appears at the boundary. Different vowels do NOT elide: mavi + ombu → mav + ombu = mavombu (i≠o, no elision — stem rule applies).</div>
+
+    <div class="practice-box">
+      <h4>✏ Practice — Chapter 3</h4>
+      <ol>
+        <li>Write the Joylang word for 'friend' (root: sato) with the noun suffix -ombu.</li>
+        <li>Write the verb form of 'happy' (root: jovi) with the tense suffix -lo.</li>
+        <li>Apply same-vowel elision: rona + ongu → ?</li>
+      </ol>
+      <button class="answer-toggle">Show Answers</button>
+      <div class="answer-box"><ol>
+        <li>sato → stem sat- → sat + ombu = <strong>satoombu</strong></li>
+        <li>jovi + lo = <strong>jovilo</strong> (present tense verb)</li>
+        <li>rona ends in 'a', ongu starts with 'o' — different vowels, no elision. Stem ron- + ongu = <strong>ronongu</strong>.</li>
+      </ol></div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 4 -->
+  <div class="chapter-section" id="ch4">
+    <h2>Chapter 4 — First Words: Pronouns, Demonstratives, Question Words</h2>
+
+    <h3>Pronouns</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Person</th><th>Singular</th><th>Plural (add -chi)</th><th>Reflexive (add -shi)</th></tr></thead>
+      <tbody>
+        <tr><td>1st (speaker)</td><td class="td-joy">anu — I / me</td><td class="td-joy">anuchi — we / us</td><td class="td-joy">anushi — myself</td></tr>
+        <tr><td>2nd (listener)</td><td class="td-joy">tenu — you</td><td class="td-joy">tenuchi — you all</td><td class="td-joy">tenushi — yourself</td></tr>
+        <tr><td>3rd (other)</td><td class="td-joy">venu — he/she/they</td><td class="td-joy">venuchi — they pl.</td><td class="td-joy">venushi — themselves</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout callout-tip"><strong>📌 No Gender</strong> 'Venu' means he, she, or they (singular). For explicit gender: <span class="example-inline">maru venu</span> = he · <span class="example-inline">firu venu</span> = she · <span class="example-inline">biru venu</span> = they (non-binary). These modifiers are always optional.</div>
+
+    <h3>Demonstratives</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Meaning</th><th>Joylang</th><th>Plural</th></tr></thead>
+      <tbody>
+        <tr><td>this (near)</td><td class="td-joy">eshi</td><td class="td-joy">eshichi</td></tr>
+        <tr><td>that (far)</td><td class="td-joy">oshi</td><td class="td-joy">oshichi</td></tr>
+      </tbody>
+    </table></div>
+    <div class="example-block">
+      <div class="joy">Eshi mavi melo. → This is water.</div>
+      <div class="joy">Oshi sato melo. → That is a friend.</div>
+      <div class="joy">Eshichi jovioku melo. → These are happy.</div>
+    </div>
+
+    <h3>Question Words</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Meaning</th><th>Joylang</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>who</td><td class="td-joy">kenu</td><td class="td-joy">Kenu velo? — Who came?</td></tr>
+        <tr><td>what</td><td class="td-joy">chenu</td><td class="td-joy">Chenu eshi? — What is this?</td></tr>
+        <tr><td>where</td><td class="td-joy">kanu</td><td class="td-joy">Kanu tenu melo? — Where are you?</td></tr>
+        <tr><td>when</td><td class="td-joy">manu</td><td class="td-joy">Manu tenu belo? — When will you come?</td></tr>
+        <tr><td>why</td><td class="td-joy">yenu</td><td class="td-joy">Yenu tenu vebelo? — Why didn't you come?</td></tr>
+        <tr><td>how</td><td class="td-joy">henu</td><td class="td-joy">Henu tenu kachilo? — How do you eat?</td></tr>
+        <tr><td>which</td><td class="td-joy">lokenu</td><td class="td-joy">Lokenu sato? — Which friend?</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Greetings &amp; Fixed Expressions</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Joylang</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">Namashte.</td><td>Hello. / Greetings.</td></tr>
+        <tr><td class="td-joy">Prabhato namashte.</td><td>Good morning.</td></tr>
+        <tr><td class="td-joy">Sanjano namashte.</td><td>Good evening.</td></tr>
+        <tr><td class="td-joy">Krupanu.</td><td>Thank you.</td></tr>
+        <tr><td class="td-joy">Shanti melo.</td><td>All is well. / Peace be.</td></tr>
+        <tr><td class="td-joy">Jovi velo.</td><td>Go with joy. (Goodbye)</td></tr>
+        <tr><td class="td-joy">Milibo!</td><td>See you! (informal goodbye)</td></tr>
+        <tr><td class="td-joy">Pela...</td><td>Please... (polite request marker)</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="practice-box">
+      <h4>✏ Practice — Chapter 4</h4>
+      <ol>
+        <li>How do you say 'they (plural)' in Joylang?</li>
+        <li>What is the question word for 'why'?</li>
+        <li>How do you say 'Hello'?</li>
+        <li>Translate: 'Which friend?'</li>
+      </ol>
+      <button class="answer-toggle">Show Answers</button>
+      <div class="answer-box"><ol>
+        <li><strong>venuchi</strong> (venu + -chi)</li>
+        <li><strong>yenu</strong></li>
+        <li><strong>Namashte.</strong></li>
+        <li><strong>Ka lokenu sato?</strong></li>
+      </ol></div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 5 -->
+  <div class="chapter-section" id="ch5">
+    <h2>Chapter 5 — Basic Sentence Structure (SOV)</h2>
+    <div class="callout callout-rule"><strong>SOV Word Order</strong> Subject → Object → Verb<br>Anu maviombu kachilo. = I water eat. = "I eat water."</div>
+    <p>SOV is the most common word order among human languages (used by about 45% of all languages), including Japanese, Turkish, Hindi, and Korean.</p>
+
+    <h3>Simple Sentences (No Objects)</h3>
+    <div class="example-block">
+      <div class="joy">Anu velo. → I go.</div>
+      <div class="joy">Venu belo. → He/she comes.</div>
+      <div class="joy">Anuchi nalulo. → We sleep.</div>
+      <div class="joy">Tenu shojulo. → You laugh.</div>
+    </div>
+
+    <h3>Sentences With Objects</h3>
+    <div class="example-block">
+      <div class="joy">Anu sato doshilo. → I see a friend.</div>
+      <div class="joy">Venu maviombu shapilo. → He/she drinks water.</div>
+    </div>
+
+    <h3>Present Tense — add -lo to verb root</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Root</th><th>Meaning</th><th>+ -lo</th><th>Present Meaning</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">kachi</td><td>eat</td><td class="td-joy">kachilo</td><td>eats / is eating</td></tr>
+        <tr><td class="td-joy">shoju</td><td>laugh</td><td class="td-joy">shojulo</td><td>laughs</td></tr>
+        <tr><td class="td-joy">nalu</td><td>sleep</td><td class="td-joy">nalulo</td><td>sleeps</td></tr>
+        <tr><td class="td-joy">velo</td><td>go</td><td class="td-joy">velo</td><td>goes (already ends in -lo)</td></tr>
+        <tr><td class="td-joy">belo</td><td>come</td><td class="td-joy">belo</td><td>comes (already ends in -lo)</td></tr>
+        <tr><td class="td-joy">melo</td><td>be/exist</td><td class="td-joy">melo</td><td>is/exists (copula — used as-is)</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Adjective Sentences</h3>
+    <div class="callout callout-rule"><strong>Adjective Sentence Rule</strong> Subject + Adjective(-oku) + melo.<br>The adjective comes directly before melo.</div>
+    <div class="example-block">
+      <div class="joy">Oshi goloku melo. → That is good.</div>
+      <div class="joy">Anu jovioku melo. → I am happy.</div>
+      <div class="joy">Sato boloku melo. → The friend is big/great.</div>
+      <div class="joy">Mavi shitoku melo. → The water is cold.</div>
+    </div>
+
+    <div class="practice-box">
+      <h4>✏ Practice — Chapter 5</h4>
+      <ol>
+        <li>Translate: 'She laughs.'</li>
+        <li>Translate: 'We drink water.' (use maviombu)</li>
+        <li>Translate: 'You are happy.' (use jovioku)</li>
+        <li>Put in the right order: [melo] [Anu] [jovioku]</li>
+      </ol>
+      <button class="answer-toggle">Show Answers</button>
+      <div class="answer-box"><ol>
+        <li><strong>Venu shojulo.</strong></li>
+        <li><strong>Anuchi maviombu shapilo.</strong></li>
+        <li><strong>Tenu jovioku melo.</strong></li>
+        <li><strong>Anu jovioku melo.</strong> (Subject → Adjective → melo)</li>
+      </ol></div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 6 -->
+  <div class="chapter-section" id="ch6">
+    <h2>Chapter 6 — Saying No: The ve- Prefix</h2>
+    <p>Negation in Joylang is expressed by a single prefix: <strong>ve-</strong>. It always attaches to the beginning of the verb. There are no double negatives, no irregular negative forms, and no changes based on tense or person.</p>
+    <div class="callout callout-rule"><strong>The ve- Rule</strong> Positive: Subject Object Verb-tense.<br>Negative: Subject Object <strong>ve-</strong>Verb-tense.</div>
+
+    <div class="example-block">
+      <div class="joy">Anu kachilo. → I eat.</div>
+      <div class="joy">Anu vekachilo. → I do not eat.</div>
+    </div>
+
+    <h3>ve- With Different Tenses</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Tense</th><th>Positive</th><th>Negative</th></tr></thead>
+      <tbody>
+        <tr><td>Present</td><td class="td-joy">Anu kachilo.</td><td class="td-joy">Anu vekachilo.</td></tr>
+        <tr><td>Past</td><td class="td-joy">Anu kachime.</td><td class="td-joy">Anu vekachime.</td></tr>
+        <tr><td>Future</td><td class="td-joy">Anu kachibu.</td><td class="td-joy">Anu vekachibu.</td></tr>
+        <tr><td>Progressive</td><td class="td-joy">Anu kachishilo.</td><td class="td-joy">Anu vekachishilo.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Negating 'to be' Sentences</h3>
+    <div class="example-block">
+      <div class="joy">Oshi goloku melo. → That is good.</div>
+      <div class="joy">Oshi goloku vemelo. → That is not good.</div>
+      <div class="joy">Anu shishyombu melo. → I am a student.</div>
+      <div class="joy">Anu shishyombu vemelo. → I am not a student.</div>
+    </div>
+
+    <h3>Emphatic Negation</h3>
+    <p>To add extra emphasis, add <span class="example-inline">kadanu</span> (never/absolutely not) after the verb:</p>
+    <div class="example-block">
+      <div class="joy">Anu vekachilo kadanu. → I absolutely do not eat. / I never eat.</div>
+    </div>
+
+    <div class="callout callout-warn"><strong>⚠ Common Mistake</strong> Never use ve- on a noun or adjective. Only the verb gets ve-.<br>✗ WRONG: Anu veshishyombu melo.<br>✓ RIGHT: Anu shishyombu vemelo.</div>
+
+    <div class="practice-box">
+      <h4>✏ Practice — Chapter 6</h4>
+      <ol>
+        <li>Make negative: 'Venu shojulo.' (She laughs.)</li>
+        <li>Translate: 'We are not happy.' (use anuchi, jovioku)</li>
+        <li>Which is correct? 'Anu vemaviombu kachilo.' OR 'Anu maviombu vekachilo.'</li>
+        <li>Translate: 'I never sleep.' (nalu = sleep)</li>
+      </ol>
+      <button class="answer-toggle">Show Answers</button>
+      <div class="answer-box"><ol>
+        <li><strong>Venu veshojulo.</strong></li>
+        <li><strong>Anuchi jovioku vemelo.</strong></li>
+        <li><strong>'Anu maviombu vekachilo.'</strong> is correct (ve- on the verb, not the noun).</li>
+        <li><strong>Anu nalulo kadanu.</strong> (kadanu = never)</li>
+      </ol></div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 7 -->
+  <div class="chapter-section" id="ch7">
+    <h2>Chapter 7 — Asking Questions: The ka Particle</h2>
+    <p>Joylang forms questions by adding a single word: <strong>ka</strong>. It goes at the very beginning of the sentence, before everything else. The rest of the sentence order stays exactly the same.</p>
+    <div class="callout callout-rule"><strong>The ka Question Rule</strong> Statement: Subject Object Verb.<br>Question: <strong>ka</strong> Subject Object Verb?</div>
+
+    <h3>Yes/No Questions</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Statement</th><th>Question</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">Anu jovioku melo.</td><td class="td-joy">Ka anu jovioku melo?</td></tr>
+        <tr><td class="td-joy">Venu shojulo.</td><td class="td-joy">Ka venu shojulo?</td></tr>
+        <tr><td class="td-joy">Tenu nashilo.</td><td class="td-joy">Ka tenu nashilo?</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Answering Yes/No Questions</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Answer</th><th>Joylang</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Yes</td><td class="td-joy">anu</td><td>Affirmative response particle</td></tr>
+        <tr><td>No</td><td class="td-joy">ve</td><td>Short for 've melo'</td></tr>
+        <tr><td>Maybe</td><td class="td-joy">shoru</td><td>Also means 'apparently'</td></tr>
+        <tr><td>I don't know</td><td class="td-joy">anu vejanilo</td><td>Literally: 'I not-know'</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Content Questions (who, what, where…)</h3>
+    <div class="example-block">
+      <div class="joy">Ka kenu velo? → Who came?</div>
+      <div class="joy">Ka chenu eshi melo? → What is this?</div>
+      <div class="joy">Ka kanu tenu melo? → Where are you?</div>
+      <div class="joy">Ka manu tenu belo? → When will you come?</div>
+      <div class="joy">Ka yenu tenu vekachilo? → Why don't you eat?</div>
+      <div class="joy">Ka henu tenu nashilo? → How do you learn?</div>
+    </div>
+
+    <h3>Tag Questions</h3>
+    <p>To add a tag question (like 'right?' or 'isn't it?'), add <span class="example-inline">sachianu?</span> at the end:</p>
+    <div class="example-block">
+      <div class="joy">Oshi goloku melo, sachianu? → That is good, right?</div>
+      <div class="joy">Tenu shishyombu melo, sachianu? → You are a student, aren't you?</div>
+    </div>
+
+    <div class="practice-box">
+      <h4>✏ Practice — Chapter 7</h4>
+      <ol>
+        <li>Turn into a question: 'Anuchi nashilo.' (We learn.)</li>
+        <li>Translate: 'Where is the friend?' (use satoombu)</li>
+        <li>Translate: 'Why did he laugh?' (shoju-me = laughed)</li>
+        <li>How do you say 'yes' and 'no' in Joylang?</li>
+      </ol>
+      <button class="answer-toggle">Show Answers</button>
+      <div class="answer-box"><ol>
+        <li><strong>Ka anuchi nashilo?</strong></li>
+        <li><strong>Ka satoombu kanu melo?</strong></li>
+        <li><strong>Ka yenu venu shojume?</strong></li>
+        <li>Yes = <strong>anu</strong>, No = <strong>ve</strong></li>
+      </ol></div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 8 -->
+  <div class="chapter-section" id="ch8">
+    <h2>Chapter 8 — Word Classes: Making Nouns, Verbs, and Adjectives</h2>
+    <p>This is one of Joylang's most powerful features. Every root is class-neutral — it is just a concept. To use a concept as a noun, a verb, or an adjective, you attach the appropriate suffix.</p>
+
+    <h3>The Three Class Suffixes</h3>
+    <div class="callout callout-rule"><strong>The Stem Rule</strong> Noun: root stem + <strong>-ombu</strong><br>Verb: root stem + <strong>-uvu</strong> (dictionary form)<br>Adjective: root stem + <strong>-oku</strong><br>Stem = root with final vowel removed: sato → sat- · mavi → mav- · jovi → jov-</div>
+
+    <div class="table-wrap"><table>
+      <thead><tr><th>Root</th><th>Meaning</th><th>Noun (-ombu)</th><th>Verb (-uvu)</th><th>Adjective (-oku)</th></tr></thead>
+      <tbody>
+        <tr><td class="td-joy">sato</td><td>friend</td><td class="td-joy">satoombu</td><td class="td-joy">satuvu</td><td class="td-joy">satoku</td></tr>
+        <tr><td class="td-joy">mavi</td><td>water</td><td class="td-joy">mavombu</td><td class="td-joy">mavuvu</td><td class="td-joy">mavoku</td></tr>
+        <tr><td class="td-joy">jovi</td><td>joy</td><td class="td-joy">jovombu</td><td class="td-joy">jovuvu</td><td class="td-joy">jovoku</td></tr>
+        <tr><td class="td-joy">kachi</td><td>eat</td><td class="td-joy">kachombu</td><td class="td-joy">kachuvu</td><td class="td-joy">kachoku</td></tr>
+        <tr><td class="td-joy">rona</td><td>love</td><td class="td-joy">ronombu</td><td class="td-joy">ronuvu</td><td class="td-joy">ronoku</td></tr>
+        <tr><td class="td-joy">shoju</td><td>laugh</td><td class="td-joy">shojombu</td><td class="td-joy">shojuvu</td><td class="td-joy">shojoku</td></tr>
+        <tr><td class="td-joy">nalu</td><td>sleep</td><td class="td-joy">nalombu</td><td class="td-joy">naluvu</td><td class="td-joy">naloku</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Verb Forms in Sentences</h3>
+    <div class="callout callout-warn"><strong>⚠ Verb Tense Rule</strong> Tense attaches to the ROOT, not to -uvu. The -uvu form is only for the dictionary.<br>✗ Wrong: satuvu-lo &nbsp;&nbsp; ✓ Right: sato-lo (befriends, present tense)</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Form</th><th>Construction</th><th>Example</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>Dictionary form</td><td>stem + -uvu</td><td class="td-joy">satuvu</td><td>to befriend (citation only)</td></tr>
+        <tr><td>Present tense</td><td>root + -lo</td><td class="td-joy">satolo</td><td>befriends</td></tr>
+        <tr><td>Past tense</td><td>root + -me</td><td class="td-joy">satome</td><td>befriended</td></tr>
+        <tr><td>Future tense</td><td>root + -bo</td><td class="td-joy">satobu</td><td>will befriend</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Using All Three Classes in One Sentence</h3>
+    <div class="example-block">
+      <div class="joy">Anu ronombu doshilo. → I see love. (noun)</div>
+      <div class="joy">Anu ronolo. → I love. (verb, present tense)</div>
+      <div class="joy">Venu ronoku melo. → He/she is loving. (adjective)</div>
+    </div>
+
+    <div class="practice-box">
+      <h4>✏ Practice — Chapter 8</h4>
+      <ol>
+        <li>Create the noun, verb, and adjective forms for root 'shoju' (laugh).</li>
+        <li>What is the stem of 'nalu'? What is its noun form?</li>
+        <li>Translate: 'She is funny.' (shojoku = funny)</li>
+        <li>What tense form do you use in sentences — -uvu or root + -lo?</li>
+      </ol>
+      <button class="answer-toggle">Show Answers</button>
+      <div class="answer-box"><ol>
+        <li>shojombu (noun) · shojuvu (verb dict.) · shojoku (adjective)</li>
+        <li>Stem of nalu = <strong>nal-</strong>, noun form = <strong>nalombu</strong></li>
+        <li><strong>Venu shojoku melo.</strong></li>
+        <li>Use root + -lo in sentences (not -uvu). -uvu is only for dictionary/citation.</li>
+      </ol></div>
+    </div>
+
+    <div class="callout callout-tip">
+      <strong>🎉 N5 Complete!</strong>
+      You now know: sounds, writing, pronouns, demonstratives, question words, basic sentence structure, negation with ve-, questions with ka, and word classes (noun/verb/adjective). You're ready for N4!
+      <br><br><a href="n4.html" style="color:var(--green-dark);font-weight:700;">→ Continue to N4 Course</a>
+    </div>
+  </div>
+
+</main>
+</div>
+<footer class="site-footer">
+  <p>Joylang · A Friendship Auxiliary Language · <a href="https://github.com/amanakash112-del/akashlang.bhairavi" target="_blank">GitHub</a></p>
+</footer>
+<script src="js/main.js"></script>
+<script>
+function showChapter(id) {
+  document.querySelectorAll('.chapter-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.chapter-btn').forEach(b => b.classList.remove('active'));
+  const sec = document.getElementById(id);
+  const btn = document.querySelector(`.chapter-btn[data-chapter="${id}"]`);
+  if (sec) sec.classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

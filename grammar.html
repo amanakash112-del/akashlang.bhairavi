@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grammar — Joylang</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="topnav">
+  <button class="menu-toggle">☰</button>
+  <a href="index.html" class="topnav-brand"><div class="topnav-logo">J</div><div class="topnav-title">Akash<span>Lang</span></div></a>
+  <div class="topnav-links">
+    <a href="index.html">Introduction</a><a href="construction.html">Construction &amp; Design</a><a href="word-formation.html">Word Formation</a><a href="grammar.html">Grammar</a><a href="dictionary.html">Dictionary</a><a href="sentences.html">Sentences</a><a href="n5.html">N5 Course</a><a href="n4.html">N4 Course</a>
+  </div>
+  <div class="topnav-search"><input type="text" placeholder="Search dictionary…"></div>
+</nav>
+<div class="page-wrapper">
+<aside class="sidebar">
+  <div class="sidebar-heading">Parts of Speech</div>
+  <a href="#nouns">1. Nouns</a>
+  <a href="#pronouns">2. Pronouns</a>
+  <a href="#verbs">3. Verbs</a>
+  <a href="#adjectives">4. Adjectives</a>
+  <a href="#adverbs">5. Adverbs</a>
+  <a href="#numerals">6. Numerals</a>
+  <a href="#determiners">7. Determiners</a>
+  <a href="#postpositions">8. Postpositions</a>
+  <a href="#conjunctions">9. Conjunctions</a>
+  <a href="#interjections">10. Interjections</a>
+  <a href="#particles">11. Particles</a>
+  <a href="#classifiers">12. Classifiers</a>
+  <a href="#copula">13. Copula</a>
+  <a href="#cases">14. Case Markers</a>
+  <a href="#question-words">15. Question Words</a>
+  <a href="#negation">16. Negation</a>
+  <a href="#demonstratives">17. Demonstratives</a>
+  <a href="#evidentials">18. Evidentials</a>
+  <div class="sidebar-heading">Quick Reference</div>
+  <a href="#all-suffixes">All Suffixes</a>
+  <a href="#special-words">Special Words</a>
+  <a href="#coverage-summary">Coverage Summary</a>
+</aside>
+<main class="main-content">
+  <div class="breadcrumb"><a href="index.html">Introduction</a><span class="breadcrumb-sep">›</span><span class="current">Grammar</span></div>
+  <h1 class="article-title">Complete Grammar Reference</h1>
+  <p class="article-subtitle">All 18 universal grammar categories — how Joylang handles each one</p>
+  <div class="article-meta">
+    <span class="badge badge-green">16 of 18 categories covered</span>
+    <span class="badge badge-blue">Zero irregular forms</span>
+    <span class="badge badge-gold">Lightly Agglutinative</span>
+  </div>
+
+  <!-- 1. NOUNS -->
+  <h2 id="nouns">1. Nouns — ✓ Fully Implemented</h2>
+  <p>Every concept can become a noun using the <strong>-ombu</strong> suffix (stem + -ombu). Plurals use <strong>-chi</strong>. Seven cases mark grammatical role. No grammatical gender.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Feature</th><th>Decision</th><th>Mechanism</th></tr></thead>
+    <tbody>
+      <tr><td>Gender</td><td>NONE</td><td>All nouns gender-neutral. Optional maru/firu/biru modifiers before pronouns.</td></tr>
+      <tr><td>Plural</td><td>YES — optional</td><td>Add -chi to noun: satoombu → satoombu-chi</td></tr>
+      <tr><td>Cases</td><td>YES — 7 cases</td><td>-sa -ko -ra -ni -me -ta -e</td></tr>
+      <tr><td>Articles (a/the)</td><td>NONE</td><td>Context determines definiteness. No 'a' or 'the' in Joylang.</td></tr>
+      <tr><td>Count vs mass</td><td>Not distinguished</td><td>Same noun form for 'water' and 'a water'</td></tr>
+    </tbody>
+  </table></div>
+  <div class="example-block">
+    <div class="joy">satoombu → friend / friendship (noun)</div>
+    <div class="joy">satoombu-chi → friends (plural)</div>
+    <div class="joy">sato-ni mavombu → the friend's water (genitive)</div>
+    <div class="joy">satoombu-ko doshilo → sees a friend (accusative)</div>
+  </div>
+
+  <!-- 2. PRONOUNS -->
+  <h2 id="pronouns">2. Pronouns — ✓ Fully Implemented</h2>
+  <p>Three pronouns: anu (I), tenu (you), venu (they/he/she). Plural by adding -chi. Reflexive by adding -shi. <strong>No case forms on pronouns</strong> (they take no case suffixes in natural speech).</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Person</th><th>Singular</th><th>Plural</th><th>Reflexive</th></tr></thead>
+    <tbody>
+      <tr><td>1st (speaker)</td><td class="td-joy">anu = I/me</td><td class="td-joy">anuchi = we/us</td><td class="td-joy">anushi = myself</td></tr>
+      <tr><td>2nd (listener)</td><td class="td-joy">tenu = you</td><td class="td-joy">tenuchi = you all</td><td class="td-joy">tenushi = yourself</td></tr>
+      <tr><td>3rd (other)</td><td class="td-joy">venu = he/she/they</td><td class="td-joy">venuchi = they pl.</td><td class="td-joy">venushi = themselves</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout callout-tip">
+    <strong>📌 Pronoun Design Choice</strong>
+    The pronoun 'venu' covers English he/she/they (singular). This eliminates the need to know gender to speak Joylang — a major accessibility win for speakers of gendered languages.
+  </div>
+  <p><strong>Gender specification</strong> (always optional): <span class="example-inline">maru venu</span> = he (male) · <span class="example-inline">firu venu</span> = she (female) · <span class="example-inline">biru venu</span> = they (non-binary)</p>
+
+  <!-- 3. VERBS -->
+  <h2 id="verbs">3. Verbs — ✓ Fully Implemented</h2>
+  <p>Verb roots take tense suffixes (-lo present, -me past, -bo future) and aspect markers (-shi- progressive, -vi- perfect). <strong>NO person agreement. NO number agreement.</strong> Every verb follows the same pattern.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Feature</th><th>Decision</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Person agreement</td><td>NONE</td><td class="td-joy">Anu kachilo = I eat. Venu kachilo = She eats. (same form)</td></tr>
+      <tr><td>Number agreement</td><td>NONE</td><td>Same verb for singular and plural subjects.</td></tr>
+      <tr><td>Tense</td><td>3 tenses</td><td class="td-joy">-lo (present), -me (past), -bo (future)</td></tr>
+      <tr><td>Aspect</td><td>2 aspects</td><td class="td-joy">-shi- (progressive insert), -vi- (perfect insert)</td></tr>
+      <tr><td>Negation</td><td>ve- prefix</td><td class="td-joy">vekachilo = does not eat</td></tr>
+      <tr><td>Irregular verbs</td><td>ZERO</td><td>Every verb follows the same suffix system</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>All Tense × Aspect Combinations</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Form</th><th>Construction</th><th>Joylang</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td>Simple present</td><td>root + -lo</td><td class="td-joy">kachilo</td><td>eats</td></tr>
+      <tr><td>Simple past</td><td>root + -me</td><td class="td-joy">kachime</td><td>ate</td></tr>
+      <tr><td>Simple future</td><td>root + -bo</td><td class="td-joy">kachibu</td><td>will eat</td></tr>
+      <tr><td>Progressive present</td><td>root + -shi + -lo</td><td class="td-joy">kachishilo</td><td>is eating</td></tr>
+      <tr><td>Progressive past</td><td>root + -shi + -me</td><td class="td-joy">kachishime</td><td>was eating</td></tr>
+      <tr><td>Progressive future</td><td>root + -shi + -bo</td><td class="td-joy">kachishibu</td><td>will be eating</td></tr>
+      <tr><td>Perfect present</td><td>root + -vi + -lo</td><td class="td-joy">kachivilo</td><td>has eaten</td></tr>
+      <tr><td>Perfect past</td><td>root + -vi + -me</td><td class="td-joy">kachivime</td><td>had eaten</td></tr>
+      <tr><td>Perfect future</td><td>root + -vi + -bo</td><td class="td-joy">kachivibu</td><td>will have eaten</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- 4. ADJECTIVES -->
+  <h2 id="adjectives">4. Adjectives — ✓ Fully Implemented</h2>
+  <p>Adjectives use the <strong>-oku</strong> suffix. In <em>predicative</em> position (he is happy), they combine with <strong>melo</strong> (copula). In <em>attributive</em> position (happy friend), they precede the noun.</p>
+  <div class="example-block">
+    <div class="joy">jovoku sato → happy friend (attributive)</div>
+    <div class="joy">sato jovoku melo → the friend is happy (predicative)</div>
+    <div class="joy">goloku mavi → good water</div>
+    <div class="joy">mavi goloku melo → the water is good</div>
+  </div>
+
+  <h3>Essential Adjectives</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Category</th><th>English</th><th>Joylang</th></tr></thead>
+    <tbody>
+      <tr><td>Size</td><td>big</td><td class="td-joy">boloku</td></tr>
+      <tr><td>Size</td><td>small</td><td class="td-joy">laghoku</td></tr>
+      <tr><td>Quality</td><td>good</td><td class="td-joy">goloku</td></tr>
+      <tr><td>Quality</td><td>bad</td><td class="td-joy">dosoku</td></tr>
+      <tr><td>Physical</td><td>hot</td><td class="td-joy">tapoku</td></tr>
+      <tr><td>Physical</td><td>cold</td><td class="td-joy">shitioku</td></tr>
+      <tr><td>Physical</td><td>heavy</td><td class="td-joy">bharoku</td></tr>
+      <tr><td>Physical</td><td>light (weight)</td><td class="td-joy">haloku</td></tr>
+      <tr><td>Appearance</td><td>beautiful</td><td class="td-joy">sundaroku</td></tr>
+      <tr><td>Appearance</td><td>clean</td><td class="td-joy">shuchoku</td></tr>
+      <tr><td>Time</td><td>new</td><td class="td-joy">navoku</td></tr>
+      <tr><td>Time</td><td>old</td><td class="td-joy">puranoku</td></tr>
+      <tr><td>Emotion</td><td>happy</td><td class="td-joy">jovoku / jovioku</td></tr>
+      <tr><td>Emotion</td><td>sad</td><td class="td-joy">dukhoku</td></tr>
+      <tr><td>Emotion</td><td>curious</td><td class="td-joy">jigyasoku</td></tr>
+      <tr><td>Emotion</td><td>grateful</td><td class="td-joy">krutajoku</td></tr>
+      <tr><td>Emotion</td><td>excited</td><td class="td-joy">uttejoku</td></tr>
+      <tr><td>Emotion</td><td>proud</td><td class="td-joy">garvioku</td></tr>
+      <tr><td>Emotion</td><td>calm</td><td class="td-joy">shantioku</td></tr>
+      <tr><td>Emotion</td><td>angry</td><td class="td-joy">krodoku</td></tr>
+      <tr><td>Emotion</td><td>afraid</td><td class="td-joy">bhayoku</td></tr>
+      <tr><td>Emotion</td><td>jealous</td><td class="td-joy">irshyoku</td></tr>
+      <tr><td>Emotion</td><td>embarrassed</td><td class="td-joy">sharmoku</td></tr>
+      <tr><td>Emotion</td><td>inspired</td><td class="td-joy">preranoku</td></tr>
+      <tr><td>Cognitive</td><td>interesting</td><td class="td-joy">jigyasoku</td></tr>
+      <tr><td>Cognitive</td><td>correct / right</td><td class="td-joy">satthioku</td></tr>
+      <tr><td>Cognitive</td><td>agreeable</td><td class="td-joy">samathioku</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- 5. ADVERBS -->
+  <h2 id="adverbs">5. Adverbs — ✓ Fully Implemented</h2>
+  <p>Adverbs are formed by adding <strong>-nu</strong> to any root or adjective root. Placed <em>before the verb</em> they modify, or at the beginning/end of the sentence for sentence-level modification.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Root</th><th>Meaning</th><th>Adverb (-nu)</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td class="td-joy">dhira</td><td>slow</td><td class="td-joy">dhirenu</td><td class="td-joy">Pela dhirenu shapibo. — Please speak slowly.</td></tr>
+      <tr><td class="td-joy">bolo</td><td>big/great</td><td class="td-joy">bolonu</td><td class="td-joy">Anu bolonu jovioku melo. — I am very happy.</td></tr>
+      <tr><td class="td-joy">sada</td><td>constant</td><td class="td-joy">sadanu</td><td class="td-joy">Anu sadanu nashilo. — I always learn.</td></tr>
+      <tr><td class="td-joy">kada</td><td>never</td><td class="td-joy">kadanu</td><td class="td-joy">Venu kadanu nalulo. — She never sleeps.</td></tr>
+      <tr><td class="td-joy">aba</td><td>now/current</td><td class="td-joy">abunu</td><td class="td-joy">Anu abunu belo. — I come now.</td></tr>
+      <tr><td class="td-joy">rako</td><td>fast/quick</td><td class="td-joy">rakonu</td><td class="td-joy">quickly</td></tr>
+      <tr><td class="td-joy">phala</td><td>already</td><td class="td-joy">phalonu</td><td class="td-joy">already</td></tr>
+      <tr><td class="td-joy">abi</td><td>still</td><td class="td-joy">abinu</td><td class="td-joy">still</td></tr>
+      <tr><td class="td-joy">karibu</td><td>almost</td><td class="td-joy">karibonu</td><td class="td-joy">almost</td></tr>
+      <tr><td class="td-joy">bahu</td><td>often</td><td class="td-joy">bahunu</td><td class="td-joy">often</td></tr>
+      <tr><td class="td-joy">matar</td><td>only</td><td class="td-joy">mataronu</td><td class="td-joy">only</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- 6. NUMERALS -->
+  <h2 id="numerals">6. Numerals — ✓ Base 10 — Full System</h2>
+  <p>Joylang uses a strictly base-10 counting system. Numbers combine as: large-unit + small-unit. Ordinals use <strong>-nu</strong> suffix.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Number</th><th>Joylang</th><th>Number</th><th>Joylang</th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td class="td-joy">nuva</td><td>10</td><td class="td-joy">deka</td></tr>
+      <tr><td>1</td><td class="td-joy">eka</td><td>11</td><td class="td-joy">deka-eka</td></tr>
+      <tr><td>2</td><td class="td-joy">nidu</td><td>12</td><td class="td-joy">deka-nidu</td></tr>
+      <tr><td>3</td><td class="td-joy">sanu</td><td>20</td><td class="td-joy">nidu-deka</td></tr>
+      <tr><td>4</td><td class="td-joy">charu</td><td>50</td><td class="td-joy">pachu-deka</td></tr>
+      <tr><td>5</td><td class="td-joy">pachu</td><td>100</td><td class="td-joy">matu</td></tr>
+      <tr><td>6</td><td class="td-joy">sholu</td><td>1,000</td><td class="td-joy">bolu</td></tr>
+      <tr><td>7</td><td class="td-joy">setu</td><td>10,000</td><td class="td-joy">deka-bolu</td></tr>
+      <tr><td>8</td><td class="td-joy">banu</td><td>1,000,000</td><td class="td-joy">miloku</td></tr>
+      <tr><td>9</td><td class="td-joy">novu</td><td>first</td><td class="td-joy">ekanu</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout callout-rule">
+    <strong>Number Construction</strong>
+    Compound numbers: large unit first, then smaller.<br>
+    21 = nidu-deka-eka | 345 = sanu-matu-charu-deka-pachu | 1,001 = eka-bolu-eka
+  </div>
+
+  <h3>Days &amp; Months</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Day</th><th>Joylang</th><th>Month</th><th>Joylang</th></tr></thead>
+    <tbody>
+      <tr><td>Monday</td><td class="td-joy">eka-divanu</td><td>January</td><td class="td-joy">eka-masanu</td></tr>
+      <tr><td>Tuesday</td><td class="td-joy">nidu-divanu</td><td>February</td><td class="td-joy">nidu-masanu</td></tr>
+      <tr><td>Wednesday</td><td class="td-joy">sanu-divanu</td><td>March</td><td class="td-joy">sanu-masanu</td></tr>
+      <tr><td>Thursday</td><td class="td-joy">charu-divanu</td><td>April</td><td class="td-joy">charu-masanu</td></tr>
+      <tr><td>Friday</td><td class="td-joy">pachu-divanu</td><td>May</td><td class="td-joy">pachu-masanu</td></tr>
+      <tr><td>Saturday</td><td class="td-joy">sholu-divanu</td><td>June</td><td class="td-joy">sholu-masanu</td></tr>
+      <tr><td>Sunday</td><td class="td-joy">setu-divanu</td><td>July–December</td><td class="td-joy">setu/banu/novu/deka/deka-eka/deka-nidu-masanu</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- 7. DETERMINERS -->
+  <h2 id="determiners">7. Determiners (Articles) — ✗ Intentionally Excluded</h2>
+  <p>Joylang has <strong>NO articles</strong> (a, an, the). Many major world languages lack articles entirely (Hindi, Russian, Japanese, Chinese, Swahili). Demonstratives (eshi/oshi) cover specific pointing when needed.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>English</th><th>Joylang Equivalent</th><th>How It Works</th></tr></thead>
+    <tbody>
+      <tr><td>a friend</td><td class="td-joy">satoombu</td><td>No article — context implies 'a'</td></tr>
+      <tr><td>the friend</td><td class="td-joy">oshi satoombu</td><td>Use 'oshi' (that/the specific one) when definiteness matters</td></tr>
+      <tr><td>this friend</td><td class="td-joy">eshi satoombu</td><td>Demonstrative serves as determiner</td></tr>
+      <tr><td>every friend</td><td class="td-joy">satoombu-chi</td><td>Plural often implies 'every' or 'all'</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- 8. POSTPOSITIONS -->
+  <h2 id="postpositions">8. Postpositions — ✓ Six Core Postpositions</h2>
+  <p>As an SOV language, Joylang uses postpositions (word AFTER the noun, like Hindi). Note: <strong>pela</strong> serves double duty as both postposition (for) and politeness particle (please).</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Postposition</th><th>Meaning</th><th>Used With</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td class="td-joy">boshi</td><td>from / starting from</td><td>ablative -ta</td><td class="td-joy">nagombu-ta boshi belo → comes from the city</td></tr>
+      <tr><td class="td-joy">pela</td><td>for / on behalf of / please</td><td>dative -ra</td><td class="td-joy">Pela anu-ko sahibo. → Please help me.</td></tr>
+      <tr><td class="td-joy">nishi</td><td>near / beside</td><td>locative -me</td><td class="td-joy">grikombu nishi melo → is near home</td></tr>
+      <tr><td class="td-joy">tama</td><td>until / up to</td><td>locative -me</td><td class="td-joy">kalanu tama → until tomorrow</td></tr>
+      <tr><td class="td-joy">komi</td><td>with / together with</td><td>nominative</td><td class="td-joy">sato komi → with a friend</td></tr>
+      <tr><td class="td-joy">sela</td><td>without / lacking</td><td>nominative</td><td class="td-joy">sato sela → without a friend</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Location Adverbs</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Meaning</th><th>Joylang</th><th>Meaning</th><th>Joylang</th></tr></thead>
+    <tbody>
+      <tr><td>inside</td><td class="td-joy">antaranu</td><td>here</td><td class="td-joy">yekanu</td></tr>
+      <tr><td>outside</td><td class="td-joy">bahiranu</td><td>there</td><td class="td-joy">vekanu</td></tr>
+      <tr><td>above</td><td class="td-joy">uparanu</td><td>left</td><td class="td-joy">bamanu</td></tr>
+      <tr><td>below</td><td class="td-joy">nicheranu</td><td>right</td><td class="td-joy">dahanu</td></tr>
+      <tr><td>between</td><td class="td-joy">madhyanu</td><td>near</td><td class="td-joy">pasanu</td></tr>
+      <tr><td>opposite</td><td class="td-joy">samnanu</td><td>far</td><td class="td-joy">duranu</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- 9. CONJUNCTIONS -->
+  <h2 id="conjunctions">9. Conjunctions — ✓ Now Fully Documented</h2>
+  <h3>Coordinating Conjunctions</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Joylang</th><th>English</th><th>Use</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td class="td-joy">chi</td><td>and</td><td>Connects equal elements</td><td class="td-joy">Anu chi tenu nashilo. — You and I learn.</td></tr>
+      <tr><td class="td-joy">ova</td><td>or</td><td>Presents alternatives</td><td class="td-joy">Ka tenu kachilo ova nalulo? — Are you eating or sleeping?</td></tr>
+      <tr><td class="td-joy">teva</td><td>but</td><td>Shows contrast</td><td class="td-joy">Anu jovioku melo teva tenu dukhoku melo. — I am happy but you are sad.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Subordinating Conjunctions</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Joylang</th><th>English</th><th>Use</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td class="td-joy">yenu</td><td>because / why</td><td>Cause-effect</td><td class="td-joy">Anu nashilo yenu anu samilo mansilo. — I study because I want to understand.</td></tr>
+      <tr><td class="td-joy">nashi…tashi</td><td>if…then</td><td>Conditional clauses</td><td class="td-joy">Nashi tenu belo, tashi anu jovioku melobo. — If you come, then I will be happy.</td></tr>
+      <tr><td class="td-joy">bevani</td><td>although</td><td>Concessive contrast</td><td class="td-joy">Bevani deroku melo, venu sachishilo. — Although it is far, he/she is working.</td></tr>
+      <tr><td class="td-joy">domani</td><td>while</td><td>Simultaneous events</td><td class="td-joy">Anu nashilo domani tenu shojulo. — I learn while you laugh.</td></tr>
+      <tr><td class="td-joy">loshi</td><td>so that</td><td>Purpose clauses</td><td class="td-joy">Pela shapibo loshi anu samilo. — Please speak so that I understand.</td></tr>
+      <tr><td class="td-joy">tokami</td><td>however</td><td>Adversative connective</td><td class="td-joy">Oshi goloku melo tokami dosoku boru. — That is good, however it is reportedly bad.</td></tr>
+      <tr><td class="td-joy">nashive</td><td>unless</td><td>Negative condition</td><td class="td-joy">Nashibo nashive tenu janilo. — I will not go unless you know.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout callout-note">
+    <strong>Word Order with Conjunctions</strong>
+    Coordinating conjunctions (chi, ova, teva) go BETWEEN the elements they connect.<br>
+    Subordinating conjunctions come at the START of the subordinate clause.<br>
+    'nashi…tashi' is always a pair: nashi introduces the condition, tashi introduces the result.
+  </div>
+
+  <!-- 10. INTERJECTIONS -->
+  <h2 id="interjections">10. Interjections — ✓ Now Fully Documented</h2>
+  <p>Interjections are emotional expressions that stand outside normal grammar. They do not take any suffixes, do not agree with anything, and can appear alone or at the start of a sentence.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Interjection</th><th>Pronunciation</th><th>Meaning</th><th>Emotion Category</th></tr></thead>
+    <tbody>
+      <tr><td class="td-joy">Vaho!</td><td>VA-ho</td><td>Wow! / Amazing!</td><td>Surprise &amp; delight</td></tr>
+      <tr><td class="td-joy">Ahe!</td><td>A-he</td><td>Hey! / Attention!</td><td>Attention-calling</td></tr>
+      <tr><td class="td-joy">Oye!</td><td>O-ye</td><td>Oops! / Oh no!</td><td>Mild alarm or mistake</td></tr>
+      <tr><td class="td-joy">Ai!</td><td>A-i</td><td>Ouch! / Ow!</td><td>Physical pain</td></tr>
+      <tr><td class="td-joy">Sholo!</td><td>SHO-lo</td><td>Excellent! / Well done!</td><td>Praise &amp; celebration</td></tr>
+      <tr><td class="td-joy">Chalu!</td><td>CHA-lu</td><td>Let's go! / Come on!</td><td>Encouragement</td></tr>
+      <tr><td class="td-joy">Shathu!</td><td>SHA-thu</td><td>Bravo! / Great job!</td><td>Admiration</td></tr>
+      <tr><td class="td-joy">Hanu!</td><td>HA-nu</td><td>Yes! (emphatic)</td><td>Strong affirmation</td></tr>
+      <tr><td class="td-joy">Vehu!</td><td>VE-hu</td><td>No! (emphatic)</td><td>Strong negation / refusal</td></tr>
+      <tr><td class="td-joy">Ayoyo!</td><td>a-YO-yo</td><td>Oh dear! / Goodness!</td><td>Concern or surprise</td></tr>
+      <tr><td class="td-joy">Namashte!</td><td>na-MASH-te</td><td>Hello! / Greetings!</td><td>Warm greeting</td></tr>
+      <tr><td class="td-joy">Svagato!</td><td>sva-GA-to</td><td>Welcome!</td><td>Welcoming</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- 11. PARTICLES -->
+  <h2 id="particles">11. Particles — ✓ Three Core Particles</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Particle</th><th>Function</th><th>Position</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td class="td-joy">ka</td><td>Question marker</td><td>Sentence-initial</td><td class="td-joy">Ka tenu kachilo? — Do you eat?</td></tr>
+      <tr><td class="td-joy">ve-</td><td>Negation marker</td><td>Prefix on verb</td><td class="td-joy">Anu vekachilo. — I do not eat.</td></tr>
+      <tr><td class="td-joy">pela</td><td>Politeness / please</td><td>Sentence-initial</td><td class="td-joy">Pela dhirenu shapibo. — Please speak slowly.</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- 12. CLASSIFIERS -->
+  <h2 id="classifiers">12. Classifiers — ✗ Intentionally Excluded</h2>
+  <p>Joylang does NOT use classifiers. Numbers attach directly to nouns: <span class="example-inline">sanu satoombu</span> (three friends), not "three [person-classifier] friend". This removes a major complexity barrier for non-East-Asian-language speakers.</p>
+
+  <!-- 13. COPULA -->
+  <h2 id="copula">13. Copula — ✓ melo — Always Present</h2>
+  <p>The copula is <strong>melo</strong> (to be/exist). It behaves exactly like any other verb: takes tense, negation, and aspect. It is <strong>NEVER dropped</strong>.</p>
+  <div class="example-block">
+    <div class="joy">Anu shishyombu melo. → I am a student.</div>
+    <div class="joy">Venu jovioku melo. → She is happy.</div>
+    <div class="joy">Oshi goloku vemelo. → That is not good.</div>
+    <div class="joy">Anu shishyombu melome. → I was a student.</div>
+    <div class="joy">Tenu guruvachi melobu. → You will be a teacher.</div>
+  </div>
+
+  <!-- 14. CASE MARKERS -->
+  <h2 id="cases">14. Case Markers — ✓ Seven Cases</h2>
+  <p>Joylang has seven case suffixes that mark grammatical role. This means word order can be flexible without losing meaning.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Case</th><th>Suffix</th><th>Grammatical Role</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Nominative</td><td class="td-joy">-sa</td><td>Subject (who acts)</td><td class="td-joy">Satoombu-sa kachilo. — The friend eats.</td></tr>
+      <tr><td>Accusative</td><td class="td-joy">-ko</td><td>Direct object (what/whom)</td><td class="td-joy">Anu satoombu-ko doshilo. — I see the friend.</td></tr>
+      <tr><td>Dative</td><td class="td-joy">-ra</td><td>Indirect object (to/for)</td><td class="td-joy">Anu tenu-ra dilo. — I give to you.</td></tr>
+      <tr><td>Genitive</td><td class="td-joy">-ni</td><td>Possession (of/whose)</td><td class="td-joy">Sato-ni mavombu — the friend's water</td></tr>
+      <tr><td>Locative</td><td class="td-joy">-me</td><td>Place/time (in/at/on)</td><td class="td-joy">Vidyombu-me nashilo. — studies at school</td></tr>
+      <tr><td>Ablative</td><td class="td-joy">-ta</td><td>Source (from)</td><td class="td-joy">Nagombu-ta belo. — comes from the city</td></tr>
+      <tr><td>Vocative</td><td class="td-joy">-e</td><td>Direct address</td><td class="td-joy">Sato-e, namashte! — O friend, hello!</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout callout-warn">
+    <strong>⚠ No Case on Adjectives or Adverbs</strong>
+    Only nouns and noun phrases take cases. Adjectives and adverbs never take case suffixes.<br>
+    ✗ WRONG: Anu goloku-ko melo. &nbsp;&nbsp; ✓ RIGHT: Anu goloku melo.
+  </div>
+
+  <!-- 15. QUESTION WORDS -->
+  <h2 id="question-words">15. Question Words — ✓ Seven Question Words</h2>
+  <p>All universal question meanings are covered by seven dedicated words. They always appear after <strong>ka</strong> (the question particle) at the sentence start.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Question Word</th><th>Meaning</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td class="td-joy">kenu</td><td>who</td><td class="td-joy">Ka kenu belo? — Who came?</td></tr>
+      <tr><td class="td-joy">chenu</td><td>what</td><td class="td-joy">Ka chenu eshi melo? — What is this?</td></tr>
+      <tr><td class="td-joy">kanu</td><td>where</td><td class="td-joy">Ka kanu tenu melo? — Where are you?</td></tr>
+      <tr><td class="td-joy">manu</td><td>when</td><td class="td-joy">Ka manu tenu belobu? — When will you come?</td></tr>
+      <tr><td class="td-joy">yenu</td><td>why</td><td class="td-joy">Ka yenu tenu vekachilo? — Why don't you eat?</td></tr>
+      <tr><td class="td-joy">henu</td><td>how</td><td class="td-joy">Ka henu tenu nashilo? — How do you learn?</td></tr>
+      <tr><td class="td-joy">lokenu</td><td>which / how many</td><td class="td-joy">Ka lokenu sato tenu doshilo? — Which friend did you see?</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- 16. NEGATION -->
+  <h2 id="negation">16. Negation — ✓ ve- Prefix — Universal and Regular</h2>
+  <p>Any verb can be negated by attaching <strong>ve-</strong> to its front. The prefix never changes, regardless of tense, aspect, or subject.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Positive</th><th>Negative</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td class="td-joy">kachilo</td><td class="td-joy">vekachilo</td><td>eats / does not eat</td></tr>
+      <tr><td class="td-joy">melo</td><td class="td-joy">vemelo</td><td>is / is not</td></tr>
+      <tr><td class="td-joy">belo</td><td class="td-joy">vebelo</td><td>comes / does not come</td></tr>
+      <tr><td class="td-joy">kachishilo</td><td class="td-joy">vekachishilo</td><td>is eating / is not eating</td></tr>
+      <tr><td class="td-joy">kachivime</td><td class="td-joy">vekachivime</td><td>had eaten / had not eaten</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Negative questions:</strong> ve- + verb inside a ka… sentence: <span class="example-inline">Ka tenu vekachilo?</span> = Don't you eat?</p>
+  <p><strong>Emphatic negation:</strong> Add <span class="example-inline">kadanu</span> (never/absolutely not) after the verb for extra emphasis.</p>
+
+  <!-- 17. DEMONSTRATIVES -->
+  <h2 id="demonstratives">17. Demonstratives — ✓ Two-Way Near/Far Distinction</h2>
+  <p>Joylang uses a 2-distance system (proximal/distal), not a 3-distance system. This is simpler and covers 95% of usage.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th></th><th>Near (this)</th><th>Far (that)</th></tr></thead>
+    <tbody>
+      <tr><td>Singular</td><td class="td-joy">eshi</td><td class="td-joy">oshi</td></tr>
+      <tr><td>Plural</td><td class="td-joy">eshichi</td><td class="td-joy">oshichi</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- 18. EVIDENTIALS -->
+  <h2 id="evidentials">18. Evidentials — ✓ Four Evidentials — Optional</h2>
+  <p>Evidentials come at the <strong>end of the sentence</strong> and are optional. Making evidentials optional (not mandatory) is right for an auxiliary language — mandatory evidentials would create high-stakes errors for beginners.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Evidential</th><th>Source of Knowledge</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td class="td-joy">diru</td><td>I directly saw/experienced it</td><td class="td-joy">Venu jovioku melo diru. — She is happy (I saw it myself).</td></tr>
+      <tr><td class="td-joy">shoru</td><td>Someone told me / hearsay</td><td class="td-joy">Venu velo shoru. — He went, apparently.</td></tr>
+      <tr><td class="td-joy">niru</td><td>I infer / it seems logical</td><td class="td-joy">Tenu nashishilo niru. — You seem to be studying.</td></tr>
+      <tr><td class="td-joy">boru</td><td>I read it / from a source</td><td class="td-joy">Joylang goloku melo boru. — Joylang is good (I read it).</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout callout-tip">
+    <strong>📌 Cultural Note</strong>
+    Evidentials are one of the most culturally important features of Joylang. Using 'diru' vs 'shoru' vs 'niru' shows intellectual honesty — you are telling your listener exactly how reliable your information is. Joylang speakers value this transparency.
+  </div>
+
+  <!-- ALL SUFFIXES QUICK REF -->
+  <h2 id="all-suffixes">Quick Reference — All Suffixes at a Glance</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Suffix</th><th>Type</th><th>Function</th></tr></thead>
+    <tbody>
+      <tr><td class="td-joy">-ombu</td><td><span class="td-tag tag-noun">Class</span></td><td>Makes a noun</td></tr>
+      <tr><td class="td-joy">-uvu</td><td><span class="td-tag tag-verb">Class</span></td><td>Verb (dictionary form only)</td></tr>
+      <tr><td class="td-joy">-oku</td><td><span class="td-tag tag-adj">Class</span></td><td>Makes an adjective</td></tr>
+      <tr><td class="td-joy">-vachi</td><td><span class="td-tag tag-noun">Derivational</span></td><td>Agent (one who does X)</td></tr>
+      <tr><td class="td-joy">-chimu</td><td><span class="td-tag tag-noun">Derivational</span></td><td>Abstract noun (the concept of X)</td></tr>
+      <tr><td class="td-joy">-jiku</td><td><span class="td-tag tag-adj">Derivational</span></td><td>Adjective from noun (pertaining to X)</td></tr>
+      <tr><td class="td-joy">-ichu</td><td><span class="td-tag tag-adj">Derivational</span></td><td>Diminutive (small/dear X)</td></tr>
+      <tr><td class="td-joy">-ongu</td><td><span class="td-tag tag-adj">Derivational</span></td><td>Augmentative (great/intense X)</td></tr>
+      <tr><td class="td-joy">-chi</td><td><span class="td-tag tag-particle">Grammatical</span></td><td>Plural (on nouns and pronouns)</td></tr>
+      <tr><td class="td-joy">-nu</td><td><span class="td-tag tag-adv">Grammatical</span></td><td>Adverb (on roots/adjectives)</td></tr>
+      <tr><td class="td-joy">-shi</td><td><span class="td-tag tag-particle">Grammatical</span></td><td>Reflexive (on pronouns)</td></tr>
+      <tr><td class="td-joy">-lo</td><td><span class="td-tag tag-verb">Tense</span></td><td>Present tense</td></tr>
+      <tr><td class="td-joy">-me</td><td><span class="td-tag tag-verb">Tense/Case</span></td><td>Past tense (on verbs) / Locative (on nouns)</td></tr>
+      <tr><td class="td-joy">-bo</td><td><span class="td-tag tag-verb">Tense</span></td><td>Future tense</td></tr>
+      <tr><td class="td-joy">-shi-</td><td><span class="td-tag tag-verb">Aspect</span></td><td>Progressive (insert before tense)</td></tr>
+      <tr><td class="td-joy">-vi-</td><td><span class="td-tag tag-verb">Aspect</span></td><td>Perfect (insert before tense)</td></tr>
+      <tr><td class="td-joy">-sa</td><td><span class="td-tag tag-particle">Case</span></td><td>Nominative (subject)</td></tr>
+      <tr><td class="td-joy">-ko</td><td><span class="td-tag tag-particle">Case</span></td><td>Accusative (direct object)</td></tr>
+      <tr><td class="td-joy">-ra</td><td><span class="td-tag tag-particle">Case</span></td><td>Dative (indirect object / for)</td></tr>
+      <tr><td class="td-joy">-ni</td><td><span class="td-tag tag-particle">Case</span></td><td>Genitive (possession)</td></tr>
+      <tr><td class="td-joy">-ta</td><td><span class="td-tag tag-particle">Case</span></td><td>Ablative (from)</td></tr>
+      <tr><td class="td-joy">-e</td><td><span class="td-tag tag-particle">Case</span></td><td>Vocative (direct address)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="special-words">Quick Reference — Special Words</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Word</th><th>Type</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td class="td-joy">ka</td><td><span class="td-tag tag-particle">Particle</span></td><td>Question marker (sentence-initial)</td></tr>
+      <tr><td class="td-joy">ve-</td><td><span class="td-tag tag-particle">Prefix</span></td><td>Negation (attaches to verb)</td></tr>
+      <tr><td class="td-joy">melo</td><td><span class="td-tag tag-verb">Verb</span></td><td>To be / to exist</td></tr>
+      <tr><td class="td-joy">diru</td><td><span class="td-tag tag-adv">Evidential</span></td><td>I directly saw/experienced</td></tr>
+      <tr><td class="td-joy">shoru</td><td><span class="td-tag tag-adv">Evidential</span></td><td>Hearsay / apparently</td></tr>
+      <tr><td class="td-joy">niru</td><td><span class="td-tag tag-adv">Evidential</span></td><td>Inference / it seems</td></tr>
+      <tr><td class="td-joy">boru</td><td><span class="td-tag tag-adv">Evidential</span></td><td>Known from a source/text</td></tr>
+      <tr><td class="td-joy">boshi</td><td><span class="td-tag tag-particle">Postposition</span></td><td>From</td></tr>
+      <tr><td class="td-joy">pela</td><td><span class="td-tag tag-particle">Postposition</span></td><td>For / please</td></tr>
+      <tr><td class="td-joy">nishi</td><td><span class="td-tag tag-particle">Postposition</span></td><td>Near / beside</td></tr>
+      <tr><td class="td-joy">tama</td><td><span class="td-tag tag-particle">Postposition</span></td><td>Until / up to</td></tr>
+      <tr><td class="td-joy">komi</td><td><span class="td-tag tag-particle">Postposition</span></td><td>With / together</td></tr>
+      <tr><td class="td-joy">sela</td><td><span class="td-tag tag-particle">Postposition</span></td><td>Without</td></tr>
+      <tr><td class="td-joy">sachianu?</td><td><span class="td-tag tag-particle">Tag</span></td><td>Right? / Isn't it?</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- COVERAGE SUMMARY -->
+  <h2 id="coverage-summary">Coverage Summary</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>#</th><th>Category</th><th>Status</th><th>Key Feature</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Nouns</td><td>✓ Covered</td><td>7 cases, plural -chi, NO gender, -ombu suffix</td></tr>
+      <tr><td>2</td><td>Pronouns</td><td>✓ Covered</td><td>3 pronouns, gender-neutral, minimal model</td></tr>
+      <tr><td>3</td><td>Verbs</td><td>✓ Covered</td><td>3 tenses, 2 aspects, NO agreement, zero irregulars</td></tr>
+      <tr><td>4</td><td>Adjectives</td><td>✓ Covered</td><td>-oku suffix, predicate via melo</td></tr>
+      <tr><td>5</td><td>Adverbs</td><td>✓ Covered</td><td>-nu suffix, uniform derivation</td></tr>
+      <tr><td>6</td><td>Numerals</td><td>✓ Covered</td><td>Base 10, compound, ordinals with -nu</td></tr>
+      <tr><td>7</td><td>Determiners</td><td>✗ Excluded</td><td>No articles — demonstratives substitute</td></tr>
+      <tr><td>8</td><td>Postpositions</td><td>✓ Covered</td><td>6 postpositions (SOV language)</td></tr>
+      <tr><td>9</td><td>Conjunctions</td><td>✓ Added</td><td>chi ova teva yenu nashi/tashi bevani domani loshi tokami nashive</td></tr>
+      <tr><td>10</td><td>Interjections</td><td>✓ Added</td><td>vaho ahe oye ai sholo chalu shathu hanu vehu ayoyo namashte svagato</td></tr>
+      <tr><td>11</td><td>Particles</td><td>✓ Covered</td><td>ka (question), ve- (negation), pela (politeness)</td></tr>
+      <tr><td>12</td><td>Classifiers</td><td>✗ Excluded</td><td>Direct numeral counting — no classifier system</td></tr>
+      <tr><td>13</td><td>Copula</td><td>✓ Covered</td><td>melo — always present, fully regular, never dropped</td></tr>
+      <tr><td>14</td><td>Case Markers</td><td>✓ Covered</td><td>7 cases: -sa -ko -ra -ni -me -ta -e</td></tr>
+      <tr><td>15</td><td>Question Words</td><td>✓ Covered</td><td>7 words: kenu chenu kanu manu yenu henu lokenu</td></tr>
+      <tr><td>16</td><td>Negation</td><td>✓ Covered</td><td>ve- prefix on verb — universal, never changes</td></tr>
+      <tr><td>17</td><td>Demonstratives</td><td>✓ Covered</td><td>eshi (this) / oshi (that) + -chi plural</td></tr>
+      <tr><td>18</td><td>Evidentials</td><td>✓ Covered</td><td>diru shoru niru boru — optional, sentence-final</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout callout-note">
+    <strong>📌 Coverage Summary</strong>
+    Joylang covers <strong>16 of the 18</strong> universal grammar categories. The two excluded categories — articles (determiners) and classifiers — are intentionally omitted. Articles are excluded because they are absent from most of Joylang's source languages (Hindi, Mandarin, Japanese, Swahili, Turkish). Classifiers are excluded because they are primarily an East Asian feature and would burden speakers of all other language families.
+  </div>
+</main>
+</div>
+<footer class="site-footer">
+  <p>Joylang · A Friendship Auxiliary Language · <a href="https://github.com/amanakash112-del/akashlang.bhairavi" target="_blank">GitHub</a></p>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>
