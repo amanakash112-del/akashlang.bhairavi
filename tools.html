@@ -216,6 +216,7 @@ textarea.tool-input { resize:vertical; min-height:80px; }
         <h4 style="margin-bottom:10px;">Save this word</h4>
         <div class="tool-input-row" style="flex-wrap:wrap;gap:10px;">
           <input type="text" id="save-domain" class="tool-input" style="min-width:160px" placeholder="Domain (e.g. Nature, Actions…)">
+          <input type="text" id="save-hindi" class="tool-input" placeholder="Hindi meaning (optional, e.g. पानी)">
           <input type="text" id="save-example" class="tool-input" placeholder="Example sentence (optional)">
         </div>
         <button class="tool-btn" onclick="saveNewWord()" style="margin-top:10px">Save to My Words</button>
@@ -234,7 +235,7 @@ textarea.tool-input { resize:vertical; min-height:80px; }
 
     <div id="translator-api-warn" class="api-setup" style="display:none;">
       <h4>⚙ API Key Required</h4>
-      <p>This tool uses the Claude AI API. Please add your Anthropic API key in the <a href="#" onclick="openTab('setup');return false">Setup tab</a> to enable translation.</p>
+      <p>This tool needs an AI API key. Google Gemini is free — please add your key in the <a href="#" onclick="openTab('setup');return false">Setup tab</a>.</p>
     </div>
 
     <div id="translator-mode-select" style="margin-bottom:16px;">
@@ -258,6 +259,7 @@ textarea.tool-input { resize:vertical; min-height:80px; }
     <div class="translation-output" id="trans-output">
       <div style="font-size:.8rem;color:#888;margin-bottom:8px;">Joylang Translation</div>
       <div class="translation-joy" id="trans-joy"></div>
+      <div id="trans-hindi" style="color:#b0bec5;font-size:.9rem;margin-top:4px;display:none;"></div>
       <div class="translation-breakdown" id="trans-breakdown"></div>
       <hr style="border-color:#333;margin:16px 0;">
       <button class="tool-btn" onclick="saveSentence('translator')" style="margin-top:8px">Save this Sentence</button>
@@ -298,6 +300,7 @@ textarea.tool-input { resize:vertical; min-height:80px; }
     <div class="translation-output" id="creator-output">
       <div style="font-size:.8rem;color:#888;margin-bottom:8px;">Created Sentence</div>
       <div class="translation-joy" id="creator-joy"></div>
+      <div id="creator-hindi" style="color:#b0bec5;font-size:.9rem;margin-top:4px;display:none;"></div>
       <div class="translation-breakdown" id="creator-breakdown"></div>
       <div id="creator-new-words" style="display:none;margin-top:14px;">
         <div style="color:#f9a825;font-weight:700;margin-bottom:8px;">New words used:</div>
@@ -347,15 +350,36 @@ textarea.tool-input { resize:vertical; min-height:80px; }
     <div class="callout callout-tip">
       <strong>How to get your API key:</strong>
       <ol style="margin-top:8px;padding-left:20px;">
-        <li>Go to <strong>console.anthropic.com</strong> and sign in (or create a free account).</li>
-        <li>Click your profile → <strong>API Keys</strong>.</li>
-        <li>Click <strong>Create Key</strong>, name it "Joylang Tools", and copy it.</li>
-        <li>Paste it below and click <strong>Save</strong>.</li>
+        <li>Choose your AI provider below (Google Gemini is free — recommended).</li>
+        <li>Get a free API key from the provider's console (links below).</li>
+        <li>Paste the key and click <strong>Save Key</strong>.</li>
       </ol>
-      <p style="margin-top:8px;color:#c62828;font-size:.9rem;"><strong>Note:</strong> Your API key is stored in your browser's localStorage only. It is never sent to any server other than Anthropic's API. For a shared/public website, consider setting up a backend proxy instead.</p>
+      <p style="margin-top:8px;color:var(--text-muted);font-size:.9rem;">Your key is stored in your browser only — never sent anywhere except the AI provider's own API.</p>
     </div>
+
+    <div style="margin-bottom:16px;">
+      <label style="font-weight:700;display:block;margin-bottom:10px;">Choose AI Provider</label>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;background:var(--white);border:2px solid var(--border);border-radius:8px;padding:12px 18px;transition:border-color .2s;" id="provider-gemini-box">
+          <input type="radio" name="apiProvider" value="gemini" id="provider-gemini" onchange="switchProvider('gemini')">
+          <div>
+            <div style="font-weight:700;color:var(--text);">Google Gemini <span style="background:#e8f5e9;color:#2e7d32;font-size:.75rem;padding:2px 8px;border-radius:10px;margin-left:4px;">FREE</span></div>
+            <div style="font-size:.82rem;color:var(--text-muted);">Gemini 1.5 Flash · 15 req/min free · Get key at <strong>aistudio.google.com</strong></div>
+          </div>
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;background:var(--white);border:2px solid var(--border);border-radius:8px;padding:12px 18px;transition:border-color .2s;" id="provider-anthropic-box">
+          <input type="radio" name="apiProvider" value="anthropic" id="provider-anthropic" onchange="switchProvider('anthropic')">
+          <div>
+            <div style="font-weight:700;color:var(--text);">Anthropic Claude <span style="background:#fff3e0;color:#e65100;font-size:.75rem;padding:2px 8px;border-radius:10px;margin-left:4px;">PAID</span></div>
+            <div style="font-size:.82rem;color:var(--text-muted);">Claude Sonnet · Pay-as-you-go · Get key at <strong>console.anthropic.com</strong></div>
+          </div>
+        </label>
+      </div>
+      <div id="provider-hint" style="margin-top:10px;font-size:.85rem;color:var(--green-dark);background:var(--green-light);padding:8px 14px;border-radius:6px;"></div>
+    </div>
+
     <div class="api-key-row">
-      <input type="password" id="apiKeyInput" class="api-key-input" placeholder="sk-ant-…">
+      <input type="password" id="apiKeyInput" class="api-key-input" placeholder="Paste your API key here…">
       <button class="tool-btn" onclick="saveApiKey()">Save Key</button>
       <button class="tool-btn secondary" onclick="clearApiKey()">Clear</button>
     </div>

@@ -15,6 +15,7 @@ let transMode = 'ai';
 let creatorComplexity = 'simple';
 let firebaseDB = null;
 let firebaseInitialized = false;
+let apiProvider = localStorage.getItem('jl_api_provider') || 'gemini';
 
 // ── JOYLANG PHONOLOGY RULES ───────────────────────────────────
 const VALID_CONSONANTS = new Set(['p','b','t','d','k','g','m','n','f','s','v','h','l','r','y','j']);
@@ -386,6 +387,7 @@ function goToStep4() {
 async function saveNewWord() {
   if (!currentWordForms) return;
   const domain = document.getElementById('save-domain').value.trim() || 'User-Created';
+  const hindi = document.getElementById('save-hindi').value.trim();
   const example = document.getElementById('save-example').value.trim();
   const word = {
     root: currentJoyRoot,
@@ -393,6 +395,7 @@ async function saveNewWord() {
     verb: currentWordForms.verbDict,
     adj: currentWordForms.adj,
     en: currentConcept,
+    hi: hindi,
     domain,
     ex: example,
     sourceLang: currentLang,
@@ -446,6 +449,13 @@ async function translateSentence() {
 
 function showTransResult(result) {
   document.getElementById('trans-joy').innerHTML = result.joylang || '';
+  const hindiEl = document.getElementById('trans-hindi');
+  if (result.hindi) {
+    hindiEl.textContent = result.hindi;
+    hindiEl.style.display = 'block';
+  } else {
+    hindiEl.style.display = 'none';
+  }
   const breakdown = document.getElementById('trans-breakdown');
   if (result.breakdown && result.breakdown.length) {
     breakdown.style.display = 'block';
@@ -481,6 +491,9 @@ async function createSentence() {
   try {
     const result = await aiTranslate(text, 'create', creatorComplexity);
     document.getElementById('creator-joy').innerHTML = result.joylang || '';
+    const creatorHindi = document.getElementById('creator-hindi');
+    if (result.hindi) { creatorHindi.textContent = result.hindi; creatorHindi.style.display = 'block'; }
+    else { creatorHindi.style.display = 'none'; }
     const breakdown = document.getElementById('creator-breakdown');
     if (result.breakdown && result.breakdown.length) {
       breakdown.style.display = 'block';
@@ -534,6 +547,7 @@ When asked to CREATE: generate an original, natural Joylang sentence expressing 
 Always respond with valid JSON in this exact format:
 {
   "joylang": "the complete Joylang sentence or sentences",
+  "hindi": "the Hindi translation of the sentence (Devanagari script)",
   "breakdown": [{"joy": "joylang_word", "eng": "english meaning / role"}],
   "newWords": ["list any invented roots you had to create"],
   "notes": "brief explanation of any grammar choices"
@@ -541,7 +555,7 @@ Always respond with valid JSON in this exact format:
 
 async function aiTranslate(text, mode, complexity = 'simple') {
   const apiKey = localStorage.getItem('jl_api_key');
-  if (!apiKey) throw new Error('No API key configured. Please add your Anthropic API key in the Setup tab.');
+  if (!apiKey) throw new Error('No API key configured. Go to the Setup tab to add a free Google Gemini key.');
 
   const modeInstructions = {
     translate: `TRANSLATE this English sentence to Joylang: "${text}"`,
@@ -552,6 +566,12 @@ async function aiTranslate(text, mode, complexity = 'simple') {
     }) that expresses this idea: "${text}"`
   };
 
+  const instruction = modeInstructions[mode];
+  const provider = localStorage.getItem('jl_api_provider') || 'gemini';
+  return provider === 'anthropic' ? await callClaude(apiKey, instruction) : await callGemini(apiKey, instruction);
+}
+
+async function callClaude(apiKey, instruction) {
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -564,20 +584,42 @@ async function aiTranslate(text, mode, complexity = 'simple') {
       model: 'claude-sonnet-4-6',
       max_tokens: 1024,
       system: JOYLANG_SYSTEM_PROMPT,
-      messages: [{ role: 'user', content: modeInstructions[mode] }]
+      messages: [{ role: 'user', content: instruction }]
     })
   });
-
   if (!response.ok) {
     const err = await response.json().catch(() => ({}));
-    throw new Error(err.error?.message || `API error ${response.status}`);
+    throw new Error(err.error?.message || `Claude API error ${response.status}`);
   }
-
   const data = await response.json();
-  const raw = data.content[0]?.text || '';
-  // Parse JSON from response — handle markdown code blocks
+  return parseAIResponse(data.content[0]?.text || '');
+}
+
+async function callGemini(apiKey, instruction) {
+  const fullPrompt = JOYLANG_SYSTEM_PROMPT + '\n\n' + instruction;
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+    {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: fullPrompt }] }],
+        generationConfig: { temperature: 0.3, maxOutputTokens: 1024 }
+      })
+    }
+  );
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.error?.message || `Gemini API error ${response.status}. Check your API key.`);
+  }
+  const data = await response.json();
+  const raw = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  return parseAIResponse(raw);
+}
+
+function parseAIResponse(raw) {
   const jsonMatch = raw.match(/```(?:json)?\s*([\s\S]*?)```/) || raw.match(/(\{[\s\S]*\})/);
-  if (!jsonMatch) throw new Error('Unexpected response format from Claude API.');
+  if (!jsonMatch) throw new Error('Unexpected response format from AI. Try again.');
   return JSON.parse(jsonMatch[1]);
 }
 
@@ -623,10 +665,12 @@ function ruleBasedTranslate(text) {
 async function saveSentence(source) {
   const joyEl = document.getElementById(source === 'translator' ? 'trans-joy' : 'creator-joy');
   const engEl = document.getElementById(source === 'translator' ? 'translateInput' : 'creatorInput');
+  const hindiEl = document.getElementById(source === 'translator' ? 'trans-hindi' : 'creator-hindi');
   if (!joyEl || !engEl) return;
   const sentence = {
     joylang: joyEl.textContent,
     english: engEl.value.trim(),
+    hindi: hindiEl ? hindiEl.textContent : '',
     source,
     createdAt: new Date().toISOString(),
     type: 'sentence'
@@ -686,7 +730,7 @@ function renderSaved(words, sentences) {
     wordsList.innerHTML = words.map(w => `
       <div class="saved-word-card">
         <div class="swc-joy">${w.root} · ${w.noun}</div>
-        <div class="swc-en">${w.en}</div>
+        <div class="swc-en">${w.en}${w.hi ? ' · <span style="color:#e65100;">' + w.hi + '</span>' : ''}</div>
         <div class="swc-meta">${w.domain || ''} · ${w.sourceLang || ''}</div>
       </div>`).join('');
   } else {
@@ -699,6 +743,7 @@ function renderSaved(words, sentences) {
       <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px;">
         <div style="font-weight:700;color:var(--green-dark);font-size:1.05rem;">${s.joylang}</div>
         <div style="color:var(--text-muted);font-size:.9rem;margin-top:4px;">${s.english || ''}</div>
+        ${s.hindi ? `<div style="color:#e65100;font-size:.88rem;margin-top:3px;">${s.hindi}</div>` : ''}
         <div style="font-size:.75rem;color:#aaa;margin-top:4px;">${s.source || ''} · ${new Date(s.createdAt||Date.now()).toLocaleDateString()}</div>
       </div>`).join('');
   } else {
@@ -720,6 +765,21 @@ function exportData() {
 }
 
 // ── SETUP / CONFIG ─────────────────────────────────────────────
+function switchProvider(provider) {
+  localStorage.setItem('jl_api_provider', provider);
+  apiProvider = provider;
+  const hints = {
+    gemini: '✓ Google Gemini selected. Free tier: 15 requests/min. Get a key at aistudio.google.com → API Keys.',
+    anthropic: 'Anthropic Claude selected. Requires a paid API key from console.anthropic.com.'
+  };
+  document.getElementById('provider-hint').textContent = hints[provider] || '';
+  // Highlight selected provider box
+  document.getElementById('provider-gemini-box').style.borderColor = provider === 'gemini' ? 'var(--green)' : 'var(--border)';
+  document.getElementById('provider-anthropic-box').style.borderColor = provider === 'anthropic' ? 'var(--green)' : 'var(--border)';
+  updateSetupStatus();
+  checkApiWarnings();
+}
+
 function saveApiKey() {
   const key = document.getElementById('apiKeyInput').value.trim();
   if (!key) { document.getElementById('api-key-status').textContent = 'Please enter a key first.'; return; }
@@ -800,11 +860,13 @@ function updateSetupStatus() {
   const panel = document.getElementById('setup-status-panel');
   if (!panel) return;
   const hasKey = !!localStorage.getItem('jl_api_key');
+  const provider = localStorage.getItem('jl_api_provider') || 'gemini';
   const fbConfig = localStorage.getItem('jl_fb_config');
+  const providerLabel = provider === 'gemini' ? 'Google Gemini (free)' : 'Anthropic Claude (paid)';
   panel.innerHTML = [
     `<div style="display:flex;align-items:center;gap:10px;">
       <span style="font-size:1.2rem">${hasKey ? '✅' : '❌'}</span>
-      <div><strong>Anthropic API Key</strong><br><span style="color:var(--text-muted);font-size:.9rem">${hasKey ? 'Configured — AI tools ready' : 'Not set — AI features disabled'}</span></div>
+      <div><strong>AI Provider: ${providerLabel}</strong><br><span style="color:var(--text-muted);font-size:.9rem">${hasKey ? 'API key configured — AI tools ready' : 'API key not set — AI features disabled'}</span></div>
     </div>`,
     `<div style="display:flex;align-items:center;gap:10px;">
       <span style="font-size:1.2rem">${firebaseInitialized ? '✅' : '⚠️'}</span>
@@ -826,6 +888,12 @@ function showError(elId, msg) {
 
 // ── INIT ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  // Restore API provider selection
+  const savedProvider = localStorage.getItem('jl_api_provider') || 'gemini';
+  const providerRadio = document.getElementById('provider-' + savedProvider);
+  if (providerRadio) providerRadio.checked = true;
+  switchProvider(savedProvider);
+
   // Restore API key indicator
   if (localStorage.getItem('jl_api_key')) {
     document.getElementById('api-key-status').innerHTML = '<span style="color:var(--green)">✓ API key is stored.</span>';

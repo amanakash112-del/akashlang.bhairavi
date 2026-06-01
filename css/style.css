@@ -174,8 +174,8 @@ img { max-width: 100%; }
 /* ============================================================ MAIN CONTENT */
 .main-content {
   flex: 1;
-  padding: 36px 48px 80px;
-  max-width: 900px;
+  padding: 36px 60px 80px;
+  max-width: 1400px;
   min-width: 0;
 }
 @media (max-width: 900px) {
