@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Words collection: anyone can read or create, no updates or deletes
+    match /words/{wordId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+    // Sentences collection: anyone can read or create, no updates or deletes
+    match /sentences/{sentenceId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+    // Deny all access to any other collections by default
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

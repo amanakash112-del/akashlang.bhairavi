@@ -63,13 +63,34 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---- Mobile menu toggle ---- */
   const toggle = document.querySelector('.menu-toggle');
   const sidebar = document.querySelector('.sidebar');
-  if (toggle && sidebar) {
-    toggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+  const navLinks = document.querySelector('.topnav-links');
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      // On very small screens: toggle nav links dropdown
+      if (window.innerWidth <= 700 && navLinks) {
+        navLinks.classList.toggle('nav-open');
+        if (sidebar) sidebar.classList.remove('open');
+      } else if (sidebar) {
+        // On medium screens: toggle sidebar drawer
+        sidebar.classList.toggle('open');
+      }
+    });
     document.addEventListener('click', e => {
-      if (sidebar.classList.contains('open') && !sidebar.contains(e.target) && !toggle.contains(e.target)) {
+      if (navLinks && navLinks.classList.contains('nav-open') &&
+          !navLinks.contains(e.target) && !toggle.contains(e.target)) {
+        navLinks.classList.remove('nav-open');
+      }
+      if (sidebar && sidebar.classList.contains('open') &&
+          !sidebar.contains(e.target) && !toggle.contains(e.target)) {
         sidebar.classList.remove('open');
       }
     });
+    // Close nav links when a nav link is clicked on mobile
+    if (navLinks) {
+      navLinks.addEventListener('click', e => {
+        if (e.target.tagName === 'A') navLinks.classList.remove('nav-open');
+      });
+    }
   }
 
   /* ---- Global site search (in topnav) ---- */

@@ -1,9 +1,17 @@
 /* ============================================================
    Joylang Tools — Word Generator, Sentence Translator, Creator
-   Storage: Firebase Firestore (primary) / localStorage (fallback)
+   Firebase Firestore (primary) / localStorage (fallback)
+   Developer: Aman Akash
    ============================================================ */
 
 'use strict';
+
+// ── CONFIGURATION ─────────────────────────────────────────────
+// Firebase is auto-initialized via firebase-db.js (pre-configured)
+// Gemini API key: enter once in the Setup tab — stored in localStorage
+const GEMINI_RPM_LIMIT = 15;           // free tier: 15 requests/minute
+const GEMINI_DAILY_LIMIT = 1500;       // free tier: 1500 requests/day
+const GEMINI_RESET_INTERVAL_SEC = 60;  // rate limit resets every 60 seconds
 
 // ── STATE ──────────────────────────────────────────────────────
 let currentConcept = '';
@@ -13,9 +21,61 @@ let currentLang = '';
 let currentWordForms = null;
 let transMode = 'ai';
 let creatorComplexity = 'simple';
-let firebaseDB = null;
-let firebaseInitialized = false;
 let apiProvider = localStorage.getItem('jl_api_provider') || 'gemini';
+
+// Rate-limit tracking (in-memory per page session)
+let requestTimestamps = [];
+
+// ── USER IDENTITY ──────────────────────────────────────────────
+function getOrCreateUserId() {
+  let uid = localStorage.getItem('jl_user_id');
+  if (!uid) {
+    uid = 'user_' + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('jl_user_id', uid);
+  }
+  return uid;
+}
+
+// ── RATE LIMITING ──────────────────────────────────────────────
+function checkRateLimit() {
+  const now = Date.now();
+  const windowMs = GEMINI_RESET_INTERVAL_SEC * 1000;
+  requestTimestamps = requestTimestamps.filter(t => now - t < windowMs);
+  if (requestTimestamps.length >= GEMINI_RPM_LIMIT) {
+    const oldest = requestTimestamps[0];
+    const waitSec = Math.ceil((windowMs - (now - oldest)) / 1000);
+    throw new Error(
+      `Rate limit reached (${GEMINI_RPM_LIMIT} requests/minute on Gemini free tier). ` +
+      `Resets in ${waitSec} second${waitSec !== 1 ? 's' : ''}. Please wait.`
+    );
+  }
+  requestTimestamps.push(now);
+  updateRateLimitDisplay();
+}
+
+function updateRateLimitDisplay() {
+  const el = document.getElementById('rate-limit-display');
+  if (!el) return;
+  const now = Date.now();
+  const windowMs = GEMINI_RESET_INTERVAL_SEC * 1000;
+  const active = requestTimestamps.filter(t => now - t < windowMs);
+  const used = active.length;
+  const remaining = GEMINI_RPM_LIMIT - used;
+  if (used === 0) {
+    el.textContent = `Gemini free tier: ${GEMINI_RPM_LIMIT} req/min · ${GEMINI_DAILY_LIMIT} req/day · Ready`;
+    el.style.color = 'var(--green)';
+  } else if (remaining > 0) {
+    const oldest = active[0];
+    const resetIn = Math.ceil((windowMs - (now - oldest)) / 1000);
+    el.textContent = `API: ${used}/${GEMINI_RPM_LIMIT} requests used · ${remaining} remaining · Resets in ${resetIn}s`;
+    el.style.color = remaining <= 3 ? '#e65100' : 'var(--text-muted)';
+  } else {
+    const oldest = active[0];
+    const resetIn = Math.ceil((windowMs - (now - oldest)) / 1000);
+    el.textContent = `Rate limit reached! Resets in ${resetIn}s`;
+    el.style.color = '#c62828';
+  }
+}
 
 // ── JOYLANG PHONOLOGY RULES ───────────────────────────────────
 const VALID_CONSONANTS = new Set(['p','b','t','d','k','g','m','n','f','s','v','h','l','r','y','j']);
@@ -28,14 +88,11 @@ function applyJoylangPhonology(rawRoot) {
   let r = rawRoot.toLowerCase().replace(/[^a-z]/g, '');
   steps.push({ from: rawRoot, to: r, rule: 'Lowercase, remove non-letter characters' });
 
-  // Map foreign phonemes to nearest Joylang equivalents
   const phoneMap = { 'q':'k','x':'sh','z':'s','c':'k','w':'v','ñ':'n','ü':'u','ö':'o','ä':'a','é':'e','â':'a','î':'i','ô':'o','û':'u' };
   let mapped = r.split('').map(c => phoneMap[c] || c).join('');
-  // Preserve digraphs that are valid
   if (mapped !== r) steps.push({ from: r, to: mapped, rule: 'Map foreign phonemes (q→k, x→sh, z→s, w→v, etc.)' });
   r = mapped;
 
-  // Ensure it ends in a valid ending (vowel or n/m/s/l/r)
   const validFinalConsonants = new Set(['n','m','s','l','r']);
   if (r.length > 0) {
     const last = r[r.length-1];
@@ -47,32 +104,27 @@ function applyJoylangPhonology(rawRoot) {
     }
   }
 
-  // Ensure minimum CV structure
   if (r.length < 2) {
     r = r + 'u';
     steps.push({ from: r.slice(0,-1), to: r, rule: 'Root too short — padded with "u"' });
   }
 
-  // If starts with vowel, prepend a light consonant
   if (VALID_VOWELS.has(r[0])) {
     r = 'y' + r;
     steps.push({ from: r.slice(1), to: r, rule: 'Cannot start with vowel — prepended "y"' });
   }
 
-  // Avoid triple consonant clusters
   let noTriple = r.replace(/([^aeiou]{3,})/g, (match) => match.slice(0,2));
   if (noTriple !== r) {
     steps.push({ from: r, to: noTriple, rule: 'Removed consonant cluster > 2' });
     r = noTriple;
   }
 
-  // Prefer CVCV shape — insert vowels between back-to-back consonants
   let cvcv = '';
   let insertedVowel = false;
   for (let i = 0; i < r.length; i++) {
     cvcv += r[i];
     if (!VALID_VOWELS.has(r[i]) && i+1 < r.length && !VALID_VOWELS.has(r[i+1])) {
-      // Check if it's a valid digraph before inserting
       const digraph = r[i] + r[i+1];
       if (!DIGRAPHS.includes(digraph)) {
         cvcv += 'a';
@@ -85,19 +137,16 @@ function applyJoylangPhonology(rawRoot) {
     r = cvcv;
   }
 
-  // Final: must end in vowel or valid soft consonant
   const lastChar = r[r.length-1];
   if (ILLEGAL_FINAL.has(lastChar)) {
     r += 'u';
     steps.push({ from: r.slice(0,-1), to: r, rule: `Final '${lastChar}' is illegal — appended 'u'` });
   }
 
-  // Same-vowel elision check for next morpheme will be done at suffix attachment
   return { root: r, steps };
 }
 
 function buildWordForms(root) {
-  // Stem = root minus final vowel
   const stem = VALID_VOWELS.has(root[root.length-1]) ? root.slice(0,-1) : root;
   const noun = applyElision(stem, 'ombu');
   const verbDict = applyElision(stem, 'uvu');
@@ -106,7 +155,6 @@ function buildWordForms(root) {
   const abstract = root + 'chimu';
   const dim = applyElision(root, 'ichu');
   const aug = applyElision(root, 'ongu');
-  // Tense forms
   const present = root + 'lo';
   const past = root + 'me';
   const future = root + 'bo';
@@ -115,7 +163,6 @@ function buildWordForms(root) {
 }
 
 function applyElision(base, suffix) {
-  // Same-vowel elision: if base ends in vowel X and suffix starts with X, drop base's final vowel
   const lastBase = base[base.length-1];
   const firstSuffix = suffix[0];
   if (VALID_VOWELS.has(lastBase) && lastBase === firstSuffix) {
@@ -125,63 +172,19 @@ function applyElision(base, suffix) {
 }
 
 // ── SOURCE LANGUAGE ROOT SUGGESTIONS ─────────────────────────
-// These are phonetically simplified roots from each source language
-// for common concept clusters. In production this would be an API call.
 const LANG_DATA = [
-  {
-    code:'hi', name:'Hindi', flag:'🇮🇳',
-    desc:'Indo-Aryan · familiar to Urdu speakers',
-    getRoots: (concept) => getLangSuggestion('hi', concept)
-  },
-  {
-    code:'ar', name:'Arabic', flag:'🇸🇦',
-    desc:'Semitic · spoken across N. Africa & Middle East',
-    getRoots: (concept) => getLangSuggestion('ar', concept)
-  },
-  {
-    code:'zh', name:'Mandarin', flag:'🇨🇳',
-    desc:'Sinitic · most spoken language on Earth',
-    getRoots: (concept) => getLangSuggestion('zh', concept)
-  },
-  {
-    code:'ja', name:'Japanese', flag:'🇯🇵',
-    desc:'Japonic · uses many international loanwords',
-    getRoots: (concept) => getLangSuggestion('ja', concept)
-  },
-  {
-    code:'sw', name:'Swahili', flag:'🇰🇪',
-    desc:'Bantu · lingua franca of East Africa',
-    getRoots: (concept) => getLangSuggestion('sw', concept)
-  },
-  {
-    code:'es', name:'Spanish', flag:'🇪🇸',
-    desc:'Romance · 500M speakers across Americas & Europe',
-    getRoots: (concept) => getLangSuggestion('es', concept)
-  },
-  {
-    code:'ta', name:'Tamil', flag:'🇮🇳',
-    desc:'Dravidian · one of the oldest classical languages',
-    getRoots: (concept) => getLangSuggestion('ta', concept)
-  },
-  {
-    code:'tr', name:'Turkish', flag:'🇹🇷',
-    desc:'Turkic · agglutinative like Joylang',
-    getRoots: (concept) => getLangSuggestion('tr', concept)
-  },
-  {
-    code:'en', name:'English', flag:'🇬🇧',
-    desc:'Germanic · global lingua franca',
-    getRoots: (concept) => getLangSuggestion('en', concept)
-  },
-  {
-    code:'yo', name:'Yoruba', flag:'🇳🇬',
-    desc:'Niger-Congo · spoken by 50M+ in West Africa',
-    getRoots: (concept) => getLangSuggestion('yo', concept)
-  }
+  { code:'hi', name:'Hindi', flag:'🇮🇳', desc:'Indo-Aryan · familiar to Urdu speakers', getRoots: (c) => getLangSuggestion('hi', c) },
+  { code:'ar', name:'Arabic', flag:'🇸🇦', desc:'Semitic · spoken across N. Africa & Middle East', getRoots: (c) => getLangSuggestion('ar', c) },
+  { code:'zh', name:'Mandarin', flag:'🇨🇳', desc:'Sinitic · most spoken language on Earth', getRoots: (c) => getLangSuggestion('zh', c) },
+  { code:'ja', name:'Japanese', flag:'🇯🇵', desc:'Japonic · uses many international loanwords', getRoots: (c) => getLangSuggestion('ja', c) },
+  { code:'sw', name:'Swahili', flag:'🇰🇪', desc:'Bantu · lingua franca of East Africa', getRoots: (c) => getLangSuggestion('sw', c) },
+  { code:'es', name:'Spanish', flag:'🇪🇸', desc:'Romance · 500M speakers across Americas & Europe', getRoots: (c) => getLangSuggestion('es', c) },
+  { code:'ta', name:'Tamil', flag:'🇮🇳', desc:'Dravidian · one of the oldest classical languages', getRoots: (c) => getLangSuggestion('ta', c) },
+  { code:'tr', name:'Turkish', flag:'🇹🇷', desc:'Turkic · agglutinative like Joylang', getRoots: (c) => getLangSuggestion('tr', c) },
+  { code:'en', name:'English', flag:'🇬🇧', desc:'Germanic · global lingua franca', getRoots: (c) => getLangSuggestion('en', c) },
+  { code:'yo', name:'Yoruba', flag:'🇳🇬', desc:'Niger-Congo · spoken by 50M+ in West Africa', getRoots: (c) => getLangSuggestion('yo', c) }
 ];
 
-// Simple phonetic suggestion table — maps concept keywords to roots per language
-// These are rough phonetic borrowings following Joylang phonotactics
 const SUGGESTION_TABLE = {
   'rain':    { hi:'varsha', ar:'matar',  zh:'yu',     ja:'ame',   sw:'mvua',   es:'luvia',  ta:'mazhai', tr:'yagmur', en:'reinu',  yo:'ojo' },
   'sun':     { hi:'surya',  ar:'shams',  zh:'taiyo',  ja:'hina',  sw:'jua',    es:'solo',   ta:'suriyan',tr:'gunes',  en:'sanu',   yo:'orun' },
@@ -207,31 +210,25 @@ const SUGGESTION_TABLE = {
   'school':  { hi:'vidyalay',ar:'madrasa',zh:'xuexiao',ja:'gakko',sw:'shule',  es:'eskola', ta:'palliku',tr:'okul',   en:'skulu',  yo:'ile-iwe' },
   'work':    { hi:'kaam',   ar:'amal',   zh:'gongzuo',ja:'shigoto',sw:'kazi',  es:'trabahu',ta:'velai',  tr:'is',     en:'werku',  yo:'ise' },
   'happy':   { hi:'khush',  ar:'saeed',  zh:'kaixin', ja:'ureshii',sw:'furaha', es:'felisu', ta:'santosham',tr:'mutlu',en:'hapiyu',yo:'ayonu' },
-  'love':    { hi:'prem',   ar:'hubu',   zh:'ai',     ja:'ai',    sw:'upendo', es:'amor',   ta:'anbu',   tr:'sevgi',  en:'luvu',   yo:'ifẹ' },
+  'love':    { hi:'prem',   ar:'hubu',   zh:'ai',     ja:'ai',    sw:'upendo', es:'amor',   ta:'anbu',   tr:'sevgi',  en:'luvu',   yo:'ife' },
   'friend':  { hi:'dost',   ar:'sadiq',  zh:'pengyou',ja:'tomodachi',sw:'rafiki',es:'amigo',ta:'natpu',  tr:'arkadas',en:'frend',  yo:'ore' },
   'food':    { hi:'khana',  ar:'akl',    zh:'shiwu',  ja:'tabemono',sw:'chakula',es:'komida',ta:'unavu',  tr:'yemek',  en:'fudu',   yo:'ounje' },
-  'dream':   { hi:'sapna',  ar:'hulm',   zh:'meng',   ja:'yume',  sw:'ndoto',  es:'suenyo', ta:'kanavuu',tr:'rüya',   en:'drimu',  yo:'ala' },
-  'cloud':   { hi:'badal',  ar:'sahab',  zh:'yun',    ja:'kumo',  sw:'wingu',  es:'nube',   ta:'megam',  tr:'bulut',  en:'klawdu', yo:'awọsanma' },
-  'color':   { hi:'rang',   ar:'laun',   zh:'yanse',  ja:'iro',   sw:'rangi',  es:'koloru', ta:'niram',  tr:'renk',   en:'koloru', yo:'awọ' },
+  'dream':   { hi:'sapna',  ar:'hulm',   zh:'meng',   ja:'yume',  sw:'ndoto',  es:'suenyo', ta:'kanavuu',tr:'ruya',   en:'drimu',  yo:'ala' },
+  'cloud':   { hi:'badal',  ar:'sahab',  zh:'yun',    ja:'kumo',  sw:'wingu',  es:'nube',   ta:'megam',  tr:'bulut',  en:'klawdu', yo:'awosanma' },
+  'color':   { hi:'rang',   ar:'laun',   zh:'yanse',  ja:'iro',   sw:'rangi',  es:'koloru', ta:'niram',  tr:'renk',   en:'koloru', yo:'awo' },
   'time':    { hi:'samay',  ar:'waqt',   zh:'shijian',ja:'jikan', sw:'wakati', es:'tiempu', ta:'neram',  tr:'zaman',  en:'taimu',  yo:'akoko' },
-  'peace':   { hi:'shanti', ar:'salam',  zh:'heping', ja:'heiwa', sw:'amani',  es:'pasu',   ta:'shanti', tr:'baris',  en:'piisu',  yo:'aláfíà' }
+  'peace':   { hi:'shanti', ar:'salam',  zh:'heping', ja:'heiwa', sw:'amani',  es:'pasu',   ta:'shanti', tr:'baris',  en:'piisu',  yo:'aalafia' }
 };
 
 function getLangSuggestion(langCode, concept) {
   const key = concept.toLowerCase().trim();
-  // Direct lookup
-  if (SUGGESTION_TABLE[key] && SUGGESTION_TABLE[key][langCode]) {
-    return SUGGESTION_TABLE[key][langCode];
-  }
-  // Partial match
+  if (SUGGESTION_TABLE[key] && SUGGESTION_TABLE[key][langCode]) return SUGGESTION_TABLE[key][langCode];
   for (const [k, v] of Object.entries(SUGGESTION_TABLE)) {
     if (key.includes(k) || k.includes(key)) {
       if (v[langCode]) return v[langCode];
     }
   }
-  // Generic: return simplified version of the English word adapted to the language pattern
-  const simplified = key.replace(/[^a-z]/g, '').substring(0, 5);
-  return simplified || 'rota';
+  return key.replace(/[^a-z]/g, '').substring(0, 5) || 'rota';
 }
 
 // ── TAB MANAGEMENT ─────────────────────────────────────────────
@@ -272,14 +269,12 @@ function searchWord() {
   notFound.classList.remove('visible');
   errEl.classList.remove('visible');
 
-  // Search existing dictionary
   const q = query.toLowerCase();
   const match = JOYLANG_DICT.find(e =>
     e.en.toLowerCase().includes(q) || q.includes(e.en.toLowerCase()) ||
     e.root.toLowerCase() === q || e.noun.toLowerCase() === q
   );
 
-  // Also check user-saved words
   const savedWords = getSavedWords();
   const savedMatch = savedWords.find(w =>
     w.en && (w.en.toLowerCase().includes(q) || q.includes(w.en.toLowerCase()))
@@ -377,7 +372,6 @@ function goToStep4() {
     `<div class="result-form-card"><div class="form-label">Augmentative</div><div class="form-value">${f.aug}</div></div>`,
   ].join('');
 
-  // Collision check
   const collide = JOYLANG_DICT.find(e => e.root === finalRoot || e.noun === f.noun);
   const warnEl = document.getElementById('gen-collision-warn');
   warnEl.style.display = collide ? 'block' : 'none';
@@ -386,7 +380,7 @@ function goToStep4() {
 
 async function saveNewWord() {
   if (!currentWordForms) return;
-  const domain = document.getElementById('save-domain').value.trim() || 'User-Created';
+  const domain = document.getElementById('save-domain').value.trim() || 'Community';
   const hindi = document.getElementById('save-hindi').value.trim();
   const example = document.getElementById('save-example').value.trim();
   const word = {
@@ -399,12 +393,23 @@ async function saveNewWord() {
     domain,
     ex: example,
     sourceLang: currentLang,
+    createdBy: 'user',
+    creatorId: getOrCreateUserId(),
     createdAt: new Date().toISOString(),
     type: 'word'
   };
-  await saveItem('words', word);
-  document.getElementById('save-confirm').style.display = 'block';
-  setTimeout(() => { document.getElementById('save-confirm').style.display = 'none'; }, 3000);
+  const confirmEl = document.getElementById('save-confirm');
+  try {
+    await saveItem('words', word);
+    confirmEl.textContent = '✓ Word saved to community database!';
+    confirmEl.style.color = 'var(--green)';
+    confirmEl.style.display = 'block';
+  } catch(e) {
+    confirmEl.textContent = '⚠ Saved locally (cloud sync failed: ' + e.message + ')';
+    confirmEl.style.color = '#e65100';
+    confirmEl.style.display = 'block';
+  }
+  setTimeout(() => { confirmEl.style.display = 'none'; }, 4000);
 }
 
 // ── SENTENCE TRANSLATOR ────────────────────────────────────────
@@ -413,8 +418,8 @@ function setTransMode(mode) {
   document.getElementById('mode-ai').style.background = mode === 'ai' ? 'var(--green)' : 'var(--text-muted)';
   document.getElementById('mode-rule').style.background = mode === 'rule' ? 'var(--green)' : 'var(--text-muted)';
   document.getElementById('mode-desc').textContent = mode === 'ai'
-    ? 'AI mode uses Claude to translate with full grammar understanding. Requires API key.'
-    : 'Rule-based works offline using dictionary lookup + SOV word reordering. Limited but always available.';
+    ? `AI mode uses Gemini to translate with full grammar understanding. Free tier: ${GEMINI_RPM_LIMIT} req/min, ${GEMINI_DAILY_LIMIT} req/day.`
+    : 'Rule-based works offline using dictionary lookup + SOV word reordering. Limited but always available — no API key needed.';
   checkApiWarnings();
 }
 
@@ -444,6 +449,7 @@ async function translateSentence() {
   } finally {
     btn.disabled = false;
     btn.textContent = 'Translate';
+    updateRateLimitDisplay();
   }
 }
 
@@ -513,10 +519,11 @@ async function createSentence() {
   } finally {
     btn.disabled = false;
     btn.textContent = 'Create Sentence';
+    updateRateLimitDisplay();
   }
 }
 
-// ── CLAUDE API CALL ────────────────────────────────────────────
+// ── AI API CALL ────────────────────────────────────────────────
 const JOYLANG_SYSTEM_PROMPT = `You are a Joylang language expert. Joylang is a constructed auxiliary language with these core rules:
 
 PHONOLOGY: 5 vowels (a e i o u) + 19 consonants (p b t d k g m n ng f s v h sh ch j l r y). Words must end in vowel or n/m/s/l/r only. Penultimate stress.
@@ -554,8 +561,10 @@ Always respond with valid JSON in this exact format:
 }`;
 
 async function aiTranslate(text, mode, complexity = 'simple') {
+  checkRateLimit();
+
   const apiKey = localStorage.getItem('jl_api_key');
-  if (!apiKey) throw new Error('No API key configured. Go to the Setup tab to add a free Google Gemini key.');
+  if (!apiKey) throw new Error('No API key configured. Go to the Setup tab and enter your Gemini API key (free at aistudio.google.com).');
 
   const modeInstructions = {
     translate: `TRANSLATE this English sentence to Joylang: "${text}"`,
@@ -609,8 +618,18 @@ async function callGemini(apiKey, instruction) {
     }
   );
   if (!response.ok) {
-    const err = await response.json().catch(() => ({}));
-    throw new Error(err.error?.message || `Gemini API error ${response.status}. Check your API key.`);
+    const errData = await response.json().catch(() => ({}));
+    const errMsg = errData.error?.message || '';
+    if (response.status === 429) {
+      throw new Error(
+        `Rate limit hit (HTTP 429). Gemini free tier: ${GEMINI_RPM_LIMIT} req/min, ${GEMINI_DAILY_LIMIT} req/day. ` +
+        `Wait ${GEMINI_RESET_INTERVAL_SEC} seconds and try again.`
+      );
+    }
+    if (response.status === 400 && errMsg.includes('API_KEY')) {
+      throw new Error('Invalid Gemini API key. Keys should start with "AIzaSy…". Check aistudio.google.com > API Keys.');
+    }
+    throw new Error(errMsg || `Gemini API error ${response.status}. Check your API key.`);
   }
   const data = await response.json();
   const raw = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
@@ -620,12 +639,15 @@ async function callGemini(apiKey, instruction) {
 function parseAIResponse(raw) {
   const jsonMatch = raw.match(/```(?:json)?\s*([\s\S]*?)```/) || raw.match(/(\{[\s\S]*\})/);
   if (!jsonMatch) throw new Error('Unexpected response format from AI. Try again.');
-  return JSON.parse(jsonMatch[1]);
+  try {
+    return JSON.parse(jsonMatch[1]);
+  } catch(e) {
+    throw new Error('Could not parse AI response. Try again.');
+  }
 }
 
 // ── RULE-BASED TRANSLATOR (offline fallback) ───────────────────
 function ruleBasedTranslate(text) {
-  // Simple dictionary lookup + SOV reordering
   const words = text.toLowerCase().replace(/[^\w\s]/g,'').split(/\s+/);
   const breakdown = [];
   const translated = [];
@@ -647,8 +669,6 @@ function ruleBasedTranslate(text) {
       translated.push('anuchi'); breakdown.push({ joy:'anuchi', eng:'we' });
     } else if (['is','am','are','be'].includes(word)) {
       translated.push('melo'); breakdown.push({ joy:'melo', eng:'be/is' });
-    } else if (['not',"n't"].includes(word)) {
-      // Applied as prefix to next verb
     } else {
       breakdown.push({ joy: '(?)', eng: word + ' (not found)' });
     }
@@ -672,13 +692,29 @@ async function saveSentence(source) {
     english: engEl.value.trim(),
     hindi: hindiEl ? hindiEl.textContent : '',
     source,
+    createdBy: 'user',
+    creatorId: getOrCreateUserId(),
     createdAt: new Date().toISOString(),
     type: 'sentence'
   };
-  await saveItem('sentences', sentence);
   const confirmId = source === 'translator' ? 'trans-save-confirm' : 'creator-save-confirm';
   const confirmEl = document.getElementById(confirmId);
-  if (confirmEl) { confirmEl.style.display = 'block'; setTimeout(() => confirmEl.style.display='none', 3000); }
+  try {
+    await saveItem('sentences', sentence);
+    if (confirmEl) {
+      confirmEl.textContent = '✓ Sentence saved to community database!';
+      confirmEl.style.color = '#81c784';
+      confirmEl.style.display = 'block';
+      setTimeout(() => confirmEl.style.display='none', 4000);
+    }
+  } catch(e) {
+    if (confirmEl) {
+      confirmEl.textContent = '⚠ Saved locally (cloud sync failed)';
+      confirmEl.style.color = '#f9a825';
+      confirmEl.style.display = 'block';
+      setTimeout(() => confirmEl.style.display='none', 4000);
+    }
+  }
 }
 
 // ── STORAGE (Firebase / localStorage) ─────────────────────────
@@ -690,11 +726,12 @@ function getSavedSentences() {
 }
 
 async function saveItem(collection, item) {
-  // Try Firebase first
-  if (firebaseInitialized && firebaseDB) {
+  const db = window.akashDB;
+  if (db) {
     try {
       const { addDoc, collection: col } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
-      await addDoc(col(firebaseDB, collection), item);
+      await addDoc(col(db, collection), item);
+      updateDbStatus(true);
       return;
     } catch(e) { console.warn('Firebase save failed, using localStorage:', e); }
   }
@@ -708,14 +745,15 @@ async function saveItem(collection, item) {
 async function loadSaved() {
   const words = getSavedWords();
   const sentences = getSavedSentences();
-  // Try load from Firebase too
-  if (firebaseInitialized && firebaseDB) {
+  const db = window.akashDB;
+  if (db) {
     try {
-      const { getDocs, collection: col } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
-      const wSnap = await getDocs(col(firebaseDB, 'words'));
-      const sSnap = await getDocs(col(firebaseDB, 'sentences'));
+      const { getDocs, collection: col, query, where } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+      const wSnap = await getDocs(col(db, 'words'));
+      const sSnap = await getDocs(col(db, 'sentences'));
       wSnap.forEach(d => words.push(d.data()));
       sSnap.forEach(d => sentences.push(d.data()));
+      updateDbStatus(true);
     } catch(e) { console.warn('Firebase load failed:', e); }
   }
   renderSaved(words, sentences);
@@ -727,27 +765,41 @@ function renderSaved(words, sentences) {
 
   const wordsList = document.getElementById('saved-words-list');
   if (words.length) {
-    wordsList.innerHTML = words.map(w => `
-      <div class="saved-word-card">
-        <div class="swc-joy">${w.root} · ${w.noun}</div>
-        <div class="swc-en">${w.en}${w.hi ? ' · <span style="color:#e65100;">' + w.hi + '</span>' : ''}</div>
+    wordsList.innerHTML = words.map(w => {
+      const badge = w.createdBy === 'developer'
+        ? '<span class="creator-badge creator-dev">Dev</span>'
+        : '<span class="creator-badge creator-user">Community</span>';
+      return `<div class="saved-word-card">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div class="swc-joy">${w.root} · ${w.noun || ''}</div>
+          ${badge}
+        </div>
+        <div class="swc-en">${w.en || ''}${w.hi ? ' · <span style="color:#e65100;">' + w.hi + '</span>' : ''}</div>
         <div class="swc-meta">${w.domain || ''} · ${w.sourceLang || ''}</div>
-      </div>`).join('');
+      </div>`;
+    }).join('');
   } else {
-    wordsList.innerHTML = '<p style="color:var(--text-muted);">No words saved yet.</p>';
+    wordsList.innerHTML = '<p style="color:var(--text-muted);">No words saved yet. Use the Word Generator to create words.</p>';
   }
 
   const sentList = document.getElementById('saved-sentences-list');
   if (sentences.length) {
-    sentList.innerHTML = sentences.map(s => `
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px;">
-        <div style="font-weight:700;color:var(--green-dark);font-size:1.05rem;">${s.joylang}</div>
-        <div style="color:var(--text-muted);font-size:.9rem;margin-top:4px;">${s.english || ''}</div>
+    sentList.innerHTML = sentences.map(s => {
+      const badge = s.createdBy === 'developer'
+        ? '<span class="creator-badge creator-dev">Dev</span>'
+        : '<span class="creator-badge creator-user">Community</span>';
+      return `<div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+          <div style="font-weight:700;color:var(--green-dark);font-size:1.05rem;">${s.joylang}</div>
+          ${badge}
+        </div>
+        <div style="color:var(--text-muted);font-size:.9rem;">${s.english || ''}</div>
         ${s.hindi ? `<div style="color:#e65100;font-size:.88rem;margin-top:3px;">${s.hindi}</div>` : ''}
         <div style="font-size:.75rem;color:#aaa;margin-top:4px;">${s.source || ''} · ${new Date(s.createdAt||Date.now()).toLocaleDateString()}</div>
-      </div>`).join('');
+      </div>`;
+    }).join('');
   } else {
-    sentList.innerHTML = '<p style="color:var(--text-muted);">No sentences saved yet.</p>';
+    sentList.innerHTML = '<p style="color:var(--text-muted);">No sentences saved yet. Use the Translator or Creator tools.</p>';
   }
 }
 
@@ -764,18 +816,69 @@ function exportData() {
   a.click();
 }
 
+// ── SEED DATABASE ──────────────────────────────────────────────
+async function seedDatabase() {
+  const btn = document.getElementById('seed-btn');
+  const statusEl = document.getElementById('seed-status');
+  const db = window.akashDB;
+  if (!db) {
+    if (statusEl) { statusEl.textContent = '✗ Firebase not connected. Cannot seed.'; statusEl.style.color = '#c62828'; }
+    return;
+  }
+  if (btn) { btn.disabled = true; btn.textContent = 'Seeding…'; }
+  if (statusEl) { statusEl.textContent = 'Checking existing entries…'; statusEl.style.color = 'var(--text-muted)'; }
+
+  try {
+    const { addDoc, getDocs, collection: col } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+    const snap = await getDocs(col(db, 'words'));
+    const existingRoots = new Set();
+    snap.forEach(d => existingRoots.add(d.data().root));
+
+    const toAdd = JOYLANG_DICT.filter(w => !existingRoots.has(w.root));
+    if (toAdd.length === 0) {
+      if (statusEl) { statusEl.textContent = `✓ All ${JOYLANG_DICT.length} dictionary words already in database.`; statusEl.style.color = 'var(--green)'; }
+      if (btn) { btn.disabled = false; btn.textContent = 'Seed Dictionary to DB'; }
+      return;
+    }
+
+    let count = 0;
+    for (const word of toAdd) {
+      await addDoc(col(db, 'words'), {
+        ...word,
+        createdBy: 'developer',
+        creatorId: 'developer',
+        createdAt: new Date().toISOString()
+      });
+      count++;
+      if (statusEl && count % 10 === 0) {
+        statusEl.textContent = `Seeding… ${count}/${toAdd.length} words added`;
+      }
+    }
+    if (statusEl) {
+      statusEl.textContent = `✓ Seeded ${count} new words to Firebase. ${existingRoots.size} already existed.`;
+      statusEl.style.color = 'var(--green)';
+    }
+  } catch(e) {
+    if (statusEl) { statusEl.textContent = `✗ Seed failed: ${e.message}`; statusEl.style.color = '#c62828'; }
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Seed Dictionary to DB'; }
+  }
+}
+
 // ── SETUP / CONFIG ─────────────────────────────────────────────
 function switchProvider(provider) {
   localStorage.setItem('jl_api_provider', provider);
   apiProvider = provider;
   const hints = {
-    gemini: '✓ Google Gemini selected. Free tier: 15 requests/min. Get a key at aistudio.google.com → API Keys.',
+    gemini: `Google Gemini selected. Free tier: ${GEMINI_RPM_LIMIT} req/min · ${GEMINI_DAILY_LIMIT} req/day · Resets every ${GEMINI_RESET_INTERVAL_SEC}s. Get a free key at aistudio.google.com → API Keys.`,
     anthropic: 'Anthropic Claude selected. Requires a paid API key from console.anthropic.com.'
   };
-  document.getElementById('provider-hint').textContent = hints[provider] || '';
-  // Highlight selected provider box
-  document.getElementById('provider-gemini-box').style.borderColor = provider === 'gemini' ? 'var(--green)' : 'var(--border)';
-  document.getElementById('provider-anthropic-box').style.borderColor = provider === 'anthropic' ? 'var(--green)' : 'var(--border)';
+  const hintEl = document.getElementById('provider-hint');
+  if (hintEl) hintEl.textContent = hints[provider] || '';
+  const gBox = document.getElementById('provider-gemini-box');
+  const aBox = document.getElementById('provider-anthropic-box');
+  if (gBox) gBox.style.borderColor = provider === 'gemini' ? 'var(--green)' : 'var(--border)';
+  if (aBox) aBox.style.borderColor = provider === 'anthropic' ? 'var(--green)' : 'var(--border)';
   updateSetupStatus();
   checkApiWarnings();
 }
@@ -792,52 +895,9 @@ function saveApiKey() {
 
 function clearApiKey() {
   localStorage.removeItem('jl_api_key');
-  document.getElementById('api-key-status').innerHTML = '<span style="color:#c62828">API key cleared.</span>';
+  document.getElementById('api-key-status').innerHTML = '<span style="color:#c62828">Custom API key cleared. Default pre-configured key will be used.</span>';
   checkApiWarnings();
   updateSetupStatus();
-}
-
-function saveFirebaseConfig() {
-  const config = {
-    apiKey: document.getElementById('fb-apiKey').value.trim(),
-    authDomain: document.getElementById('fb-authDomain').value.trim(),
-    projectId: document.getElementById('fb-projectId').value.trim(),
-    storageBucket: document.getElementById('fb-storageBucket').value.trim(),
-    messagingSenderId: document.getElementById('fb-messagingSenderId').value.trim(),
-    appId: document.getElementById('fb-appId').value.trim()
-  };
-  if (!config.apiKey || !config.projectId) {
-    document.getElementById('fb-status').innerHTML = '<span style="color:#c62828">Please fill in at least API Key and Project ID.</span>';
-    return;
-  }
-  localStorage.setItem('jl_fb_config', JSON.stringify(config));
-  document.getElementById('fb-status').innerHTML = '<span style="color:var(--green)">✓ Firebase config saved. Connecting…</span>';
-  initFirebase(config);
-}
-
-function clearFirebaseConfig() {
-  localStorage.removeItem('jl_fb_config');
-  firebaseInitialized = false;
-  firebaseDB = null;
-  document.getElementById('fb-status').innerHTML = '<span style="color:#c62828">Firebase config cleared. Using localStorage.</span>';
-  updateDbStatus(false);
-  updateSetupStatus();
-}
-
-async function initFirebase(config) {
-  try {
-    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
-    const { getFirestore } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
-    const app = initializeApp(config, 'joylang-' + Date.now());
-    firebaseDB = getFirestore(app);
-    firebaseInitialized = true;
-    document.getElementById('fb-status').innerHTML = '<span style="color:var(--green)">✓ Firebase connected! Words and sentences will sync to the cloud.</span>';
-    updateDbStatus(true);
-    updateSetupStatus();
-  } catch(e) {
-    document.getElementById('fb-status').innerHTML = `<span style="color:#c62828">Firebase error: ${e.message}</span>`;
-    updateDbStatus(false);
-  }
 }
 
 function updateDbStatus(isCloud) {
@@ -861,20 +921,33 @@ function updateSetupStatus() {
   if (!panel) return;
   const hasKey = !!localStorage.getItem('jl_api_key');
   const provider = localStorage.getItem('jl_api_provider') || 'gemini';
-  const fbConfig = localStorage.getItem('jl_fb_config');
   const providerLabel = provider === 'gemini' ? 'Google Gemini (free)' : 'Anthropic Claude (paid)';
+  const dbConnected = !!window.akashDB;
+  const userId = getOrCreateUserId();
+
   panel.innerHTML = [
     `<div style="display:flex;align-items:center;gap:10px;">
-      <span style="font-size:1.2rem">${hasKey ? '✅' : '❌'}</span>
-      <div><strong>AI Provider: ${providerLabel}</strong><br><span style="color:var(--text-muted);font-size:.9rem">${hasKey ? 'API key configured — AI tools ready' : 'API key not set — AI features disabled'}</span></div>
+      <span style="font-size:1.2rem">${hasKey ? '✅' : '⚠️'}</span>
+      <div><strong>AI Provider: ${providerLabel}</strong><br>
+      <span style="color:var(--text-muted);font-size:.9rem;">
+        ${hasKey ? 'API key saved — AI tools active' : 'No API key yet — enter key in Setup to activate AI tools'} ·
+        Free tier: ${GEMINI_RPM_LIMIT} req/min · ${GEMINI_DAILY_LIMIT} req/day · Resets every ${GEMINI_RESET_INTERVAL_SEC}s
+      </span></div>
     </div>`,
     `<div style="display:flex;align-items:center;gap:10px;">
-      <span style="font-size:1.2rem">${firebaseInitialized ? '✅' : '⚠️'}</span>
-      <div><strong>Firebase Database</strong><br><span style="color:var(--text-muted);font-size:.9rem">${firebaseInitialized ? 'Connected — data syncing to cloud' : fbConfig ? 'Config saved, connecting…' : 'Not configured — using localStorage'}</span></div>
+      <span style="font-size:1.2rem">${dbConnected ? '✅' : '⚠️'}</span>
+      <div><strong>Firebase Database</strong><br>
+      <span style="color:var(--text-muted);font-size:.9rem;">${dbConnected ? '✓ Pre-configured &amp; connected — words and sentences sync to cloud' : 'Connecting… (auto-configured)'}</span></div>
     </div>`,
     `<div style="display:flex;align-items:center;gap:10px;">
       <span style="font-size:1.2rem">✅</span>
-      <div><strong>Dictionary</strong><br><span style="color:var(--text-muted);font-size:.9rem">${JOYLANG_DICT.length} words loaded</span></div>
+      <div><strong>Dictionary</strong><br>
+      <span style="color:var(--text-muted);font-size:.9rem;">${JOYLANG_DICT.length} words loaded from static dictionary</span></div>
+    </div>`,
+    `<div style="display:flex;align-items:center;gap:10px;">
+      <span style="font-size:1.2rem">🪪</span>
+      <div><strong>Your Session ID</strong><br>
+      <span style="color:var(--text-muted);font-size:.9rem;">Your contributions are tagged with: <code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;">${userId}</code></span></div>
     </div>`
   ].join('');
 }
@@ -888,35 +961,43 @@ function showError(elId, msg) {
 
 // ── INIT ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  // Restore API provider selection
+  // Ensure Gemini is the default provider and pre-configured key is ready
+  if (!localStorage.getItem('jl_api_provider')) {
+    localStorage.setItem('jl_api_provider', 'gemini');
+  }
+
   const savedProvider = localStorage.getItem('jl_api_provider') || 'gemini';
   const providerRadio = document.getElementById('provider-' + savedProvider);
   if (providerRadio) providerRadio.checked = true;
   switchProvider(savedProvider);
 
-  // Restore API key indicator
-  if (localStorage.getItem('jl_api_key')) {
-    document.getElementById('api-key-status').innerHTML = '<span style="color:var(--green)">✓ API key is stored.</span>';
+  const keyStatus = document.getElementById('api-key-status');
+  if (keyStatus) {
+    if (localStorage.getItem('jl_api_key')) {
+      keyStatus.innerHTML = '<span style="color:var(--green)">✓ Gemini API key saved — AI tools ready.</span>';
+    } else {
+      keyStatus.innerHTML = '<span style="color:#e65100;">⚠ No API key yet. Enter your Gemini key below to activate AI tools. Key is free at <strong>aistudio.google.com</strong>.</span>';
+    }
   }
-  // Restore Firebase config
-  const savedFbConfig = localStorage.getItem('jl_fb_config');
-  if (savedFbConfig) {
-    try {
-      const cfg = JSON.parse(savedFbConfig);
-      document.getElementById('fb-apiKey').value = cfg.apiKey || '';
-      document.getElementById('fb-authDomain').value = cfg.authDomain || '';
-      document.getElementById('fb-projectId').value = cfg.projectId || '';
-      document.getElementById('fb-storageBucket').value = cfg.storageBucket || '';
-      document.getElementById('fb-messagingSenderId').value = cfg.messagingSenderId || '';
-      document.getElementById('fb-appId').value = cfg.appId || '';
-      if (cfg.apiKey && cfg.projectId) initFirebase(cfg);
-    } catch(e) { console.warn('Bad firebase config:', e); }
+
+  // Wait for Firebase to be ready
+  function onDbReady() {
+    updateDbStatus(!!window.akashDB);
+    updateSetupStatus();
   }
+  if (window.akashDB !== undefined) {
+    onDbReady();
+  } else {
+    window.addEventListener('akash-db-ready', onDbReady, { once: true });
+  }
+
   checkApiWarnings();
-  updateSetupStatus();
-  // Set default complexity button
   setComplexity('simple');
-  // Sidebar search
+  updateRateLimitDisplay();
+
+  // Refresh rate limit display every 5 seconds
+  setInterval(updateRateLimitDisplay, 5000);
+
   const topSearch = document.getElementById('topSearchInput');
   if (topSearch) {
     topSearch.addEventListener('keydown', e => {

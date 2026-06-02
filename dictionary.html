@@ -56,6 +56,11 @@
   <div class="breadcrumb"><a href="index.html">Introduction</a><span class="breadcrumb-sep">›</span><span class="current">Dictionary</span></div>
   <h1 class="article-title">Joylang Dictionary</h1>
   <p class="article-subtitle">Complete vocabulary — roots, class forms, meanings, and examples. 10,000+ words drawn from Hindi, Arabic, Mandarin, Japanese, Swahili, Spanish, Tamil, Turkish, English &amp; Yoruba.</p>
+  <div class="article-meta">
+    <span class="badge badge-version">v1.0</span>
+    <span class="badge badge-green">Developer: Aman Akash</span>
+    <span class="badge badge-blue" id="dict-community-badge" style="display:none;">+ Community Words</span>
+  </div>
 
   <div class="dict-controls">
     <div class="dict-search-wrap">
@@ -124,8 +129,9 @@
 </main>
 </div>
 <footer class="site-footer">
-  <p>Joylang · A Friendship Auxiliary Language · <a href="https://github.com/amanakash112-del/akashlang.bhairavi" target="_blank">GitHub</a></p>
+  <p>Joylang · A Friendship Auxiliary Language · Developed by <strong>Aman Akash</strong> · <a href="https://github.com/amanakash112-del/akashlang.bhairavi" target="_blank">GitHub</a></p>
 </footer>
+<script src="js/firebase-db.js"></script>
 <script src="js/dictionary-data.js"></script>
 <script src="js/main.js"></script>
 <script>
@@ -137,11 +143,13 @@
     'Colours':'#fff9c4','Time':'#e8f5e9','Places':'#e3f2fd','Objects':'#f5f5f5',
     'Food':'#fff3e0','Transport':'#e0f7fa','Home':'#f3e5f5','Office':'#e8eaf6',
     'Toiletries':'#fce4ec','Digital':'#e1f5fe','Technology':'#e0f2f1',
-    'Core':'#f5f5f5'
+    'Core':'#f5f5f5','Community':'#f3e5f5'
   };
 
   let currentDomain = 'all';
   let currentQuery = '';
+  // Combined list: static dictionary + community/Firebase words
+  let allEntries = JOYLANG_DICT.map(e => ({ ...e, createdBy: 'developer' }));
 
   function tagFor(entry) {
     if (entry.verb && entry.verb !== '—') return 'verb';
@@ -150,16 +158,23 @@
     return 'root';
   }
 
+  function creatorBadge(entry) {
+    if (entry.createdBy === 'user') {
+      return '<span class="creator-badge creator-user" title="Community contributed word">Community</span>';
+    }
+    return '<span class="creator-badge creator-dev" title="Developer-verified word">Dev</span>';
+  }
+
   function renderCards(entries) {
     const grid = document.getElementById('dictGrid');
     const stats = document.getElementById('dictStats');
-    stats.textContent = `Showing ${entries.length} of ${JOYLANG_DICT.length} entries`;
+    const communityCount = entries.filter(e => e.createdBy === 'user').length;
+    stats.textContent = `Showing ${entries.length} entries (${entries.length - communityCount} developer · ${communityCount} community)`;
     if (entries.length === 0) {
       grid.innerHTML = '<div class="no-results"><div class="icon">🔍</div><p>No results found. Try a different search term.</p></div>';
       return;
     }
     grid.innerHTML = entries.map(e => {
-      const bgColor = domainTagColors[e.domain] || '#f5f5f5';
       const forms = [];
       if (e.noun && e.noun !== '—') forms.push(`<span title="Noun">N: <span>${e.noun}</span></span>`);
       if (e.verb && e.verb !== '—') forms.push(`<span title="Verb">V: <span>${e.verb}</span></span>`);
@@ -167,25 +182,72 @@
       return `<div class="dict-card">
         <div class="dict-card-header">
           <div class="dict-word">${e.root}</div>
-          <span class="td-tag tag-${tagFor(e)}">${e.domain}</span>
+          <span class="td-tag tag-${tagFor(e)}">${e.domain || 'Community'}</span>
+          ${creatorBadge(e)}
         </div>
         <div class="dict-meaning">${e.en}</div>
+        ${e.hi ? `<div style="color:#e65100;font-size:.82rem;margin-bottom:4px;">${e.hi}</div>` : ''}
         ${forms.length ? `<div class="dict-forms">${forms.join(' &nbsp;·&nbsp; ')}</div>` : ''}
         ${e.ex ? `<div class="dict-example">${e.ex}</div>` : ''}
       </div>`;
     }).join('');
   }
 
+  function searchAll(query, domain) {
+    return allEntries.filter(e => {
+      const matchDomain = domain === 'all' || (e.domain || '').toLowerCase() === domain.toLowerCase();
+      if (!query) return matchDomain;
+      const q = query.toLowerCase();
+      return matchDomain && (
+        e.root.toLowerCase().includes(q) ||
+        (e.en || '').toLowerCase().includes(q) ||
+        (e.noun || '').toLowerCase().includes(q) ||
+        (e.verb || '').toLowerCase().includes(q) ||
+        (e.hi || '').toLowerCase().includes(q)
+      );
+    });
+  }
+
   function update() {
-    renderCards(searchDict(currentQuery, currentDomain));
+    renderCards(searchAll(currentQuery, currentDomain));
+  }
+
+  // Load community words from Firebase
+  async function loadCommunityWords() {
+    const db = window.akashDB;
+    if (!db) return;
+    try {
+      const { getDocs, collection, query, where } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+      const snap = await getDocs(collection(db, 'words'));
+      const staticRoots = new Set(JOYLANG_DICT.map(e => e.root));
+      let communityCount = 0;
+      snap.forEach(doc => {
+        const data = doc.data();
+        if (data.createdBy === 'user' && !staticRoots.has(data.root)) {
+          allEntries.push({ ...data });
+          communityCount++;
+        }
+      });
+      if (communityCount > 0) {
+        const badge = document.getElementById('dict-community-badge');
+        if (badge) {
+          badge.textContent = `+ ${communityCount} Community Words`;
+          badge.style.display = 'inline-flex';
+        }
+        update();
+      }
+    } catch(e) {
+      console.warn('Could not load community words:', e.message);
+    }
   }
 
   // Search input
   const input = document.getElementById('dictSearch');
   input.addEventListener('input', e => { currentQuery = e.target.value; update(); });
 
-  // URL param ?q=
-  const urlQ = new URLSearchParams(location.search).get('q');
+  // URL param ?q= or #search=
+  const urlQ = new URLSearchParams(location.search).get('q') ||
+    (location.hash.startsWith('#search=') ? decodeURIComponent(location.hash.slice(8)) : null);
   if (urlQ) { input.value = urlQ; currentQuery = urlQ; }
 
   // Domain filter buttons
@@ -218,6 +280,13 @@
   }
 
   update();
+
+  // Load community words after Firebase is ready
+  if (window.akashDB) {
+    loadCommunityWords();
+  } else {
+    window.addEventListener('akash-db-ready', loadCommunityWords, { once: true });
+  }
 })();
 </script>
 </body>

@@ -129,6 +129,10 @@ textarea.tool-input { resize:vertical; min-height:80px; }
     <span id="dbStatusBadge" class="db-status local">Local Storage</span>
   </div>
 
+  <div id="rate-limit-display" style="font-size:.82rem;color:var(--text-muted);margin-bottom:16px;padding:6px 12px;background:var(--bg);border-radius:6px;border:1px solid var(--border);">
+    Gemini free tier: 15 req/min · 1500 req/day · Enter API key in Setup tab to activate AI tools
+  </div>
+
   <div class="tools-tabs">
     <button class="tool-tab active" onclick="openTab('generator')">Word Generator</button>
     <button class="tool-tab" onclick="openTab('translator')">Sentence Translator</button>
@@ -345,92 +349,92 @@ textarea.tool-input { resize:vertical; min-height:80px; }
   <div class="tool-panel" id="panel-setup">
     <h2>Setup &amp; Configuration</h2>
 
-    <!-- API KEY -->
-    <h3>Anthropic API Key</h3>
-    <div class="callout callout-tip">
-      <strong>How to get your API key:</strong>
-      <ol style="margin-top:8px;padding-left:20px;">
-        <li>Choose your AI provider below (Google Gemini is free — recommended).</li>
-        <li>Get a free API key from the provider's console (links below).</li>
-        <li>Paste the key and click <strong>Save Key</strong>.</li>
-      </ol>
-      <p style="margin-top:8px;color:var(--text-muted);font-size:.9rem;">Your key is stored in your browser only — never sent anywhere except the AI provider's own API.</p>
+    <div class="callout callout-tip" style="margin-bottom:20px;">
+      <strong>Quick Setup</strong>
+      Firebase database is pre-configured. Only the Gemini AI key needs to be entered once below — it saves permanently in your browser.
+      Get a <strong>free</strong> Gemini API key at <strong>aistudio.google.com → API Keys</strong>.
     </div>
 
+    <!-- AI PROVIDER -->
+    <h3>AI Provider</h3>
     <div style="margin-bottom:16px;">
       <label style="font-weight:700;display:block;margin-bottom:10px;">Choose AI Provider</label>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
         <label style="display:flex;align-items:center;gap:8px;cursor:pointer;background:var(--white);border:2px solid var(--border);border-radius:8px;padding:12px 18px;transition:border-color .2s;" id="provider-gemini-box">
           <input type="radio" name="apiProvider" value="gemini" id="provider-gemini" onchange="switchProvider('gemini')">
           <div>
-            <div style="font-weight:700;color:var(--text);">Google Gemini <span style="background:#e8f5e9;color:#2e7d32;font-size:.75rem;padding:2px 8px;border-radius:10px;margin-left:4px;">FREE</span></div>
-            <div style="font-size:.82rem;color:var(--text-muted);">Gemini 1.5 Flash · 15 req/min free · Get key at <strong>aistudio.google.com</strong></div>
+            <div style="font-weight:700;color:var(--text);">Google Gemini <span style="background:#e8f5e9;color:#2e7d32;font-size:.75rem;padding:2px 8px;border-radius:10px;margin-left:4px;">FREE · RECOMMENDED</span></div>
+            <div style="font-size:.82rem;color:var(--text-muted);">Gemini 1.5 Flash · 15 req/min · 1,500 req/day · Resets every 60 seconds</div>
           </div>
         </label>
         <label style="display:flex;align-items:center;gap:8px;cursor:pointer;background:var(--white);border:2px solid var(--border);border-radius:8px;padding:12px 18px;transition:border-color .2s;" id="provider-anthropic-box">
           <input type="radio" name="apiProvider" value="anthropic" id="provider-anthropic" onchange="switchProvider('anthropic')">
           <div>
             <div style="font-weight:700;color:var(--text);">Anthropic Claude <span style="background:#fff3e0;color:#e65100;font-size:.75rem;padding:2px 8px;border-radius:10px;margin-left:4px;">PAID</span></div>
-            <div style="font-size:.82rem;color:var(--text-muted);">Claude Sonnet · Pay-as-you-go · Get key at <strong>console.anthropic.com</strong></div>
+            <div style="font-size:.82rem;color:var(--text-muted);">Claude Sonnet · Pay-as-you-go · Requires your own key from console.anthropic.com</div>
           </div>
         </label>
       </div>
       <div id="provider-hint" style="margin-top:10px;font-size:.85rem;color:var(--green-dark);background:var(--green-light);padding:8px 14px;border-radius:6px;"></div>
     </div>
 
+    <p style="font-size:.88rem;color:var(--text-muted);margin-bottom:8px;">Get a free key at <strong>aistudio.google.com → API Keys</strong> then paste it below. Saved in your browser only — never sent anywhere else.</p>
     <div class="api-key-row">
-      <input type="password" id="apiKeyInput" class="api-key-input" placeholder="Paste your API key here…">
+      <input type="password" id="apiKeyInput" class="api-key-input" placeholder="Paste Gemini API key here… (AIzaSy…)">
       <button class="tool-btn" onclick="saveApiKey()">Save Key</button>
-      <button class="tool-btn secondary" onclick="clearApiKey()">Clear</button>
+      <button class="tool-btn secondary" onclick="clearApiKey()">Clear Key</button>
     </div>
     <div id="api-key-status" style="margin-top:8px;font-size:.9rem;"></div>
 
     <hr class="section-divider">
 
-    <!-- FIREBASE -->
-    <h3>Firebase Database (Cloud Storage)</h3>
+    <!-- FIREBASE STATUS -->
+    <h3>Firebase Database</h3>
     <div class="callout callout-tip">
-      <strong>Set up free Firebase Firestore in 5 steps:</strong>
-      <ol style="margin-top:8px;padding-left:20px;">
-        <li>Go to <strong>console.firebase.google.com</strong> and sign in with your Google account.</li>
-        <li>Click <strong>Add project</strong> → name it "joylang" → click through setup (disable Analytics is fine).</li>
-        <li>In the left sidebar click <strong>Build → Firestore Database</strong> → <strong>Create database</strong> → choose <strong>Start in test mode</strong> → pick a region close to you.</li>
-        <li>In the left sidebar click <strong>Project settings</strong> (gear icon) → scroll to <strong>Your apps</strong> → click <strong>&lt;/&gt; Web</strong> → name it "joylang-tools" → click <strong>Register app</strong>.</li>
-        <li>Copy the <code>firebaseConfig</code> object shown and paste each value into the fields below.</li>
-      </ol>
-      <p style="margin-top:8px;color:var(--text-muted);font-size:.9rem;">The free Spark plan gives you 50,000 reads/day, 20,000 writes/day, and 1 GB storage — more than enough for this project.</p>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;" id="fbConfigGrid">
-      <div>
-        <label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:4px;">API Key</label>
-        <input type="text" id="fb-apiKey" class="tool-input" placeholder="AIza…">
-      </div>
-      <div>
-        <label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:4px;">Auth Domain</label>
-        <input type="text" id="fb-authDomain" class="tool-input" placeholder="yourproject.firebaseapp.com">
-      </div>
-      <div>
-        <label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:4px;">Project ID</label>
-        <input type="text" id="fb-projectId" class="tool-input" placeholder="yourproject">
-      </div>
-      <div>
-        <label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:4px;">Storage Bucket</label>
-        <input type="text" id="fb-storageBucket" class="tool-input" placeholder="yourproject.appspot.com">
-      </div>
-      <div>
-        <label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:4px;">Messaging Sender ID</label>
-        <input type="text" id="fb-messagingSenderId" class="tool-input" placeholder="123456789">
-      </div>
-      <div>
-        <label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:4px;">App ID</label>
-        <input type="text" id="fb-appId" class="tool-input" placeholder="1:123:web:abc…">
-      </div>
-    </div>
-    <div style="display:flex;gap:8px;margin-top:14px;">
-      <button class="tool-btn" onclick="saveFirebaseConfig()">Save &amp; Connect Firebase</button>
-      <button class="tool-btn secondary" onclick="clearFirebaseConfig()">Clear Firebase Config</button>
+      <strong>✓ Pre-configured: akashlang-a9d4b</strong>
+      Firebase Firestore is pre-configured and connects automatically. Project: <code>akashlang-a9d4b</code><br>
+      Words and sentences saved from Tools are stored in Firestore and visible to all users.
     </div>
     <div id="fb-status" style="margin-top:10px;font-size:.9rem;"></div>
+
+    <hr class="section-divider">
+
+    <!-- SEED DATABASE -->
+    <h3>Seed Dictionary to Database</h3>
+    <p style="font-size:.9rem;color:var(--text-muted);">Upload the full built-in dictionary (developer words) to Firebase. This is a one-time operation — run it once to populate the cloud database. Already-existing entries are skipped.</p>
+    <div style="display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap;">
+      <button class="tool-btn" id="seed-btn" onclick="seedDatabase()">Seed Dictionary to DB</button>
+    </div>
+    <div id="seed-status" style="margin-top:8px;font-size:.9rem;"></div>
+
+    <hr class="section-divider">
+
+    <!-- SECURITY RULES -->
+    <h3>Firebase Security Rules</h3>
+    <div class="callout callout-warn">
+      <strong>⚠ Action Required: Apply Security Rules in Firebase Console</strong>
+      The default "test mode" allows anyone to read AND delete. Apply these rules to prevent deletion by users.<br>
+      Go to <strong>console.firebase.google.com → akashlang-a9d4b → Firestore → Rules</strong> and paste:
+    </div>
+    <pre style="background:var(--code-bg);color:var(--code-text);padding:14px 16px;border-radius:8px;font-size:.82rem;overflow-x:auto;margin-top:12px;line-height:1.6;">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /words/{wordId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+    match /sentences/{sentenceId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}</pre>
+    <p style="font-size:.85rem;color:var(--text-muted);margin-top:8px;">These rules: <strong>anyone can read and add</strong> words/sentences, <strong>nobody can delete</strong> (except you via the Firebase Console).</p>
 
     <hr class="section-divider">
 
@@ -441,9 +445,10 @@ textarea.tool-input { resize:vertical; min-height:80px; }
 </main>
 </div>
 <footer class="site-footer">
-  <p>Joylang · A Friendship Auxiliary Language · <a href="https://github.com/amanakash112-del/akashlang.bhairavi" target="_blank">GitHub</a></p>
+  <p>Joylang · A Friendship Auxiliary Language · Developed by <strong>Aman Akash</strong> · <a href="https://github.com/amanakash112-del/akashlang.bhairavi" target="_blank">GitHub</a></p>
 </footer>
 
+<script src="js/firebase-db.js"></script>
 <script src="js/dictionary-data.js"></script>
 <script src="js/main.js"></script>
 <script src="js/tools.js"></script>
