@@ -958,32 +958,52 @@ async function seedDatabase() {
 
   try {
     const { addDoc, getDocs, collection: col } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
-    const snap = await getDocs(col(db, 'words'));
+
+    // ── Seed words ──────────────────────────────────────────────
+    const wordSnap = await getDocs(col(db, 'words'));
     const existingRoots = new Set();
-    snap.forEach(d => existingRoots.add(d.data().root));
+    wordSnap.forEach(d => existingRoots.add(d.data().root));
+    const wordsToAdd = JOYLANG_DICT.filter(w => !existingRoots.has(w.root));
 
-    const toAdd = JOYLANG_DICT.filter(w => !existingRoots.has(w.root));
-    if (toAdd.length === 0) {
-      if (statusEl) { statusEl.textContent = `✓ All ${JOYLANG_DICT.length} dictionary words already in database.`; statusEl.style.color = 'var(--green)'; }
-      if (btn) { btn.disabled = false; btn.textContent = 'Seed Dictionary to DB'; }
-      return;
-    }
-
-    let count = 0;
-    for (const word of toAdd) {
+    let wordCount = 0;
+    for (const word of wordsToAdd) {
       await addDoc(col(db, 'words'), {
         ...word,
         createdBy: 'developer',
         creatorId: 'developer',
         createdAt: new Date().toISOString()
       });
-      count++;
-      if (statusEl && count % 10 === 0) {
-        statusEl.textContent = `Seeding… ${count}/${toAdd.length} words added`;
+      wordCount++;
+      if (statusEl && wordCount % 10 === 0) {
+        statusEl.textContent = `Seeding words… ${wordCount}/${wordsToAdd.length}`;
       }
     }
+
+    // ── Seed sentences ──────────────────────────────────────────
+    const sentSnap = await getDocs(col(db, 'sentences'));
+    const existingJoy = new Set();
+    sentSnap.forEach(d => existingJoy.add(d.data().joylang));
+    const sentsToAdd = JOYLANG_SENTENCES.filter(s => !existingJoy.has(s.joylang));
+
+    if (statusEl) statusEl.textContent = `Words done. Seeding sentences…`;
+    let sentCount = 0;
+    for (const sent of sentsToAdd) {
+      await addDoc(col(db, 'sentences'), {
+        ...sent,
+        createdBy: 'developer',
+        creatorId: 'developer',
+        createdAt: new Date().toISOString()
+      });
+      sentCount++;
+      if (statusEl && sentCount % 20 === 0) {
+        statusEl.textContent = `Seeding sentences… ${sentCount}/${sentsToAdd.length}`;
+      }
+    }
+
     if (statusEl) {
-      statusEl.textContent = `✓ Seeded ${count} new words to Firebase. ${existingRoots.size} already existed.`;
+      statusEl.textContent =
+        `✓ Seeded ${wordCount} words (${existingRoots.size} already existed) · ` +
+        `${sentCount} sentences (${existingJoy.size} already existed).`;
       statusEl.style.color = 'var(--green)';
     }
   } catch(e) {
