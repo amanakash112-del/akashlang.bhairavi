@@ -138,7 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
         signInBtn.style.display = 'none';
         userChip.classList.add('visible');
         const isDev = window.akashIsDeveloper;
-        nameEl.textContent = isDev ? 'Developer' : (user.displayName?.split(' ')[0] || user.email.split('@')[0]);
+        const firstName = user.displayName?.split(' ')[0] || user.email.split('@')[0];
+        nameEl.textContent = firstName + (isDev ? ' · Developer' : ' · User');
         nameEl.className = 'auth-name' + (isDev ? ' developer' : '');
         if (user.photoURL) {
           avatarEl.src = user.photoURL;
