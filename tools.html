@@ -80,6 +80,10 @@
 .db-status.local { background:#fff3e0; color:#e65100; }
 .db-status.cloud { background:#e8f5e9; color:#2e7d32; }
 .db-status::before { content:'●'; font-size:.6rem; }
+.saved-subtabs { display:flex; gap:0; margin-bottom:20px; border-bottom:2px solid var(--border); }
+.saved-subtab { padding:10px 22px; border:none; background:none; cursor:pointer; font-weight:600; font-size:.9rem; color:var(--text-muted); border-bottom:3px solid transparent; margin-bottom:-2px; transition:all .15s; }
+.saved-subtab.active { color:var(--green); border-bottom-color:var(--green); }
+.saved-subtab:hover:not(.active) { color:var(--text); background:var(--bg); border-radius:6px 6px 0 0; }
 .saved-words-list { display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:10px; margin-top:14px; }
 .saved-word-card {
   background:var(--white); border:1px solid var(--border); border-radius:8px; padding:12px;
@@ -321,33 +325,64 @@ textarea.tool-input { resize:vertical; min-height:80px; }
   <!-- TAB 4: SAVED WORDS & SENTENCES                             -->
   <!-- ══════════════════════════════════════════════════════════ -->
   <div class="tool-panel" id="panel-saved">
-    <h2>My Words &amp; Sentences</h2>
-    <p>Words and sentences you create are saved to your account. Sign in with Google to keep them linked to your identity across devices.</p>
+    <h2>Words &amp; Sentences</h2>
+    <p>Browse your personal saves, or explore everything the community has created.</p>
 
-    <div id="saved-login-prompt" style="background:#e8f5e9;border:2px solid var(--green);border-radius:10px;padding:16px 20px;margin-bottom:20px;display:none;">
-      <strong>Sign in to sync your words</strong><br>
-      <span style="font-size:.9rem;color:var(--text-muted);">You can still save words anonymously, but signing in links them to your Google account and lets you access them from any device.</span><br>
-      <button class="tool-btn" style="margin-top:10px" onclick="window.akashSignIn && window.akashSignIn()">
-        Sign in with Google
-      </button>
+    <!-- Sub-tab bar -->
+    <div class="saved-subtabs">
+      <button class="saved-subtab active" id="subtab-mine" onclick="openSavedTab('mine')">My Words &amp; Sentences</button>
+      <button class="saved-subtab" id="subtab-community" onclick="openSavedTab('community')">Community</button>
     </div>
 
-    <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center;">
-      <span id="saved-db-status" class="db-status local">Local Storage</span>
-      <button class="tool-btn secondary" onclick="loadSaved()">Refresh</button>
-      <button class="tool-btn secondary" onclick="exportData()">Export JSON</button>
+    <!-- ── MY WORDS sub-panel ── -->
+    <div id="subpanel-mine">
+      <div id="saved-login-prompt" style="background:#e8f5e9;border:2px solid var(--green);border-radius:10px;padding:16px 20px;margin-bottom:20px;display:none;">
+        <strong>Sign in to sync your words</strong><br>
+        <span style="font-size:.9rem;color:var(--text-muted);">You can still save words anonymously, but signing in links them to your Google account and lets you access them from any device.</span><br>
+        <button class="tool-btn" style="margin-top:10px" onclick="window.akashSignIn && window.akashSignIn()">
+          Sign in with Google
+        </button>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center;">
+        <span id="saved-db-status" class="db-status local">Local Storage</span>
+        <button class="tool-btn secondary" onclick="loadSaved()">Refresh</button>
+        <button class="tool-btn secondary" onclick="exportData()">Export JSON</button>
+      </div>
+
+      <h3>My Words (<span id="word-count">0</span>)</h3>
+      <div class="saved-words-list" id="saved-words-list">
+        <p style="color:var(--text-muted);">No words saved yet. Use the Word Generator to create words.</p>
+      </div>
+
+      <hr class="section-divider">
+
+      <h3>My Sentences (<span id="sentence-count">0</span>)</h3>
+      <div id="saved-sentences-list" style="display:flex;flex-direction:column;gap:10px;">
+        <p style="color:var(--text-muted);">No sentences saved yet. Use the Translator or Creator tools.</p>
+      </div>
     </div>
 
-    <h3>My Words (<span id="word-count">0</span>)</h3>
-    <div class="saved-words-list" id="saved-words-list">
-      <p style="color:var(--text-muted);">No words saved yet. Use the Word Generator to create words.</p>
-    </div>
+    <!-- ── COMMUNITY sub-panel ── -->
+    <div id="subpanel-community" style="display:none;">
+      <p style="color:var(--text-muted);margin-bottom:16px;">All words and sentences created by the AkashLang community — including developer-seeded vocabulary and user contributions.</p>
 
-    <hr class="section-divider">
+      <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center;">
+        <span id="community-db-status" class="db-status cloud">Firebase Cloud</span>
+        <button class="tool-btn secondary" onclick="loadCommunity()">Refresh</button>
+      </div>
 
-    <h3>My Sentences (<span id="sentence-count">0</span>)</h3>
-    <div id="saved-sentences-list" style="display:flex;flex-direction:column;gap:10px;">
-      <p style="color:var(--text-muted);">No sentences saved yet. Use the Translator or Creator tools.</p>
+      <h3>Community Words (<span id="community-word-count">—</span>)</h3>
+      <div class="saved-words-list" id="community-words-list">
+        <p style="color:var(--text-muted);">Loading…</p>
+      </div>
+
+      <hr class="section-divider">
+
+      <h3>Community Sentences (<span id="community-sentence-count">—</span>)</h3>
+      <div id="community-sentences-list" style="display:flex;flex-direction:column;gap:10px;">
+        <p style="color:var(--text-muted);">Loading…</p>
+      </div>
     </div>
   </div>
 

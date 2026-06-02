@@ -800,6 +800,93 @@ async function loadSaved() {
   renderSaved(words, sentences);
 }
 
+function openSavedTab(tab) {
+  document.getElementById('subpanel-mine').style.display = tab === 'mine' ? '' : 'none';
+  document.getElementById('subpanel-community').style.display = tab === 'community' ? '' : 'none';
+  document.getElementById('subtab-mine').classList.toggle('active', tab === 'mine');
+  document.getElementById('subtab-community').classList.toggle('active', tab === 'community');
+  if (tab === 'community') loadCommunity();
+}
+
+async function loadCommunity() {
+  const wordsEl = document.getElementById('community-words-list');
+  const sentEl = document.getElementById('community-sentences-list');
+  if (wordsEl) wordsEl.innerHTML = '<p style="color:var(--text-muted);">Loading…</p>';
+  if (sentEl) sentEl.innerHTML = '<p style="color:var(--text-muted);">Loading…</p>';
+
+  const db = window.akashDB;
+  if (!db) {
+    if (wordsEl) wordsEl.innerHTML = '<p style="color:#c62828;">Not connected to Firebase. Community data requires an internet connection.</p>';
+    return;
+  }
+  try {
+    const { getDocs, collection: col, query, orderBy, limit } =
+      await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+    const [wSnap, sSnap] = await Promise.all([
+      getDocs(query(col(db, 'words'), orderBy('createdAt', 'desc'), limit(200))),
+      getDocs(query(col(db, 'sentences'), orderBy('createdAt', 'desc'), limit(100)))
+    ]);
+    const words = [], sentences = [];
+    wSnap.forEach(d => words.push(d.data()));
+    sSnap.forEach(d => sentences.push(d.data()));
+    renderCommunity(words, sentences);
+  } catch(e) {
+    if (wordsEl) wordsEl.innerHTML = `<p style="color:#c62828;">Failed to load: ${e.message}</p>`;
+  }
+}
+
+function renderCommunity(words, sentences) {
+  const wCountEl = document.getElementById('community-word-count');
+  const sCountEl = document.getElementById('community-sentence-count');
+  if (wCountEl) wCountEl.textContent = words.length;
+  if (sCountEl) sCountEl.textContent = sentences.length;
+
+  const wordsList = document.getElementById('community-words-list');
+  if (wordsList) {
+    if (words.length) {
+      wordsList.innerHTML = words.map(w => {
+        const badge = w.createdBy === 'developer'
+          ? '<span class="creator-badge creator-dev">Dev</span>'
+          : '<span class="creator-badge creator-user">Community</span>';
+        const creator = w.creatorName ? ` · <span style="color:#aaa;">${w.creatorName}</span>` : '';
+        return `<div class="saved-word-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div class="swc-joy">${w.root} · ${w.noun || ''}</div>
+            ${badge}
+          </div>
+          <div class="swc-en">${w.en || ''}${w.hi ? ' · <span style="color:#e65100;">' + w.hi + '</span>' : ''}</div>
+          <div class="swc-meta">${w.domain || ''}${w.sourceLang ? ' · ' + w.sourceLang : ''}${creator}</div>
+        </div>`;
+      }).join('');
+    } else {
+      wordsList.innerHTML = '<p style="color:var(--text-muted);">No community words yet — seed the dictionary first, or create a word using the Word Generator.</p>';
+    }
+  }
+
+  const sentList = document.getElementById('community-sentences-list');
+  if (sentList) {
+    if (sentences.length) {
+      sentList.innerHTML = sentences.map(s => {
+        const badge = s.createdBy === 'developer'
+          ? '<span class="creator-badge creator-dev">Dev</span>'
+          : '<span class="creator-badge creator-user">Community</span>';
+        const creator = s.creatorName ? `by ${s.creatorName} · ` : '';
+        return `<div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+            <div style="font-weight:700;color:var(--green-dark);font-size:1.05rem;">${s.joylang}</div>
+            ${badge}
+          </div>
+          <div style="color:var(--text-muted);font-size:.9rem;">${s.english || ''}</div>
+          ${s.hindi ? `<div style="color:#e65100;font-size:.88rem;margin-top:3px;">${s.hindi}</div>` : ''}
+          <div style="font-size:.75rem;color:#aaa;margin-top:4px;">${creator}${new Date(s.createdAt||Date.now()).toLocaleDateString()}</div>
+        </div>`;
+      }).join('');
+    } else {
+      sentList.innerHTML = '<p style="color:var(--text-muted);">No community sentences yet. Use the Translator or Creator to add some.</p>';
+    }
+  }
+}
+
 function renderSaved(words, sentences) {
   document.getElementById('word-count').textContent = words.length;
   document.getElementById('sentence-count').textContent = sentences.length;
