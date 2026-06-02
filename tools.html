@@ -239,7 +239,7 @@ textarea.tool-input { resize:vertical; min-height:80px; }
   <!-- ══════════════════════════════════════════════════════════ -->
   <div class="tool-panel" id="panel-translator">
     <h2>Sentence Translator</h2>
-    <p>Translate any English sentence into Joylang. Uses the Claude AI with full knowledge of Joylang grammar rules. Requires an Anthropic API key (set up in the <strong>Setup</strong> tab).</p>
+    <p>Translate any English sentence into Joylang using Gemini AI (free) or Claude. Configure your API key once in the <strong>Setup</strong> tab, or use offline Rule-Based mode — no key needed.</p>
 
     <div id="translator-api-warn" class="api-setup" style="display:none;">
       <h4>⚙ API Key Required</h4>
@@ -249,7 +249,7 @@ textarea.tool-input { resize:vertical; min-height:80px; }
     <div id="translator-mode-select" style="margin-bottom:16px;">
       <label style="font-weight:600;margin-bottom:8px;display:block;">Translation Mode</label>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="tool-btn" id="mode-ai" onclick="setTransMode('ai')" style="background:var(--green)">AI Translation (Claude)</button>
+        <button class="tool-btn" id="mode-ai" onclick="setTransMode('ai')" style="background:var(--green)">AI Translation (Gemini)</button>
         <button class="tool-btn secondary" id="mode-rule" onclick="setTransMode('rule')">Rule-Based (offline)</button>
       </div>
       <p style="font-size:.85rem;color:var(--text-muted);margin-top:8px;" id="mode-desc">AI mode uses Claude to translate with full grammar understanding. Rule-based works offline using dictionary lookup + SOV reordering.</p>
@@ -285,7 +285,7 @@ textarea.tool-input { resize:vertical; min-height:80px; }
 
     <div id="creator-api-warn" class="api-setup" style="display:none;">
       <h4>⚙ API Key Required</h4>
-      <p>This tool uses the Claude AI API. Please add your Anthropic API key in the <a href="#" onclick="openTab('setup');return false">Setup tab</a> to enable sentence creation.</p>
+      <p>This tool requires an AI key. Get a free Gemini key at <strong>aistudio.google.com</strong> and add it in the <a href="#" onclick="openTab('setup');return false">Setup tab</a>.</p>
     </div>
 
     <label style="font-weight:600;display:block;margin-bottom:8px;">What do you want to express? (describe in English)</label>
@@ -488,7 +488,7 @@ service cloud.firestore {
 </main>
 </div>
 <footer class="site-footer">
-  <p>Joylang · A Friendship Auxiliary Language · Developed by <strong>Aman Akash</strong> · <a href="https://github.com/amanakash112-del/akashlang.bhairavi" target="_blank">GitHub</a></p>
+  <p>Joylang · A Friendship Auxiliary Language · Developed by <strong>Aman Akash</strong> · <a href="https://github.com/amanakash112-del/akashlang.bhairavi" target="_blank">GitHub</a> · <a href="https://www.linkedin.com/in/aman-akash-256219256/" target="_blank">LinkedIn</a></p>
 </footer>
 
 <script src="js/firebase-db.js"></script>
