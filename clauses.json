@@ -1,0 +1,902 @@
+[
+  {
+    "id": 1,
+    "english": "If you come...",
+    "joylang": "Nashi tenu belo, tashi...",
+    "hindi": "अगर आप आएँ, तो...",
+    "type": "conditional",
+    "marker": "if",
+    "joylang_rule": "nashi...tashi (if...then)"
+  },
+  {
+    "id": 2,
+    "english": "If I had known...",
+    "joylang": "Nashi anu janivime, tashi...",
+    "hindi": "अगर मुझे पता होता, तो...",
+    "type": "conditional",
+    "marker": "if",
+    "joylang_rule": "nashi + verb+past.perf"
+  },
+  {
+    "id": 3,
+    "english": "If it rains...",
+    "joylang": "Nashi mavi bishishilo, tashi...",
+    "hindi": "अगर बारिश हो, तो...",
+    "type": "conditional",
+    "marker": "if",
+    "joylang_rule": "nashi + pres.prog"
+  },
+  {
+    "id": 4,
+    "english": "Unless you hurry...",
+    "joylang": "Nashive tenu heloku velo, tashi...",
+    "hindi": "जब तक तुम जल्दी न करो, तब तक...",
+    "type": "conditional",
+    "marker": "unless",
+    "joylang_rule": "nashive = unless"
+  },
+  {
+    "id": 5,
+    "english": "As long as you stay...",
+    "joylang": "Nashi tenu boshi melo, tashi...",
+    "hindi": "जब तक तुम रहो, तब तक...",
+    "type": "conditional",
+    "marker": "as long as",
+    "joylang_rule": "nashi...tashi with duration"
+  },
+  {
+    "id": 6,
+    "english": "When I arrive...",
+    "joylang": "Manu anu vosilo, tashi...",
+    "hindi": "जब मैं पहुँचूँ, तो...",
+    "type": "conditional",
+    "marker": "when",
+    "joylang_rule": "manu (when) + tashi"
+  },
+  {
+    "id": 7,
+    "english": "Even if it's difficult...",
+    "joylang": "Nashi shovaoku melo bevani, tashi...",
+    "hindi": "भले ही यह मुश्किल हो, फिर भी...",
+    "type": "conditional",
+    "marker": "even if",
+    "joylang_rule": "nashi...bevani (even if/although)"
+  },
+  {
+    "id": 8,
+    "english": "Whenever you want...",
+    "joylang": "Manu tenu mansilo, tashi...",
+    "hindi": "जब भी तुम चाहो, तो...",
+    "type": "conditional",
+    "marker": "whenever",
+    "joylang_rule": "manu + mansilo (want)"
+  },
+  {
+    "id": 9,
+    "english": "If possible...",
+    "joylang": "Nashi bokuku melo, tashi...",
+    "hindi": "अगर संभव हो, तो...",
+    "type": "conditional",
+    "marker": "if possible",
+    "joylang_rule": "boku=possible"
+  },
+  {
+    "id": 10,
+    "english": "As soon as I finish...",
+    "joylang": "Manu anu lovubo, tashi...",
+    "hindi": "जैसे ही मैं खत्म करूँ, तो...",
+    "type": "conditional",
+    "marker": "as soon as",
+    "joylang_rule": "manu + lovubo (completion-future)"
+  },
+  {
+    "id": 11,
+    "english": "Whether or not you agree...",
+    "joylang": "Nashi tenu shika melo ova velo...",
+    "hindi": "चाहे आप सहमत हों या न हों...",
+    "type": "conditional",
+    "marker": "whether or not",
+    "joylang_rule": "ova (or) + ve (not)"
+  },
+  {
+    "id": 12,
+    "english": "Only if you promise...",
+    "joylang": "Nashi tenu poshibo paku, tashi...",
+    "hindi": "केवल तभी, अगर तुम वादा करो...",
+    "type": "conditional",
+    "marker": "only if",
+    "joylang_rule": "nashi + condition"
+  },
+  {
+    "id": 13,
+    "english": "Given that we know...",
+    "joylang": "Nashi anuchi janilo, tashi...",
+    "hindi": "चूँकि हम जानते हैं, इसलिए...",
+    "type": "conditional",
+    "marker": "given that",
+    "joylang_rule": "nashi + knowledge"
+  },
+  {
+    "id": 14,
+    "english": "In case you need...",
+    "joylang": "Nashi tenu chahilo, tashi...",
+    "hindi": "यदि आपको ज़रूरत हो, तो...",
+    "type": "conditional",
+    "marker": "in case",
+    "joylang_rule": "nashi + chahilo (need)"
+  },
+  {
+    "id": 15,
+    "english": "What if I'm wrong?",
+    "joylang": "Nashi anu shavo melo, chenu?",
+    "hindi": "क्या होगा अगर मैं गलत हूँ?",
+    "type": "conditional",
+    "marker": "what if",
+    "joylang_rule": "nashi + shavo (false/wrong)"
+  },
+  {
+    "id": 16,
+    "english": "If you had been here...",
+    "joylang": "Nashi tenu kanu melome, tashi...",
+    "hindi": "अगर तुम यहाँ होते, तो...",
+    "type": "conditional",
+    "marker": "if",
+    "joylang_rule": "nashi + past copula"
+  },
+  {
+    "id": 17,
+    "english": "Provided that you help...",
+    "joylang": "Nashi tenu gupilo, tashi...",
+    "hindi": "यदि तुम मदद करते हो, बशर्ते...",
+    "type": "conditional",
+    "marker": "provided that",
+    "joylang_rule": "nashi + gupilo (help)"
+  },
+  {
+    "id": 18,
+    "english": "Supposing this works...",
+    "joylang": "Nashi eshi goloku karo, tashi...",
+    "hindi": "मान लो यह काम करे, तो...",
+    "type": "conditional",
+    "marker": "supposing",
+    "joylang_rule": "nashi + works"
+  },
+  {
+    "id": 19,
+    "english": "Just in case...",
+    "joylang": "Botu nashi...",
+    "hindi": "बस एहतियातन...",
+    "type": "conditional",
+    "marker": "just in case",
+    "joylang_rule": "botu (moment/just) + nashi"
+  },
+  {
+    "id": 20,
+    "english": "On the condition that...",
+    "joylang": "Nashi shika melo, tashi...",
+    "hindi": "इस शर्त पर कि...",
+    "type": "conditional",
+    "marker": "on condition that",
+    "joylang_rule": "nashi + shika (truth/condition)"
+  },
+  {
+    "id": 21,
+    "english": "Because I am tired...",
+    "joylang": "Yenu anu chomioku melo,...",
+    "hindi": "क्योंकि मैं थका/थकी हूँ,...",
+    "type": "causal",
+    "marker": "because",
+    "joylang_rule": "yenu = because/why"
+  },
+  {
+    "id": 22,
+    "english": "Since you know...",
+    "joylang": "Yenu tenu janilo,...",
+    "hindi": "चूँकि आप जानते हैं,...",
+    "type": "causal",
+    "marker": "since",
+    "joylang_rule": "yenu + janilo (know)"
+  },
+  {
+    "id": 23,
+    "english": "Thanks to your help...",
+    "joylang": "Tenu-ni gupombu yenu,...",
+    "hindi": "आपकी मदद की वजह से,...",
+    "type": "causal",
+    "marker": "thanks to",
+    "joylang_rule": "yenu (because of)"
+  },
+  {
+    "id": 24,
+    "english": "That's why I came...",
+    "joylang": "Reshilo anu belome.",
+    "hindi": "इसीलिए मैं आया/आई।",
+    "type": "causal",
+    "marker": "that's why",
+    "joylang_rule": "reshilo = therefore"
+  },
+  {
+    "id": 25,
+    "english": "It's because of you...",
+    "joylang": "Tenu yenu,...",
+    "hindi": "यह तुम्हारी वजह से है,...",
+    "type": "causal",
+    "marker": "because of",
+    "joylang_rule": "yenu after subject"
+  },
+  {
+    "id": 26,
+    "english": "Therefore I suggest...",
+    "joylang": "Reshilo anu shapilo...",
+    "hindi": "इसलिए मैं सुझाव देता/देती हूँ...",
+    "type": "causal",
+    "marker": "therefore",
+    "joylang_rule": "reshilo = therefore"
+  },
+  {
+    "id": 27,
+    "english": "Hence we must...",
+    "joylang": "Reshilo anuchi yokuoku...",
+    "hindi": "इसलिए हमें ज़रूर...",
+    "type": "causal",
+    "marker": "hence",
+    "joylang_rule": "reshilo + yokuoku (necessary)"
+  },
+  {
+    "id": 28,
+    "english": "As a result of...",
+    "joylang": "... yenu...",
+    "hindi": "...के परिणामस्वरूप,...",
+    "type": "causal",
+    "marker": "as a result of",
+    "joylang_rule": "yenu = because/as result"
+  },
+  {
+    "id": 29,
+    "english": "For this reason...",
+    "joylang": "Eshi yenu,...",
+    "hindi": "इस कारण से,...",
+    "type": "causal",
+    "marker": "for this reason",
+    "joylang_rule": "eshi yenu = for this reason"
+  },
+  {
+    "id": 30,
+    "english": "Considering the situation...",
+    "joylang": "Eshi dokuombu yochilo yenu,...",
+    "hindi": "स्थिति को देखते हुए,...",
+    "type": "causal",
+    "marker": "considering",
+    "joylang_rule": "dokuombu = reality"
+  },
+  {
+    "id": 31,
+    "english": "In light of what happened...",
+    "joylang": "Chenu melome yenu,...",
+    "hindi": "जो हुआ उसे देखते हुए,...",
+    "type": "causal",
+    "marker": "in light of",
+    "joylang_rule": "chenu melome = what happened"
+  },
+  {
+    "id": 32,
+    "english": "Consequently they decided...",
+    "joylang": "Reshilo venu...",
+    "hindi": "परिणामस्वरूप उन्होंने निर्णय लिया...",
+    "type": "causal",
+    "marker": "consequently",
+    "joylang_rule": "reshilo + venu"
+  },
+  {
+    "id": 33,
+    "english": "Seeing that you're here...",
+    "joylang": "Yenu tenu kanu melo,...",
+    "hindi": "चूँकि आप यहाँ हैं,...",
+    "type": "causal",
+    "marker": "seeing that",
+    "joylang_rule": "yenu + location"
+  },
+  {
+    "id": 34,
+    "english": "Due to the fact that...",
+    "joylang": "... shika melo yenu,...",
+    "hindi": "इस तथ्य के कारण कि,...",
+    "type": "causal",
+    "marker": "due to",
+    "joylang_rule": "shika (truth/fact) + yenu"
+  },
+  {
+    "id": 35,
+    "english": "Now that you mention it...",
+    "joylang": "Tenu shapime yenu, goku,...",
+    "hindi": "अब जब तुमने बताया,...",
+    "type": "causal",
+    "marker": "now that",
+    "joylang_rule": "shapime = said (past)"
+  },
+  {
+    "id": 36,
+    "english": "On account of this...",
+    "joylang": "Eshi yenu,...",
+    "hindi": "इसकी वजह से,...",
+    "type": "causal",
+    "marker": "on account of",
+    "joylang_rule": "eshi yenu"
+  },
+  {
+    "id": 37,
+    "english": "It is because...",
+    "joylang": "Yenu..., tashi melo.",
+    "hindi": "यह इसलिए है क्योंकि...",
+    "type": "causal",
+    "marker": "it is because",
+    "joylang_rule": "yenu with copula"
+  },
+  {
+    "id": 38,
+    "english": "Owing to the circumstances...",
+    "joylang": "Oshi dokuombu yenu,...",
+    "hindi": "परिस्थितियों के कारण,...",
+    "type": "causal",
+    "marker": "owing to",
+    "joylang_rule": "dokuombu (reality)"
+  },
+  {
+    "id": 39,
+    "english": "Given that it's late...",
+    "joylang": "Yenu botu pova melo,...",
+    "hindi": "चूँकि देर हो गई है,...",
+    "type": "causal",
+    "marker": "given that",
+    "joylang_rule": "yenu + pova (old/late)"
+  },
+  {
+    "id": 40,
+    "english": "The reason why...",
+    "joylang": "... yenu,...",
+    "hindi": "...जिसका कारण है...",
+    "type": "causal",
+    "marker": "the reason why",
+    "joylang_rule": "yenu as reason marker"
+  },
+  {
+    "id": 41,
+    "english": "When I was young...",
+    "joylang": "Manu anu bovioku melome,...",
+    "hindi": "जब मैं छोटा/छोटी था/थी,...",
+    "type": "temporal",
+    "marker": "when",
+    "joylang_rule": "manu + past copula"
+  },
+  {
+    "id": 42,
+    "english": "Before you go...",
+    "joylang": "Tenu velo goku botu,...",
+    "hindi": "तुम्हारे जाने से पहले,...",
+    "type": "temporal",
+    "marker": "before",
+    "joylang_rule": "action + goku botu (now moment=before)"
+  },
+  {
+    "id": 43,
+    "english": "After we finish...",
+    "joylang": "Anuchi lovubo doba,...",
+    "hindi": "हम पूरा करने के बाद,...",
+    "type": "temporal",
+    "marker": "after",
+    "joylang_rule": "doba = after/future"
+  },
+  {
+    "id": 44,
+    "english": "While I was sleeping...",
+    "joylang": "Domani anu nalushilo,...",
+    "hindi": "जब मैं सो रहा/रही था/थी,...",
+    "type": "temporal",
+    "marker": "while",
+    "joylang_rule": "domani = while"
+  },
+  {
+    "id": 45,
+    "english": "Until you return...",
+    "joylang": "Manu tenu belo nashive,...",
+    "hindi": "जब तक तुम वापस न आओ,...",
+    "type": "temporal",
+    "marker": "until",
+    "joylang_rule": "nashive (unless/until not)"
+  },
+  {
+    "id": 46,
+    "english": "As soon as possible...",
+    "joylang": "Henu yodu melo,...",
+    "hindi": "जितनी जल्दी हो सके,...",
+    "type": "temporal",
+    "marker": "as soon as possible",
+    "joylang_rule": "yodu=soon"
+  },
+  {
+    "id": 47,
+    "english": "Once you understand...",
+    "joylang": "Manu tenu samivime,...",
+    "hindi": "एक बार जब तुम समझ जाओ,...",
+    "type": "temporal",
+    "marker": "once",
+    "joylang_rule": "samivime = understood (past.perf)"
+  },
+  {
+    "id": 48,
+    "english": "Meanwhile I'll wait...",
+    "joylang": "Pari eshi-me anu tenu-ko nuji doshibo.",
+    "hindi": "इस बीच मैं इंतज़ार करूँगा/करूँगी।",
+    "type": "temporal",
+    "marker": "meanwhile",
+    "joylang_rule": "pari (time concept)"
+  },
+  {
+    "id": 49,
+    "english": "Ever since then...",
+    "joylang": "Oshi manu-ta,...",
+    "hindi": "तब से,...",
+    "type": "temporal",
+    "marker": "ever since",
+    "joylang_rule": "oshi manu-ta = from that when"
+  },
+  {
+    "id": 50,
+    "english": "At the moment...",
+    "joylang": "Goku botu,...",
+    "hindi": "इस वक्त,...",
+    "type": "temporal",
+    "marker": "at the moment",
+    "joylang_rule": "goku=now, botu=moment"
+  },
+  {
+    "id": 51,
+    "english": "From now on...",
+    "joylang": "Goku-ta doba,...",
+    "hindi": "अब से,...",
+    "type": "temporal",
+    "marker": "from now on",
+    "joylang_rule": "goku-ta=from now, doba=future"
+  },
+  {
+    "id": 52,
+    "english": "Sooner or later...",
+    "joylang": "Yodu ova dola,...",
+    "hindi": "जल्दी या देर से,...",
+    "type": "temporal",
+    "marker": "sooner or later",
+    "joylang_rule": "yodu=soon, ova=or, dola=later"
+  },
+  {
+    "id": 53,
+    "english": "From time to time...",
+    "joylang": "Komi pari,...",
+    "hindi": "समय-समय पर,...",
+    "type": "temporal",
+    "marker": "from time to time",
+    "joylang_rule": "komi=some, pari=time"
+  },
+  {
+    "id": 54,
+    "english": "Day by day...",
+    "joylang": "Yolu yolu,...",
+    "hindi": "दिन-ब-दिन,...",
+    "type": "temporal",
+    "marker": "day by day",
+    "joylang_rule": "yolu yolu=day day (repetition)"
+  },
+  {
+    "id": 55,
+    "english": "Step by step...",
+    "joylang": "Paso paso,...",
+    "hindi": "कदम-दर-कदम,...",
+    "type": "temporal",
+    "marker": "step by step",
+    "joylang_rule": "paso paso=walk walk (repetition)"
+  },
+  {
+    "id": 56,
+    "english": "Little by little...",
+    "joylang": "Shima shima,...",
+    "hindi": "धीरे-धीरे / थोड़ा-थोड़ा,...",
+    "type": "temporal",
+    "marker": "little by little",
+    "joylang_rule": "shima shima=small small"
+  },
+  {
+    "id": 57,
+    "english": "In the meantime...",
+    "joylang": "Pari eshi-me,...",
+    "hindi": "इस दौरान,...",
+    "type": "temporal",
+    "marker": "in the meantime",
+    "joylang_rule": "pari=time concept, eshi-me=in this"
+  },
+  {
+    "id": 58,
+    "english": "All the time...",
+    "joylang": "Nuji pari-me,...",
+    "hindi": "हर समय,...",
+    "type": "temporal",
+    "marker": "all the time",
+    "joylang_rule": "nuji=always, pari-me=in time"
+  },
+  {
+    "id": 59,
+    "english": "By the time you arrive...",
+    "joylang": "Manu tenu vosibo,...",
+    "hindi": "जब तक तुम पहुँचो,...",
+    "type": "temporal",
+    "marker": "by the time",
+    "joylang_rule": "manu + vosibo (will arrive)"
+  },
+  {
+    "id": 60,
+    "english": "Now and then...",
+    "joylang": "Goku chi dola,...",
+    "hindi": "कभी-कभी,...",
+    "type": "temporal",
+    "marker": "now and then",
+    "joylang_rule": "goku=now, chi=and, dola=later"
+  },
+  {
+    "id": 61,
+    "english": "Although it's difficult...",
+    "joylang": "Bevani shovaoku melo,...",
+    "hindi": "हालाँकि यह मुश्किल है,...",
+    "type": "concessive",
+    "marker": "although",
+    "joylang_rule": "bevani = although"
+  },
+  {
+    "id": 62,
+    "english": "Even though I'm tired...",
+    "joylang": "Bevani anu chomioku melo,...",
+    "hindi": "हालाँकि मैं थका/थकी हूँ,...",
+    "type": "concessive",
+    "marker": "even though",
+    "joylang_rule": "bevani = even though"
+  },
+  {
+    "id": 63,
+    "english": "Despite everything...",
+    "joylang": "Bevani chenu melo,...",
+    "hindi": "सब कुछ के बावजूद,...",
+    "type": "concessive",
+    "marker": "despite",
+    "joylang_rule": "bevani + chenu (everything)"
+  },
+  {
+    "id": 64,
+    "english": "Nevertheless I'll try...",
+    "joylang": "Tokami anu karibo.",
+    "hindi": "फिर भी मैं कोशिश करूँगा/करूँगी।",
+    "type": "concessive",
+    "marker": "nevertheless",
+    "joylang_rule": "tokami = however"
+  },
+  {
+    "id": 65,
+    "english": "However difficult it may be...",
+    "joylang": "Tokami shovaoku melo,...",
+    "hindi": "चाहे यह कितना भी मुश्किल हो,...",
+    "type": "concessive",
+    "marker": "however",
+    "joylang_rule": "tokami = however"
+  },
+  {
+    "id": 66,
+    "english": "No matter what happens...",
+    "joylang": "Chenu melome bevani,...",
+    "hindi": "चाहे कुछ भी हो,...",
+    "type": "concessive",
+    "marker": "no matter what",
+    "joylang_rule": "bevani = regardless"
+  },
+  {
+    "id": 67,
+    "english": "Regardless of the outcome...",
+    "joylang": "Dola chenu melo bevani,...",
+    "hindi": "परिणाम कुछ भी हो,...",
+    "type": "concessive",
+    "marker": "regardless of",
+    "joylang_rule": "bevani + outcome"
+  },
+  {
+    "id": 68,
+    "english": "Even so...",
+    "joylang": "Tokami,...",
+    "hindi": "फिर भी,...",
+    "type": "concessive",
+    "marker": "even so",
+    "joylang_rule": "tokami = even so"
+  },
+  {
+    "id": 69,
+    "english": "Yet I believe...",
+    "joylang": "Tokami anu shika yochilo.",
+    "hindi": "फिर भी मुझे विश्वास है।",
+    "type": "concessive",
+    "marker": "yet",
+    "joylang_rule": "tokami + yochilo (think/believe)"
+  },
+  {
+    "id": 70,
+    "english": "All the same...",
+    "joylang": "Palo tokami,...",
+    "hindi": "तब भी / फिर भी,...",
+    "type": "concessive",
+    "marker": "all the same",
+    "joylang_rule": "palo=equal, tokami=however"
+  },
+  {
+    "id": 71,
+    "english": "Nonetheless...",
+    "joylang": "Tokami,...",
+    "hindi": "तो भी,...",
+    "type": "concessive",
+    "marker": "nonetheless",
+    "joylang_rule": "tokami"
+  },
+  {
+    "id": 72,
+    "english": "In spite of that...",
+    "joylang": "Oshi bevani,...",
+    "hindi": "उसके बावजूद,...",
+    "type": "concessive",
+    "marker": "in spite of",
+    "joylang_rule": "oshi=that, bevani=despite"
+  },
+  {
+    "id": 73,
+    "english": "Whatever the case...",
+    "joylang": "Chenu melo bevani,...",
+    "hindi": "जो भी हो,...",
+    "type": "concessive",
+    "marker": "whatever",
+    "joylang_rule": "chenu=what + bevani"
+  },
+  {
+    "id": 74,
+    "english": "Be that as it may...",
+    "joylang": "Oshi doku melo bevani,...",
+    "hindi": "जो भी हकीकत हो,...",
+    "type": "concessive",
+    "marker": "be that as it may",
+    "joylang_rule": "doku=reality, bevani"
+  },
+  {
+    "id": 75,
+    "english": "Still, it's possible...",
+    "joylang": "Tokami bokuku melo.",
+    "hindi": "फिर भी, यह संभव है।",
+    "type": "concessive",
+    "marker": "still",
+    "joylang_rule": "tokami + bokuoku=possible"
+  },
+  {
+    "id": 76,
+    "english": "So that you understand...",
+    "joylang": "Loshi tenu samibo,...",
+    "hindi": "ताकि आप समझ सकें,...",
+    "type": "purpose",
+    "marker": "so that",
+    "joylang_rule": "loshi = so that"
+  },
+  {
+    "id": 77,
+    "english": "In order to succeed...",
+    "joylang": "Loshi goluku karo,...",
+    "hindi": "सफल होने के लिए,...",
+    "type": "purpose",
+    "marker": "in order to",
+    "joylang_rule": "loshi + goal"
+  },
+  {
+    "id": 78,
+    "english": "With the aim of...",
+    "joylang": "Loshi ...-ko lanubo,...",
+    "hindi": "...के उद्देश्य से,...",
+    "type": "purpose",
+    "marker": "with the aim of",
+    "joylang_rule": "loshi + aim"
+  },
+  {
+    "id": 79,
+    "english": "For fear that...",
+    "joylang": "Loshi nobaoku velo,...",
+    "hindi": "इस डर से कि,...",
+    "type": "purpose",
+    "marker": "for fear that",
+    "joylang_rule": "loshi + nobaoku (afraid)"
+  },
+  {
+    "id": 80,
+    "english": "Lest you forget...",
+    "joylang": "Loshi tenu vebishilo,...",
+    "hindi": "ताकि तुम भूलो नहीं,...",
+    "type": "purpose",
+    "marker": "lest",
+    "joylang_rule": "loshi + ve-bishilo (not forget)"
+  },
+  {
+    "id": 81,
+    "english": "As a consequence...",
+    "joylang": "Reshilo,...",
+    "hindi": "परिणामस्वरूप,...",
+    "type": "purpose",
+    "marker": "as a consequence",
+    "joylang_rule": "reshilo = therefore/result"
+  },
+  {
+    "id": 82,
+    "english": "To the extent that...",
+    "joylang": "Henu lokuoku melo,...",
+    "hindi": "जिस हद तक,...",
+    "type": "purpose",
+    "marker": "to the extent",
+    "joylang_rule": "henu=how much"
+  },
+  {
+    "id": 83,
+    "english": "With the result that...",
+    "joylang": "Reshilo,...",
+    "hindi": "जिसके परिणामस्वरूप,...",
+    "type": "purpose",
+    "marker": "with the result",
+    "joylang_rule": "reshilo"
+  },
+  {
+    "id": 84,
+    "english": "In such a way that...",
+    "joylang": "Henu loshi,...",
+    "hindi": "इस तरह से कि,...",
+    "type": "purpose",
+    "marker": "in such a way",
+    "joylang_rule": "henu=how, loshi=so that"
+  },
+  {
+    "id": 85,
+    "english": "So much so that...",
+    "joylang": "Lokuoku loshi,...",
+    "hindi": "इतना अधिक कि,...",
+    "type": "purpose",
+    "marker": "so much so",
+    "joylang_rule": "lokuoku=very much, loshi"
+  },
+  {
+    "id": 86,
+    "english": "With the intention of...",
+    "joylang": "Loshi ...-ko banibo,...",
+    "hindi": "...के इरादे से,...",
+    "type": "purpose",
+    "marker": "with the intention",
+    "joylang_rule": "loshi + intention"
+  },
+  {
+    "id": 87,
+    "english": "Such that everyone agrees...",
+    "joylang": "Loshi chenu-chi shika melo,...",
+    "hindi": "ताकि सब सहमत हों,...",
+    "type": "purpose",
+    "marker": "such that",
+    "joylang_rule": "loshi + agreement"
+  },
+  {
+    "id": 88,
+    "english": "To the point where...",
+    "joylang": "Henu lokuoku loshi,...",
+    "hindi": "उस हद तक जहाँ,...",
+    "type": "purpose",
+    "marker": "to the point where",
+    "joylang_rule": "henu + lokuoku + loshi"
+  },
+  {
+    "id": 89,
+    "english": "In case you need...",
+    "joylang": "Nashi tenu chahibo, tashi...",
+    "hindi": "यदि आपको ज़रूरत पड़े,...",
+    "type": "purpose",
+    "marker": "in case",
+    "joylang_rule": "nashi + chahibo (need)"
+  },
+  {
+    "id": 90,
+    "english": "For the purpose of learning...",
+    "joylang": "Loshi nashibo,...",
+    "hindi": "सीखने के उद्देश्य से,...",
+    "type": "purpose",
+    "marker": "for the purpose of",
+    "joylang_rule": "loshi + nashibo (learn)"
+  },
+  {
+    "id": 91,
+    "english": "That which you see...",
+    "joylang": "Chenu tenu doshilo,...",
+    "hindi": "जो तुम देखते हो,...",
+    "type": "relative",
+    "marker": "that which",
+    "joylang_rule": "chenu=what + doshilo=see"
+  },
+  {
+    "id": 92,
+    "english": "Whoever comes first...",
+    "joylang": "Kenu ekanu belo,...",
+    "hindi": "जो भी पहले आए,...",
+    "type": "relative",
+    "marker": "whoever",
+    "joylang_rule": "kenu=who, ekanu=first"
+  },
+  {
+    "id": 93,
+    "english": "Whatever you decide...",
+    "joylang": "Chenu tenu banibo,...",
+    "hindi": "तुम जो भी तय करो,...",
+    "type": "relative",
+    "marker": "whatever",
+    "joylang_rule": "chenu=what + banibo=decide/make"
+  },
+  {
+    "id": 94,
+    "english": "Wherever you go...",
+    "joylang": "Kanu tenu velo,...",
+    "hindi": "तुम जहाँ भी जाओ,...",
+    "type": "relative",
+    "marker": "wherever",
+    "joylang_rule": "kanu=where + velo=go"
+  },
+  {
+    "id": 95,
+    "english": "However you feel...",
+    "joylang": "Henu tenu shibalo,...",
+    "hindi": "तुम चाहे कैसे भी महसूस करो,...",
+    "type": "relative",
+    "marker": "however",
+    "joylang_rule": "henu=how + shibalo=feel"
+  },
+  {
+    "id": 96,
+    "english": "Those who believe...",
+    "joylang": "Kenu shika yochilo,...",
+    "hindi": "जो विश्वास करते हैं,...",
+    "type": "relative",
+    "marker": "those who",
+    "joylang_rule": "kenu=who + yochilo=believe/think"
+  },
+  {
+    "id": 97,
+    "english": "What I mean is...",
+    "joylang": "Anu shapilo chenu melo,...",
+    "hindi": "मेरा मतलब है कि,...",
+    "type": "relative",
+    "marker": "what I mean",
+    "joylang_rule": "shapilo=say, chenu=what"
+  },
+  {
+    "id": 98,
+    "english": "The fact that...",
+    "joylang": "Shika melo kenu,...",
+    "hindi": "यह तथ्य कि,...",
+    "type": "relative",
+    "marker": "the fact that",
+    "joylang_rule": "shika=truth/fact"
+  },
+  {
+    "id": 99,
+    "english": "Which is why...",
+    "joylang": "Reshilo,...",
+    "hindi": "यही कारण है,...",
+    "type": "relative",
+    "marker": "which is why",
+    "joylang_rule": "reshilo=therefore"
+  },
+  {
+    "id": 100,
+    "english": "As far as I know...",
+    "joylang": "Anu janilo yenu,...",
+    "hindi": "जहाँ तक मुझे पता है,...",
+    "type": "relative",
+    "marker": "as far as",
+    "joylang_rule": "janilo=know + yenu=because/as"
+  }
+]
