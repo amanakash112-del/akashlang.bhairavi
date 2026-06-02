@@ -1,17 +1,19 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Words: anyone can read; signed-in users can create; no updates or deletes
+    // Words: anyone can read; signed-in users can create; only developer can promote (update)
     match /words/{wordId} {
       allow read: if true;
       allow create: if request.auth != null;
-      allow update, delete: if false;
+      allow update: if request.auth != null && request.auth.token.email == 'aman.akash112@gmail.com';
+      allow delete: if false;
     }
     // Sentences: same rules as words
     match /sentences/{sentenceId} {
       allow read: if true;
       allow create: if request.auth != null;
-      allow update, delete: if false;
+      allow update: if request.auth != null && request.auth.token.email == 'aman.akash112@gmail.com';
+      allow delete: if false;
     }
     // All other collections: deny by default
     match /{document=**} {

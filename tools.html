@@ -96,6 +96,9 @@
 @keyframes spin { to { transform:rotate(360deg); } }
 .section-divider { border:none; border-top:2px dashed var(--border); margin:28px 0; }
 textarea.tool-input { resize:vertical; min-height:80px; }
+.promote-btn { padding:4px 12px; background:var(--green); color:#fff; border:none; border-radius:5px; font-size:.78rem; font-weight:700; cursor:pointer; transition:background .15s; }
+.promote-btn:hover { background:var(--green-dark); }
+.promote-btn:disabled { background:#aaa; cursor:default; }
 </style>
 </head>
 <body>
@@ -431,11 +434,12 @@ textarea.tool-input { resize:vertical; min-height:80px; }
 
     <hr class="section-divider">
 
-    <!-- SEED DATABASE -->
-    <h3>Seed Dictionary to Database</h3>
-    <p style="font-size:.9rem;color:var(--text-muted);">Upload the full built-in dictionary (developer words) to Firebase. This is a one-time operation — run it once to populate the cloud database. Already-existing entries are skipped.</p>
+    <!-- DICTIONARY MANAGEMENT -->
+    <h3>Dictionary Management</h3>
+    <p style="font-size:.9rem;color:var(--text-muted);">Sync any new built-in entries to Firebase — already-existing entries are skipped, so this is safe to run anytime. To <strong>promote a community word to official status</strong>, open the Community tab and click <strong>Promote to Official</strong> next to any user-created entry.</p>
     <div style="display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap;">
-      <button class="tool-btn" id="seed-btn" onclick="seedDatabase()">Seed Dictionary to DB</button>
+      <button class="tool-btn secondary" id="seed-btn" onclick="seedDatabase()">Sync Missing Entries</button>
+      <button class="tool-btn" onclick="openTab('saved');openSavedTab('community')">Open Community Tab →</button>
     </div>
     <div id="seed-status" style="margin-top:8px;font-size:.9rem;"></div>
 

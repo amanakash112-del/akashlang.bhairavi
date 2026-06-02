@@ -827,8 +827,8 @@ async function loadCommunity() {
       getDocs(query(col(db, 'sentences'), orderBy('createdAt', 'desc'), limit(100)))
     ]);
     const words = [], sentences = [];
-    wSnap.forEach(d => words.push(d.data()));
-    sSnap.forEach(d => sentences.push(d.data()));
+    wSnap.forEach(d => words.push({...d.data(), _docId: d.id}));
+    sSnap.forEach(d => sentences.push({...d.data(), _docId: d.id}));
     renderCommunity(words, sentences);
   } catch(e) {
     if (wordsEl) wordsEl.innerHTML = `<p style="color:#c62828;">Failed to load: ${e.message}</p>`;
@@ -841,6 +841,7 @@ function renderCommunity(words, sentences) {
   if (wCountEl) wCountEl.textContent = words.length;
   if (sCountEl) sCountEl.textContent = sentences.length;
 
+  const isDev = window.akashIsDeveloper;
   const wordsList = document.getElementById('community-words-list');
   if (wordsList) {
     if (words.length) {
@@ -849,13 +850,17 @@ function renderCommunity(words, sentences) {
           ? '<span class="creator-badge creator-dev">Dev</span>'
           : '<span class="creator-badge creator-user">Community</span>';
         const creator = w.creatorName ? ` · <span style="color:#aaa;">${w.creatorName}</span>` : '';
+        const promoteBtn = (isDev && w.createdBy !== 'developer' && w._docId)
+          ? `<div style="margin-top:8px;"><button class="promote-btn" onclick="promoteToOfficial('${w._docId}','words',this.closest('.saved-word-card'))">Promote to Official</button></div>`
+          : '';
         return `<div class="saved-word-card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px;">
             <div class="swc-joy">${w.root} · ${w.noun || ''}</div>
             ${badge}
           </div>
           <div class="swc-en">${w.en || ''}${w.hi ? ' · <span style="color:#e65100;">' + w.hi + '</span>' : ''}</div>
           <div class="swc-meta">${w.domain || ''}${w.sourceLang ? ' · ' + w.sourceLang : ''}${creator}</div>
+          ${promoteBtn}
         </div>`;
       }).join('');
     } else {
@@ -871,7 +876,10 @@ function renderCommunity(words, sentences) {
           ? '<span class="creator-badge creator-dev">Dev</span>'
           : '<span class="creator-badge creator-user">Community</span>';
         const creator = s.creatorName ? `by ${s.creatorName} · ` : '';
-        return `<div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px;">
+        const promoteBtn = (isDev && s.createdBy !== 'developer' && s._docId)
+          ? `<div style="margin-top:8px;"><button class="promote-btn" onclick="promoteToOfficial('${s._docId}','sentences',this.closest('.community-sent-card'))">Promote to Official</button></div>`
+          : '';
+        return `<div class="community-sent-card" style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px;">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
             <div style="font-weight:700;color:var(--green-dark);font-size:1.05rem;">${s.joylang}</div>
             ${badge}
@@ -879,11 +887,34 @@ function renderCommunity(words, sentences) {
           <div style="color:var(--text-muted);font-size:.9rem;">${s.english || ''}</div>
           ${s.hindi ? `<div style="color:#e65100;font-size:.88rem;margin-top:3px;">${s.hindi}</div>` : ''}
           <div style="font-size:.75rem;color:#aaa;margin-top:4px;">${creator}${new Date(s.createdAt||Date.now()).toLocaleDateString()}</div>
+          ${promoteBtn}
         </div>`;
       }).join('');
     } else {
       sentList.innerHTML = '<p style="color:var(--text-muted);">No community sentences yet. Use the Translator or Creator to add some.</p>';
     }
+  }
+}
+
+async function promoteToOfficial(docId, collectionName, cardEl) {
+  if (!window.akashIsDeveloper || !docId) return;
+  const db = window.akashDB;
+  if (!db) { alert('Firebase not connected.'); return; }
+  const btn = cardEl ? cardEl.querySelector('.promote-btn') : null;
+  if (btn) { btn.disabled = true; btn.textContent = 'Promoting…'; }
+  try {
+    const { doc, updateDoc } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+    await updateDoc(doc(db, collectionName, docId), {
+      createdBy: 'developer',
+      creatorId: 'developer',
+      creatorName: null
+    });
+    const badge = cardEl ? cardEl.querySelector('.creator-badge') : null;
+    if (badge) { badge.className = 'creator-badge creator-dev'; badge.textContent = 'Dev'; }
+    if (btn) { btn.textContent = '✓ Promoted'; }
+  } catch(e) {
+    if (btn) { btn.disabled = false; btn.textContent = 'Promote to Official'; }
+    alert('Promote failed: ' + e.message);
   }
 }
 
