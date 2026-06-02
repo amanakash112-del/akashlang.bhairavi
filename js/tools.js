@@ -28,12 +28,47 @@ let requestTimestamps = [];
 
 // ── USER IDENTITY ──────────────────────────────────────────────
 function getOrCreateUserId() {
+  // Prefer Firebase Auth uid if signed in
+  if (window.akashCurrentUser) return window.akashCurrentUser.uid;
   let uid = localStorage.getItem('jl_user_id');
   if (!uid) {
     uid = 'user_' + Math.random().toString(36).substr(2, 9);
     localStorage.setItem('jl_user_id', uid);
   }
   return uid;
+}
+
+function getCreatedByName() {
+  const user = window.akashCurrentUser;
+  if (!user) return 'user';
+  return window.akashIsDeveloper ? 'developer' : 'user';
+}
+
+// ── AUTH STATE HANDLER ─────────────────────────────────────────
+function onAuthChange(user, isDeveloper) {
+  // Show/hide Setup tab
+  const tabSetup = document.getElementById('tab-setup');
+  const sidebarSetupHeading = document.getElementById('sidebar-setup-heading');
+  const sidebarSetupLink = document.getElementById('sidebar-setup-link');
+  [tabSetup, sidebarSetupHeading, sidebarSetupLink].forEach(el => {
+    if (el) el.style.display = isDeveloper ? '' : 'none';
+  });
+  // If setup tab was open but user signed out, switch to generator
+  if (!isDeveloper) {
+    const setupPanel = document.getElementById('panel-setup');
+    if (setupPanel && setupPanel.classList.contains('active')) openTab('generator');
+  }
+
+  // Show/hide login prompt in My Words
+  const loginPrompt = document.getElementById('saved-login-prompt');
+  if (loginPrompt) loginPrompt.style.display = user ? 'none' : 'block';
+
+  // Refresh My Words view if that tab is active
+  const savedPanel = document.getElementById('panel-saved');
+  if (savedPanel && savedPanel.classList.contains('active')) loadSaved();
+
+  // Update setup status if developer
+  if (isDeveloper) updateSetupStatus();
 }
 
 // ── RATE LIMITING ──────────────────────────────────────────────
@@ -383,6 +418,7 @@ async function saveNewWord() {
   const domain = document.getElementById('save-domain').value.trim() || 'Community';
   const hindi = document.getElementById('save-hindi').value.trim();
   const example = document.getElementById('save-example').value.trim();
+  const user = window.akashCurrentUser;
   const word = {
     root: currentJoyRoot,
     noun: currentWordForms.noun,
@@ -393,8 +429,9 @@ async function saveNewWord() {
     domain,
     ex: example,
     sourceLang: currentLang,
-    createdBy: 'user',
+    createdBy: getCreatedByName(),
     creatorId: getOrCreateUserId(),
+    creatorName: user ? (user.displayName || user.email) : null,
     createdAt: new Date().toISOString(),
     type: 'word'
   };
@@ -687,13 +724,15 @@ async function saveSentence(source) {
   const engEl = document.getElementById(source === 'translator' ? 'translateInput' : 'creatorInput');
   const hindiEl = document.getElementById(source === 'translator' ? 'trans-hindi' : 'creator-hindi');
   if (!joyEl || !engEl) return;
+  const user = window.akashCurrentUser;
   const sentence = {
     joylang: joyEl.textContent,
     english: engEl.value.trim(),
     hindi: hindiEl ? hindiEl.textContent : '',
     source,
-    createdBy: 'user',
+    createdBy: getCreatedByName(),
     creatorId: getOrCreateUserId(),
+    creatorName: user ? (user.displayName || user.email) : null,
     createdAt: new Date().toISOString(),
     type: 'sentence'
   };
@@ -746,11 +785,13 @@ async function loadSaved() {
   const words = getSavedWords();
   const sentences = getSavedSentences();
   const db = window.akashDB;
-  if (db) {
+  const uid = window.akashCurrentUser ? window.akashCurrentUser.uid : localStorage.getItem('jl_user_id');
+
+  if (db && uid) {
     try {
       const { getDocs, collection: col, query, where } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
-      const wSnap = await getDocs(col(db, 'words'));
-      const sSnap = await getDocs(col(db, 'sentences'));
+      const wSnap = await getDocs(query(col(db, 'words'), where('creatorId', '==', uid)));
+      const sSnap = await getDocs(query(col(db, 'sentences'), where('creatorId', '==', uid)));
       wSnap.forEach(d => words.push(d.data()));
       sSnap.forEach(d => sentences.push(d.data()));
       updateDbStatus(true);
@@ -944,11 +985,21 @@ function updateSetupStatus() {
       <div><strong>Dictionary</strong><br>
       <span style="color:var(--text-muted);font-size:.9rem;">${JOYLANG_DICT.length} words loaded from static dictionary</span></div>
     </div>`,
-    `<div style="display:flex;align-items:center;gap:10px;">
-      <span style="font-size:1.2rem">🪪</span>
-      <div><strong>Your Session ID</strong><br>
-      <span style="color:var(--text-muted);font-size:.9rem;">Your contributions are tagged with: <code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;">${userId}</code></span></div>
-    </div>`
+    (() => {
+      const user = window.akashCurrentUser;
+      if (user) {
+        return `<div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:1.2rem">👤</span>
+          <div><strong>Signed in as ${user.displayName || user.email}</strong><br>
+          <span style="color:var(--text-muted);font-size:.9rem;">Your words are tagged with your account UID: <code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;">${user.uid.substring(0,16)}…</code></span></div>
+        </div>`;
+      }
+      return `<div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:1.2rem">🪪</span>
+        <div><strong>Anonymous Session</strong><br>
+        <span style="color:var(--text-muted);font-size:.9rem;">Tagged with: <code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;">${userId}</code> · Sign in with Google to link to your account.</span></div>
+      </div>`;
+    })()`
   ].join('');
 }
 
@@ -991,9 +1042,23 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('akash-db-ready', onDbReady, { once: true });
   }
 
+  // Default translator to rule-based (works without API key)
+  setTransMode('rule');
+
   checkApiWarnings();
   setComplexity('simple');
   updateRateLimitDisplay();
+
+  // Auth state — fires immediately from firebase-db.js if already resolved
+  function handleAuthChange(e) {
+    const { user, isDeveloper } = e.detail || {};
+    onAuthChange(user, isDeveloper);
+  }
+  window.addEventListener('akash-auth-change', handleAuthChange);
+  // Also apply current state in case event already fired
+  if (window.akashCurrentUser !== undefined) {
+    onAuthChange(window.akashCurrentUser, window.akashIsDeveloper || false);
+  }
 
   // Refresh rate limit display every 5 seconds
   setInterval(updateRateLimitDisplay, 5000);

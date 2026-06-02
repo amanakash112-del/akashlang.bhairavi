@@ -111,8 +111,8 @@ textarea.tool-input { resize:vertical; min-height:80px; }
   <a href="#" onclick="openTab('creator');return false">Sentence Creator</a>
   <div class="sidebar-heading">Saved Data</div>
   <a href="#" onclick="openTab('saved');return false">My Words &amp; Sentences</a>
-  <div class="sidebar-heading">Setup</div>
-  <a href="#" onclick="openTab('setup');return false">API &amp; Database Config</a>
+  <div class="sidebar-heading" id="sidebar-setup-heading" style="display:none">Setup</div>
+  <a href="#" id="sidebar-setup-link" onclick="openTab('setup');return false" style="display:none">API &amp; Database Config</a>
   <div class="sidebar-heading">Reference</div>
   <a href="dictionary.html">Dictionary</a>
   <a href="grammar.html">Grammar</a>
@@ -138,7 +138,7 @@ textarea.tool-input { resize:vertical; min-height:80px; }
     <button class="tool-tab" onclick="openTab('translator')">Sentence Translator</button>
     <button class="tool-tab" onclick="openTab('creator')">Sentence Creator</button>
     <button class="tool-tab" onclick="openTab('saved')">My Words &amp; Sentences</button>
-    <button class="tool-tab" onclick="openTab('setup')">Setup</button>
+    <button class="tool-tab" id="tab-setup" onclick="openTab('setup')" style="display:none">Setup</button>
   </div>
 
   <!-- ══════════════════════════════════════════════════════════ -->
@@ -322,7 +322,15 @@ textarea.tool-input { resize:vertical; min-height:80px; }
   <!-- ══════════════════════════════════════════════════════════ -->
   <div class="tool-panel" id="panel-saved">
     <h2>My Words &amp; Sentences</h2>
-    <p>All words and sentences you have created are stored here. They are saved to Firebase cloud (if configured) or locally in your browser.</p>
+    <p>Words and sentences you create are saved to your account. Sign in with Google to keep them linked to your identity across devices.</p>
+
+    <div id="saved-login-prompt" style="background:#e8f5e9;border:2px solid var(--green);border-radius:10px;padding:16px 20px;margin-bottom:20px;display:none;">
+      <strong>Sign in to sync your words</strong><br>
+      <span style="font-size:.9rem;color:var(--text-muted);">You can still save words anonymously, but signing in links them to your Google account and lets you access them from any device.</span><br>
+      <button class="tool-btn" style="margin-top:10px" onclick="window.akashSignIn && window.akashSignIn()">
+        Sign in with Google
+      </button>
+    </div>
 
     <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center;">
       <span id="saved-db-status" class="db-status local">Local Storage</span>
@@ -389,11 +397,11 @@ textarea.tool-input { resize:vertical; min-height:80px; }
     <hr class="section-divider">
 
     <!-- FIREBASE STATUS -->
-    <h3>Firebase Database</h3>
+    <h3>Firebase Database &amp; Auth</h3>
     <div class="callout callout-tip">
       <strong>✓ Pre-configured: akashlang-a9d4b</strong>
-      Firebase Firestore is pre-configured and connects automatically. Project: <code>akashlang-a9d4b</code><br>
-      Words and sentences saved from Tools are stored in Firestore and visible to all users.
+      Firebase Firestore and Authentication are pre-configured. Users sign in with Google to save words.<br>
+      <strong>One-time setup:</strong> Go to <strong>console.firebase.google.com → akashlang-a9d4b → Authentication → Sign-in method</strong> and enable <strong>Google</strong> provider.
     </div>
     <div id="fb-status" style="margin-top:10px;font-size:.9rem;"></div>
 
@@ -421,12 +429,12 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /words/{wordId} {
       allow read: if true;
-      allow create: if true;
+      allow create: if request.auth != null;
       allow update, delete: if false;
     }
     match /sentences/{sentenceId} {
       allow read: if true;
-      allow create: if true;
+      allow create: if request.auth != null;
       allow update, delete: if false;
     }
     match /{document=**} {
@@ -434,7 +442,7 @@ service cloud.firestore {
     }
   }
 }</pre>
-    <p style="font-size:.85rem;color:var(--text-muted);margin-top:8px;">These rules: <strong>anyone can read and add</strong> words/sentences, <strong>nobody can delete</strong> (except you via the Firebase Console).</p>
+    <p style="font-size:.85rem;color:var(--text-muted);margin-top:8px;">These rules: <strong>anyone can read</strong>, <strong>signed-in users can add</strong> words/sentences, <strong>nobody can delete</strong> (except you via the Firebase Console).</p>
 
     <hr class="section-divider">
 

@@ -93,6 +93,70 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  /* ---- Auth chip in nav ---- */
+  const topnav = document.querySelector('.topnav');
+  if (topnav) {
+    const chip = document.createElement('div');
+    chip.className = 'auth-chip';
+    chip.id = 'auth-chip';
+    chip.innerHTML = `
+      <button class="auth-sign-in-btn" id="auth-sign-in-btn" title="Sign in with Google">
+        <svg width="14" height="14" viewBox="0 0 48 48" style="flex-shrink:0"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.2l6.7-6.7C35.7 2.5 30.2 0 24 0 14.8 0 7 5.4 3.2 13.3l7.8 6C12.8 13.2 17.9 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.2-.4-4.7H24v8.9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8C43.5 37.5 46.5 31.4 46.5 24.5z"/><path fill="#FBBC05" d="M11 28.3c-.6-1.6-.9-3.3-.9-5.3s.3-3.7.9-5.3l-7.8-6C1.2 15.1 0 19.4 0 24s1.2 8.9 3.2 12.3l7.8-6z"/><path fill="#34A853" d="M24 48c6.2 0 11.5-2 15.3-5.5l-7.5-5.8c-2.1 1.4-4.7 2.3-7.8 2.3-6.1 0-11.2-3.7-13.1-9l-7.8 6C7 42.6 14.8 48 24 48z"/></svg>
+        Sign in
+      </button>
+      <div class="auth-user-chip" id="auth-user-chip">
+        <div class="auth-avatar-placeholder" id="auth-avatar-placeholder">?</div>
+        <img class="auth-avatar" id="auth-avatar" src="" alt="" style="display:none">
+        <span class="auth-name" id="auth-name"></span>
+        <button class="auth-sign-out-btn" id="auth-sign-out-btn">Sign out</button>
+      </div>`;
+    topnav.appendChild(chip);
+
+    document.getElementById('auth-sign-in-btn').addEventListener('click', async () => {
+      if (window.akashSignIn) {
+        try { await window.akashSignIn(); }
+        catch (e) {
+          if (e.code !== 'auth/popup-closed-by-user') alert('Sign in failed: ' + (e.message || e.code));
+        }
+      }
+    });
+    document.getElementById('auth-sign-out-btn').addEventListener('click', () => {
+      if (window.akashSignOut) window.akashSignOut();
+    });
+
+    function updateAuthChip(user) {
+      const signInBtn = document.getElementById('auth-sign-in-btn');
+      const userChip  = document.getElementById('auth-user-chip');
+      const nameEl    = document.getElementById('auth-name');
+      const avatarEl  = document.getElementById('auth-avatar');
+      const avatarPH  = document.getElementById('auth-avatar-placeholder');
+      if (!signInBtn) return;
+      if (!user) {
+        signInBtn.style.display = '';
+        userChip.classList.remove('visible');
+      } else {
+        signInBtn.style.display = 'none';
+        userChip.classList.add('visible');
+        const isDev = window.akashIsDeveloper;
+        nameEl.textContent = isDev ? 'Developer' : (user.displayName?.split(' ')[0] || user.email.split('@')[0]);
+        nameEl.className = 'auth-name' + (isDev ? ' developer' : '');
+        if (user.photoURL) {
+          avatarEl.src = user.photoURL;
+          avatarEl.style.display = '';
+          avatarPH.style.display = 'none';
+        } else {
+          avatarPH.textContent = (user.displayName || user.email || '?')[0].toUpperCase();
+          avatarEl.style.display = 'none';
+          avatarPH.style.display = '';
+        }
+      }
+    }
+
+    // Initial state (auth may already be resolved before DOMContentLoaded)
+    updateAuthChip(window.akashCurrentUser || null);
+    window.addEventListener('akash-auth-change', e => updateAuthChip(e.detail.user));
+  }
+
   /* ---- Global site search (in topnav) ---- */
   const globalSearch = document.querySelector('.topnav-search input');
   if (globalSearch) {
