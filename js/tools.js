@@ -1106,7 +1106,7 @@ function updateSetupStatus() {
         <div><strong>Anonymous Session</strong><br>
         <span style="color:var(--text-muted);font-size:.9rem;">Tagged with: <code style="background:#f0f0f0;padding:2px 6px;border-radius:4px;">${userId}</code> · Sign in with Google to link to your account.</span></div>
       </div>`;
-    })()`
+    })()
   ].join('');
 }
 
