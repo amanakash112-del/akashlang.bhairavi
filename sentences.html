@@ -5,6 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sentence List — Joylang</title>
 <link rel="stylesheet" href="css/style.css">
+<style>
+/* ── Phrase & Clause Library ─────────────────────────────── */
+.pcl-filter-bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+.pcl-filter-btn {
+  padding:6px 16px; border:2px solid var(--border); border-radius:20px;
+  background:var(--bg); cursor:pointer; font-size:.85rem; font-weight:600;
+  color:var(--text-muted); transition:all .18s; white-space:nowrap;
+}
+.pcl-filter-btn:hover { border-color:var(--green); color:var(--green); }
+.pcl-filter-btn.active { background:var(--green); border-color:var(--green); color:#fff; }
+.pcl-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+.pcl-card {
+  border:1px solid var(--border); border-radius:10px; padding:16px 18px;
+  background:var(--white); transition:box-shadow .18s;
+}
+.pcl-card:hover { box-shadow:0 2px 12px rgba(0,0,0,.08); }
+.pcl-joy { font-size:1.05rem; font-weight:700; color:var(--green-dark); margin-bottom:4px; font-family:monospace; }
+.pcl-eng { font-size:.95rem; color:var(--text); margin-bottom:3px; }
+.pcl-hin { font-size:.85rem; color:var(--text-muted); margin-bottom:6px; }
+.pcl-badge {
+  display:inline-block; padding:2px 10px; border-radius:12px; font-size:.75rem;
+  font-weight:600; background:var(--green-light); color:var(--green-dark); margin-right:6px;
+}
+.pcl-note { font-size:.8rem; color:var(--text-muted); margin-top:6px; font-style:italic; }
+.pcl-rule { font-size:.8rem; color:#5c6bc0; margin-top:6px; background:#f3f4ff; border-radius:6px; padding:4px 8px; }
+.pcl-loading { text-align:center; padding:40px; color:var(--text-muted); font-size:.95rem; }
+.pcl-error { padding:16px 20px; background:#fff3f3; border-left:4px solid #c62828; border-radius:0 8px 8px 0; color:#c62828; }
+.pcl-count { font-size:.85rem; color:var(--text-muted); margin-bottom:14px; }
+</style>
 </head>
 <body>
 <nav class="topnav">
@@ -31,6 +60,9 @@
   <a href="#dialogues">Sample Dialogues</a>
   <a href="#patterns">Grammar Patterns</a>
   <a href="#conversation">Conversation Management</a>
+  <div class="sidebar-heading">Phrase &amp; Clause Library</div>
+  <a href="#phrases">Common Phrases</a>
+  <a href="#clauses">Clause Patterns</a>
 </aside>
 <main class="main-content">
   <div class="breadcrumb"><a href="index.html">Introduction</a><span class="breadcrumb-sep">›</span><span class="current">Sentence List</span></div>
@@ -307,6 +339,43 @@
       <tr><td>Ending</td><td>Take care.</td><td class="td-joy">Tenu-ko sahibo.</td></tr>
     </tbody>
   </table></div>
+
+  <!-- PHRASES -->
+  <h2 id="phrases">Common Phrases</h2>
+  <p>Ready-to-use Joylang phrases organized by context. Data loaded live from the phrase library.</p>
+  <div class="pcl-filter-bar" id="phrases-filters">
+    <button class="pcl-filter-btn active" onclick="filterPcl('phrases','all')">All</button>
+    <button class="pcl-filter-btn" onclick="filterPcl('phrases','greeting')">Greeting</button>
+    <button class="pcl-filter-btn" onclick="filterPcl('phrases','courtesy')">Courtesy</button>
+    <button class="pcl-filter-btn" onclick="filterPcl('phrases','communication')">Communication</button>
+    <button class="pcl-filter-btn" onclick="filterPcl('phrases','direction')">Direction</button>
+    <button class="pcl-filter-btn" onclick="filterPcl('phrases','need')">Need</button>
+    <button class="pcl-filter-btn" onclick="filterPcl('phrases','time')">Time</button>
+    <button class="pcl-filter-btn" onclick="filterPcl('phrases','shopping')">Shopping</button>
+    <button class="pcl-filter-btn" onclick="filterPcl('phrases','expression')">Expression</button>
+  </div>
+  <p class="pcl-count" id="phrases-count"></p>
+  <div id="phrases-container" class="pcl-grid">
+    <div class="pcl-loading">Loading phrases from Firebase…</div>
+  </div>
+
+  <!-- CLAUSES -->
+  <h2 id="clauses">Clause Patterns</h2>
+  <p>Structured clause templates for building complex Joylang sentences. Each entry shows the Joylang pattern, its grammatical rule, and examples.</p>
+  <div class="pcl-filter-bar" id="clauses-filters">
+    <button class="pcl-filter-btn active" onclick="filterPcl('clauses','all')">All</button>
+    <button class="pcl-filter-btn" onclick="filterPcl('clauses','conditional')">Conditional</button>
+    <button class="pcl-filter-btn" onclick="filterPcl('clauses','causal')">Causal</button>
+    <button class="pcl-filter-btn" onclick="filterPcl('clauses','temporal')">Temporal</button>
+    <button class="pcl-filter-btn" onclick="filterPcl('clauses','concessive')">Concessive</button>
+    <button class="pcl-filter-btn" onclick="filterPcl('clauses','purpose')">Purpose</button>
+    <button class="pcl-filter-btn" onclick="filterPcl('clauses','relative')">Relative</button>
+  </div>
+  <p class="pcl-count" id="clauses-count"></p>
+  <div id="clauses-container" class="pcl-grid">
+    <div class="pcl-loading">Loading clause patterns from Firebase…</div>
+  </div>
+
 </main>
 </div>
 <footer class="site-footer">
@@ -314,5 +383,109 @@
 </footer>
 <script src="js/firebase-db.js"></script>
 <script src="js/main.js"></script>
+<script>
+/* ── Phrase & Clause Library loader ──────────────────────── */
+(function () {
+  'use strict';
+
+  const _store = { phrases: [], clauses: [], activeFilter: { phrases: 'all', clauses: 'all' } };
+
+  function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+
+  function renderPhraseCard(p) {
+    return `<div class="pcl-card" data-category="${p.category || ''}">
+      <div class="pcl-joy">${p.joylang || ''}</div>
+      <div class="pcl-eng">${p.english || ''}</div>
+      <div class="pcl-hin">${p.hindi || ''}</div>
+      <span class="pcl-badge">${capitalize(p.category || '')}</span>
+      ${p.notes ? `<div class="pcl-note">${p.notes}</div>` : ''}
+    </div>`;
+  }
+
+  function renderClauseCard(c) {
+    return `<div class="pcl-card" data-type="${c.type || ''}">
+      <div class="pcl-joy">${c.joylang || ''}</div>
+      <div class="pcl-eng">${c.english || ''}</div>
+      <div class="pcl-hin">${c.hindi || ''}</div>
+      <span class="pcl-badge">${capitalize(c.type || '')}</span>
+      ${c.marker ? `<span class="pcl-badge" style="background:#e8f5e9;">${c.marker}</span>` : ''}
+      ${c.joylang_rule ? `<div class="pcl-rule">Rule: ${c.joylang_rule}</div>` : ''}
+    </div>`;
+  }
+
+  function renderGrid(collection, filter) {
+    const container = document.getElementById(collection + '-container');
+    const countEl   = document.getElementById(collection + '-count');
+    const items     = _store[collection];
+    const filtered  = filter === 'all' ? items
+      : items.filter(x => (x.category || x.type || '') === filter);
+
+    if (filtered.length === 0) {
+      container.innerHTML = `<div class="pcl-loading">No entries found for "${filter}".</div>`;
+      countEl.textContent = '';
+      return;
+    }
+    countEl.textContent = `Showing ${filtered.length} of ${items.length} entries`;
+    container.innerHTML = collection === 'phrases'
+      ? filtered.map(renderPhraseCard).join('')
+      : filtered.map(renderClauseCard).join('');
+  }
+
+  window.filterPcl = function (collection, value) {
+    _store.activeFilter[collection] = value;
+    // Update button states
+    const bar = document.getElementById(collection + '-filters');
+    bar.querySelectorAll('.pcl-filter-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.toLowerCase() === value || (value === 'all' && btn.textContent === 'All'));
+    });
+    renderGrid(collection, value);
+  };
+
+  async function loadCollection(collection) {
+    const container = document.getElementById(collection + '-container');
+    const db = window.akashDB;
+    if (!db) {
+      container.innerHTML = '<div class="pcl-error">Not connected to Firebase. Please check your internet connection.</div>';
+      return;
+    }
+    try {
+      const { getDocs, collection: col, query, orderBy } =
+        await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+      const snap = await getDocs(query(col(db, collection), orderBy('id')));
+      const items = [];
+      snap.forEach(d => items.push(d.data()));
+      _store[collection] = items;
+      renderGrid(collection, _store.activeFilter[collection]);
+    } catch (e) {
+      container.innerHTML = `<div class="pcl-error">Failed to load ${collection}: ${e.message}</div>`;
+    }
+  }
+
+  function init() {
+    if (window.akashDB) {
+      loadCollection('phrases');
+      loadCollection('clauses');
+    } else {
+      window.addEventListener('akash-db-ready', function (e) {
+        if (e.detail && e.detail.ok) {
+          loadCollection('phrases');
+          loadCollection('clauses');
+        } else {
+          ['phrases', 'clauses'].forEach(c => {
+            document.getElementById(c + '-container').innerHTML =
+              '<div class="pcl-error">Firebase unavailable. Phrase and clause library requires an internet connection.</div>';
+          });
+        }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
 </body>
 </html>
