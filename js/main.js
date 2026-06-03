@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="caution-banner-text">
           <strong>Work in Progress.</strong>
           Joylang is an evolving language. Some vocabulary, grammar rules, or content may be incomplete or subject to revision.
-          Found an error or have a suggestion? <a href="mailto:aman.akash112@gmail.com">Contact the developer</a>.
+          Found an error or have a suggestion? <a href="https://www.linkedin.com/in/aman-akash-256219256/" target="_blank" rel="noopener">Contact the developer</a>.
         </span>
         <button class="caution-close" aria-label="Dismiss" title="Dismiss">×</button>`;
       mainContent.insertBefore(banner, mainContent.firstChild);

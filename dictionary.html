@@ -154,32 +154,58 @@
   // Combined list: static dictionary + community/Firebase words
   let allEntries = JOYLANG_DICT.map(e => ({ ...e, createdBy: 'developer' }));
 
+  // pos → css tag class for Firebase lexicon entries
+  const posTagClass = {
+    'noun':'noun','verb':'verb','adj':'adj','adv':'adv',
+    'particle':'particle','conj':'conj',
+  };
+  function tagClassFor(pos) {
+    if (!pos) return 'root';
+    const p = pos.toLowerCase();
+    for (const k of Object.keys(posTagClass)) { if (p.includes(k)) return posTagClass[k]; }
+    return 'root';
+  }
+
   function tagFor(entry) {
+    if (entry._fbLexicon) return tagClassFor(entry.pos);
     if (entry.verb && entry.verb !== '—') return 'verb';
     if (entry.noun && entry.noun !== '—') return 'noun';
-    if (entry.adj && entry.adj !== '—') return 'adj';
+    if (entry.adj  && entry.adj  !== '—') return 'adj';
     return 'root';
   }
 
   function creatorBadge(entry) {
-    if (entry.createdBy === 'user') {
-      return '<span class="creator-badge creator-user" title="Community contributed word">Community</span>';
-    }
+    if (entry.createdBy === 'user')  return '<span class="creator-badge creator-user" title="Community contributed word">Community</span>';
+    if (entry._fbLexicon)            return '<span class="creator-badge creator-dev" title="Official lexicon word">Lexicon</span>';
     return '<span class="creator-badge creator-dev" title="Developer-verified word">Dev</span>';
   }
 
   function cardHtml(e) {
+    if (e._fbLexicon) {
+      // Firebase lexicon format: joylang, english, hindi, pos, category, level
+      return `<div class="dict-card">
+        <div class="dict-card-header">
+          <div class="dict-word">${e.joylang || ''}</div>
+          <span class="td-tag tag-${tagFor(e)}">${e.category || 'Lexicon'}</span>
+          ${creatorBadge(e)}
+        </div>
+        <div class="dict-meaning">${e.english || ''}</div>
+        ${e.hindi ? `<div style="color:#e65100;font-size:.82rem;margin-bottom:4px;">${e.hindi}</div>` : ''}
+        <div class="dict-forms"><span title="Part of speech">POS: <span>${e.pos || '—'}</span></span>${e.level ? ` &nbsp;·&nbsp; <span title="Level">Lvl: <span>${e.level}</span></span>` : ''}</div>
+      </div>`;
+    }
+    // Static JOYLANG_DICT / community format: root, en, hi, noun, verb, adj, domain, ex
     const forms = [];
     if (e.noun && e.noun !== '—') forms.push(`<span title="Noun">N: <span>${e.noun}</span></span>`);
     if (e.verb && e.verb !== '—') forms.push(`<span title="Verb">V: <span>${e.verb}</span></span>`);
     if (e.adj  && e.adj  !== '—') forms.push(`<span title="Adjective">Adj: <span>${e.adj}</span></span>`);
     return `<div class="dict-card">
       <div class="dict-card-header">
-        <div class="dict-word">${e.root}</div>
+        <div class="dict-word">${e.root || ''}</div>
         <span class="td-tag tag-${tagFor(e)}">${e.domain || 'Community'}</span>
         ${creatorBadge(e)}
       </div>
-      <div class="dict-meaning">${e.en}</div>
+      <div class="dict-meaning">${e.en || ''}</div>
       ${e.hi ? `<div style="color:#e65100;font-size:.82rem;margin-bottom:4px;">${e.hi}</div>` : ''}
       ${forms.length ? `<div class="dict-forms">${forms.join(' &nbsp;·&nbsp; ')}</div>` : ''}
       ${e.ex ? `<div class="dict-example">${e.ex}</div>` : ''}
@@ -194,13 +220,16 @@
     if (currentPage >= totalPages) currentPage = totalPages - 1;
 
     const communityCount = filtered.filter(e => e.createdBy === 'user').length;
+    const lexiconCount   = filtered.filter(e => e._fbLexicon).length;
+    const staticCount    = filtered.length - communityCount - lexiconCount;
     const start = currentPage * PAGE_SIZE;
     const end   = Math.min(start + PAGE_SIZE, filtered.length);
     const pageEntries = filtered.slice(start, end);
 
     stats.textContent = filtered.length === 0
       ? 'No results'
-      : `Showing ${start + 1}–${end} of ${filtered.length} entries (${filtered.length - communityCount} developer · ${communityCount} community)`;
+      : `Showing ${start + 1}–${end} of ${filtered.length} entries` +
+        ` (${staticCount} roots · ${lexiconCount} lexicon forms · ${communityCount} community)`;
 
     if (filtered.length === 0) {
       grid.innerHTML = '<div class="no-results"><div class="icon">🔍</div><p>No results found. Try a different search term.</p></div>';
@@ -238,15 +267,17 @@
 
   function searchAll(query, domain) {
     return allEntries.filter(e => {
-      const matchDomain = domain === 'all' || (e.domain || '').toLowerCase() === domain.toLowerCase();
+      const entryDomain = (e.domain || e.category || '').toLowerCase();
+      const matchDomain = domain === 'all' || entryDomain === domain.toLowerCase();
       if (!query) return matchDomain;
       const q = query.toLowerCase();
       return matchDomain && (
-        e.root.toLowerCase().includes(q) ||
-        (e.en   || '').toLowerCase().includes(q) ||
+        (e.root    || e.joylang  || '').toLowerCase().includes(q) ||
+        (e.en      || e.english  || '').toLowerCase().includes(q) ||
+        (e.hi      || e.hindi    || '').toLowerCase().includes(q) ||
         (e.noun || '').toLowerCase().includes(q) ||
         (e.verb || '').toLowerCase().includes(q) ||
-        (e.hi   || '').toLowerCase().includes(q)
+        (e.pos  || '').toLowerCase().includes(q)
       );
     });
   }
@@ -256,32 +287,44 @@
     renderCards(searchAll(currentQuery, currentDomain));
   }
 
-  // Load community words from Firebase
+  // Load words from Firebase: lexicon words + community words
   async function loadCommunityWords() {
     const db = window.akashDB;
     if (!db) return;
+
+    const stats = document.getElementById('dictStats');
+    if (stats) stats.textContent = 'Loading full lexicon from Firebase…';
+
     try {
-      const { getDocs, collection, query, where } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+      const { getDocs, collection } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
       const snap = await getDocs(collection(db, 'words'));
       const staticRoots = new Set(JOYLANG_DICT.map(e => e.root));
-      let communityCount = 0;
+      let lexiconCount = 0, communityCount = 0;
+
       snap.forEach(doc => {
         const data = doc.data();
-        if (data.createdBy === 'user' && !staticRoots.has(data.root)) {
+        if (data.source === 'lexicon' && data.joylang) {
+          // Firebase lexicon word (individual form)
+          allEntries.push({ ...data, _fbLexicon: true });
+          lexiconCount++;
+        } else if (data.createdBy === 'user' && data.root && !staticRoots.has(data.root)) {
+          // Community-submitted root word
           allEntries.push({ ...data });
           communityCount++;
         }
       });
-      if (communityCount > 0) {
+
+      if (lexiconCount > 0 || communityCount > 0) {
         const badge = document.getElementById('dict-community-badge');
-        if (badge) {
-          badge.textContent = `+ ${communityCount} Community Words`;
+        if (badge && communityCount > 0) {
+          badge.textContent = `+ ${communityCount} Community`;
           badge.style.display = 'inline-flex';
         }
         update();
       }
     } catch(e) {
-      console.warn('Could not load community words:', e.message);
+      console.warn('Could not load words from Firebase:', e.message);
+      update();
     }
   }
 

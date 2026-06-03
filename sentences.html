@@ -60,6 +60,10 @@
   <a href="#dialogues">Sample Dialogues</a>
   <a href="#patterns">Grammar Patterns</a>
   <a href="#conversation">Conversation Management</a>
+  <div class="sidebar-heading">Sentence Library</div>
+  <a href="#sentence-library">All Sentences</a>
+  <a href="#sentence-library" class="level2" onclick="filterSentLib('assertive');return false;">Assertive</a>
+  <a href="#sentence-library" class="level2" onclick="filterSentLib('question');return false;">Questions</a>
   <div class="sidebar-heading">Phrase &amp; Clause Library</div>
   <a href="#phrases">Common Phrases</a>
   <a href="#clauses">Clause Patterns</a>
@@ -340,6 +344,37 @@
     </tbody>
   </table></div>
 
+  <!-- SENTENCE LIBRARY (Firebase) -->
+  <h2 id="sentence-library">Sentence Library</h2>
+  <p>The complete collection of Joylang sentences loaded live from the database — 2,700+ entries across all proficiency levels.</p>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;align-items:center;">
+    <div>
+      <span style="font-size:.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-right:6px;">Type</span>
+      <span id="sentlib-type-filters" style="display:inline-flex;gap:6px;flex-wrap:wrap;">
+        <button class="pcl-filter-btn active" onclick="filterSentLib('all')">All</button>
+        <button class="pcl-filter-btn" onclick="filterSentLib('assertive')">Assertive</button>
+        <button class="pcl-filter-btn" onclick="filterSentLib('question')">Questions</button>
+      </span>
+    </div>
+    <div>
+      <span style="font-size:.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-right:6px;">Level</span>
+      <span id="sentlib-level-filters" style="display:inline-flex;gap:6px;flex-wrap:wrap;">
+        <button class="pcl-filter-btn active" onclick="filterSentLibLevel('all')">All</button>
+        <button class="pcl-filter-btn" onclick="filterSentLibLevel('foundation')">Foundation</button>
+        <button class="pcl-filter-btn" onclick="filterSentLibLevel('beginner')">Beginner</button>
+        <button class="pcl-filter-btn" onclick="filterSentLibLevel('intermediate')">Intermediate</button>
+        <button class="pcl-filter-btn" onclick="filterSentLibLevel('advanced')">Advanced</button>
+      </span>
+    </div>
+  </div>
+
+  <p class="pcl-count" id="sentlib-count"></p>
+  <div id="sentlib-container">
+    <div class="pcl-loading">Loading sentences from Firebase…</div>
+  </div>
+  <div class="dict-pagination" id="sentlib-pagination"></div>
+
   <!-- PHRASES -->
   <h2 id="phrases">Common Phrases</h2>
   <p>Ready-to-use Joylang phrases organized by context. Data loaded live from the phrase library.</p>
@@ -383,6 +418,133 @@
 </footer>
 <script src="js/firebase-db.js"></script>
 <script src="js/main.js"></script>
+<script>
+/* ── Sentence Library (Firebase) ─────────────────────────── */
+(function () {
+  'use strict';
+  const PAGE_SIZE = 50;
+  const _sl = { all: [], filtered: [], page: 0, type: 'all', level: 'all' };
+
+  function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+
+  const levelColors = {
+    foundation:   '#e8f5e9', beginner: '#e3f2fd',
+    intermediate: '#fff3e0', advanced: '#fce4ec'
+  };
+  const levelText = {
+    foundation: '#2e7d32', beginner: '#1565c0',
+    intermediate: '#e65100', advanced: '#880e4f'
+  };
+
+  function sentCard(s) {
+    const lvl = (s.level || '').toLowerCase();
+    const lBg  = levelColors[lvl] || '#f5f5f5';
+    const lCol = levelText[lvl]  || '#555';
+    return `<div class="pcl-card">
+      <div class="pcl-joy">${s.joylang || ''}</div>
+      <div class="pcl-eng">${s.english || ''}</div>
+      ${s.hindi ? `<div class="pcl-hin">${s.hindi}</div>` : ''}
+      ${s.type  ? `<span class="pcl-badge">${capitalize(s.type)}</span>` : ''}
+      ${s.level ? `<span class="pcl-badge" style="background:${lBg};color:${lCol};">${capitalize(s.level)}</span>` : ''}
+    </div>`;
+  }
+
+  function applyFilters() {
+    _sl.filtered = _sl.all.filter(s => {
+      const typeOk  = _sl.type  === 'all' || (s.type  || '') === _sl.type;
+      const levelOk = _sl.level === 'all' || (s.level || '') === _sl.level;
+      return typeOk && levelOk;
+    });
+    _sl.page = 0;
+    render();
+  }
+
+  function render() {
+    const container = document.getElementById('sentlib-container');
+    const countEl   = document.getElementById('sentlib-count');
+    const pgEl      = document.getElementById('sentlib-pagination');
+    const { filtered, page } = _sl;
+    const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+    const start = page * PAGE_SIZE;
+    const end   = Math.min(start + PAGE_SIZE, filtered.length);
+
+    countEl.textContent = filtered.length
+      ? `Showing ${start + 1}–${end} of ${filtered.length} sentences`
+      : 'No sentences match the selected filters.';
+
+    container.innerHTML = filtered.length
+      ? `<div class="pcl-grid">${filtered.slice(start, end).map(sentCard).join('')}</div>`
+      : '<div class="pcl-loading" style="color:var(--text-muted);">No results.</div>';
+
+    // Pagination
+    if (totalPages <= 1) { pgEl.innerHTML = ''; return; }
+    pgEl.innerHTML = `
+      <button class="dict-page-btn" id="sl-prev" ${page === 0 ? 'disabled' : ''}>← Prev</button>
+      <span class="dict-page-info">Page <strong>${page + 1}</strong> of <strong>${totalPages}</strong></span>
+      <button class="dict-page-btn" id="sl-next" ${page >= totalPages - 1 ? 'disabled' : ''}>Next →</button>`;
+    document.getElementById('sl-prev').addEventListener('click', () => {
+      if (_sl.page > 0) { _sl.page--; render(); document.getElementById('sentence-library').scrollIntoView({behavior:'smooth'}); }
+    });
+    document.getElementById('sl-next').addEventListener('click', () => {
+      if (_sl.page < totalPages - 1) { _sl.page++; render(); document.getElementById('sentence-library').scrollIntoView({behavior:'smooth'}); }
+    });
+  }
+
+  window.filterSentLib = function (type) {
+    _sl.type = type;
+    document.querySelectorAll('#sentlib-type-filters .pcl-filter-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.toLowerCase() === type ||
+        (type === 'all' && btn.textContent === 'All'));
+    });
+    applyFilters();
+  };
+
+  window.filterSentLibLevel = function (level) {
+    _sl.level = level;
+    document.querySelectorAll('#sentlib-level-filters .pcl-filter-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.toLowerCase() === level ||
+        (level === 'all' && btn.textContent === 'All'));
+    });
+    applyFilters();
+  };
+
+  async function loadSentences() {
+    const container = document.getElementById('sentlib-container');
+    const db = window.akashDB;
+    if (!db) {
+      container.innerHTML = '<div class="pcl-error">Not connected to Firebase. Sentence Library requires an internet connection.</div>';
+      return;
+    }
+    try {
+      const { getDocs, collection: col, query, orderBy } =
+        await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+      const snap = await getDocs(query(col(db, 'sentences'), orderBy('english')));
+      snap.forEach(d => {
+        const data = d.data();
+        if (data.joylang && data.source === 'lexicon') _sl.all.push(data);
+      });
+      applyFilters();
+    } catch (e) {
+      container.innerHTML = `<div class="pcl-error">Failed to load sentences: ${e.message}</div>`;
+    }
+  }
+
+  function init() {
+    if (window.akashDB) {
+      loadSentences();
+    } else {
+      window.addEventListener('akash-db-ready', e => {
+        if (e.detail?.ok) loadSentences();
+        else document.getElementById('sentlib-container').innerHTML =
+          '<div class="pcl-error">Firebase unavailable. Sentence Library requires an internet connection.</div>';
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
 <script>
 /* ── Phrase & Clause Library loader ──────────────────────── */
 (function () {
