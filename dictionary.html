@@ -146,8 +146,11 @@
     'Core':'#f5f5f5','Community':'#f3e5f5'
   };
 
+  const PAGE_SIZE = 50;
   let currentDomain = 'all';
-  let currentQuery = '';
+  let currentQuery  = '';
+  let currentPage   = 0;
+  let lastFiltered  = [];
   // Combined list: static dictionary + community/Firebase words
   let allEntries = JOYLANG_DICT.map(e => ({ ...e, createdBy: 'developer' }));
 
@@ -165,32 +168,72 @@
     return '<span class="creator-badge creator-dev" title="Developer-verified word">Dev</span>';
   }
 
-  function renderCards(entries) {
-    const grid = document.getElementById('dictGrid');
+  function cardHtml(e) {
+    const forms = [];
+    if (e.noun && e.noun !== '—') forms.push(`<span title="Noun">N: <span>${e.noun}</span></span>`);
+    if (e.verb && e.verb !== '—') forms.push(`<span title="Verb">V: <span>${e.verb}</span></span>`);
+    if (e.adj  && e.adj  !== '—') forms.push(`<span title="Adjective">Adj: <span>${e.adj}</span></span>`);
+    return `<div class="dict-card">
+      <div class="dict-card-header">
+        <div class="dict-word">${e.root}</div>
+        <span class="td-tag tag-${tagFor(e)}">${e.domain || 'Community'}</span>
+        ${creatorBadge(e)}
+      </div>
+      <div class="dict-meaning">${e.en}</div>
+      ${e.hi ? `<div style="color:#e65100;font-size:.82rem;margin-bottom:4px;">${e.hi}</div>` : ''}
+      ${forms.length ? `<div class="dict-forms">${forms.join(' &nbsp;·&nbsp; ')}</div>` : ''}
+      ${e.ex ? `<div class="dict-example">${e.ex}</div>` : ''}
+    </div>`;
+  }
+
+  function renderCards(filtered) {
+    lastFiltered = filtered;
+    const grid  = document.getElementById('dictGrid');
     const stats = document.getElementById('dictStats');
-    const communityCount = entries.filter(e => e.createdBy === 'user').length;
-    stats.textContent = `Showing ${entries.length} entries (${entries.length - communityCount} developer · ${communityCount} community)`;
-    if (entries.length === 0) {
+    const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+    if (currentPage >= totalPages) currentPage = totalPages - 1;
+
+    const communityCount = filtered.filter(e => e.createdBy === 'user').length;
+    const start = currentPage * PAGE_SIZE;
+    const end   = Math.min(start + PAGE_SIZE, filtered.length);
+    const pageEntries = filtered.slice(start, end);
+
+    stats.textContent = filtered.length === 0
+      ? 'No results'
+      : `Showing ${start + 1}–${end} of ${filtered.length} entries (${filtered.length - communityCount} developer · ${communityCount} community)`;
+
+    if (filtered.length === 0) {
       grid.innerHTML = '<div class="no-results"><div class="icon">🔍</div><p>No results found. Try a different search term.</p></div>';
+      renderPagination(filtered.length, totalPages);
       return;
     }
-    grid.innerHTML = entries.map(e => {
-      const forms = [];
-      if (e.noun && e.noun !== '—') forms.push(`<span title="Noun">N: <span>${e.noun}</span></span>`);
-      if (e.verb && e.verb !== '—') forms.push(`<span title="Verb">V: <span>${e.verb}</span></span>`);
-      if (e.adj && e.adj !== '—') forms.push(`<span title="Adjective">Adj: <span>${e.adj}</span></span>`);
-      return `<div class="dict-card">
-        <div class="dict-card-header">
-          <div class="dict-word">${e.root}</div>
-          <span class="td-tag tag-${tagFor(e)}">${e.domain || 'Community'}</span>
-          ${creatorBadge(e)}
-        </div>
-        <div class="dict-meaning">${e.en}</div>
-        ${e.hi ? `<div style="color:#e65100;font-size:.82rem;margin-bottom:4px;">${e.hi}</div>` : ''}
-        ${forms.length ? `<div class="dict-forms">${forms.join(' &nbsp;·&nbsp; ')}</div>` : ''}
-        ${e.ex ? `<div class="dict-example">${e.ex}</div>` : ''}
-      </div>`;
-    }).join('');
+
+    grid.innerHTML = pageEntries.map(cardHtml).join('');
+    renderPagination(filtered.length, totalPages);
+    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function renderPagination(total, totalPages) {
+    let pg = document.getElementById('dict-pagination');
+    if (!pg) {
+      pg = document.createElement('div');
+      pg.id = 'dict-pagination';
+      pg.className = 'dict-pagination';
+      document.getElementById('dictGrid').after(pg);
+    }
+    if (totalPages <= 1) { pg.innerHTML = ''; return; }
+
+    pg.innerHTML = `
+      <button class="dict-page-btn" id="pg-prev" ${currentPage === 0 ? 'disabled' : ''}>← Prev</button>
+      <span class="dict-page-info">Page <strong>${currentPage + 1}</strong> of <strong>${totalPages}</strong></span>
+      <button class="dict-page-btn" id="pg-next" ${currentPage >= totalPages - 1 ? 'disabled' : ''}>Next →</button>`;
+
+    document.getElementById('pg-prev').addEventListener('click', () => {
+      if (currentPage > 0) { currentPage--; renderCards(lastFiltered); }
+    });
+    document.getElementById('pg-next').addEventListener('click', () => {
+      if (currentPage < totalPages - 1) { currentPage++; renderCards(lastFiltered); }
+    });
   }
 
   function searchAll(query, domain) {
@@ -200,15 +243,16 @@
       const q = query.toLowerCase();
       return matchDomain && (
         e.root.toLowerCase().includes(q) ||
-        (e.en || '').toLowerCase().includes(q) ||
+        (e.en   || '').toLowerCase().includes(q) ||
         (e.noun || '').toLowerCase().includes(q) ||
         (e.verb || '').toLowerCase().includes(q) ||
-        (e.hi || '').toLowerCase().includes(q)
+        (e.hi   || '').toLowerCase().includes(q)
       );
     });
   }
 
   function update() {
+    currentPage = 0;
     renderCards(searchAll(currentQuery, currentDomain));
   }
 
