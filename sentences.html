@@ -516,13 +516,15 @@
       return;
     }
     try {
-      const { getDocs, collection: col, query, orderBy } =
+      const { getDocs, collection: col, query, where } =
         await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
-      const snap = await getDocs(query(col(db, 'sentences'), orderBy('english')));
+      const snap = await getDocs(query(col(db, 'sentences'), where('source', '==', 'lexicon')));
       snap.forEach(d => {
         const data = d.data();
-        if (data.joylang && data.source === 'lexicon') _sl.all.push(data);
+        if (data.joylang) _sl.all.push(data);
       });
+      // Sort client-side by English text
+      _sl.all.sort((a, b) => (a.english || '').localeCompare(b.english || ''));
       applyFilters();
     } catch (e) {
       container.innerHTML = `<div class="pcl-error">Failed to load sentences: ${e.message}</div>`;

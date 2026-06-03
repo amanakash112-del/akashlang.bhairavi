@@ -287,42 +287,64 @@
     renderCards(searchAll(currentQuery, currentDomain));
   }
 
-  // Load words from Firebase: lexicon words + community words
+  // Load words from Firebase: lexicon word-forms + community words
   async function loadCommunityWords() {
     const db = window.akashDB;
     if (!db) return;
 
+    // Show a loading badge next to the stats line
     const stats = document.getElementById('dictStats');
-    if (stats) stats.textContent = 'Loading full lexicon from Firebase…';
+    const loadingBadge = document.createElement('span');
+    loadingBadge.id = 'dict-fb-loading';
+    loadingBadge.style.cssText = 'margin-left:10px;font-size:.8rem;color:var(--green-dark);font-style:italic;';
+    loadingBadge.textContent = '⟳ Loading 8,400+ lexicon forms from Firebase…';
+    if (stats) stats.after(loadingBadge);
 
     try {
-      const { getDocs, collection } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
-      const snap = await getDocs(collection(db, 'words'));
+      const { getDocs, collection: col, query, where } =
+        await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+
+      // Two parallel queries: lexicon forms + community words
+      const [lexiconSnap, communitySnap] = await Promise.all([
+        getDocs(query(col(db, 'words'), where('source', '==', 'lexicon'))),
+        getDocs(query(col(db, 'words'), where('createdBy', '==', 'user'))),
+      ]);
+
       const staticRoots = new Set(JOYLANG_DICT.map(e => e.root));
       let lexiconCount = 0, communityCount = 0;
 
-      snap.forEach(doc => {
+      lexiconSnap.forEach(doc => {
         const data = doc.data();
-        if (data.source === 'lexicon' && data.joylang) {
-          // Firebase lexicon word (individual form)
+        if (data.joylang) {
           allEntries.push({ ...data, _fbLexicon: true });
           lexiconCount++;
-        } else if (data.createdBy === 'user' && data.root && !staticRoots.has(data.root)) {
-          // Community-submitted root word
+        }
+      });
+
+      communitySnap.forEach(doc => {
+        const data = doc.data();
+        if (data.root && !staticRoots.has(data.root)) {
           allEntries.push({ ...data });
           communityCount++;
         }
       });
 
-      if (lexiconCount > 0 || communityCount > 0) {
+      loadingBadge.remove();
+
+      if (communityCount > 0) {
         const badge = document.getElementById('dict-community-badge');
-        if (badge && communityCount > 0) {
+        if (badge) {
           badge.textContent = `+ ${communityCount} Community`;
           badge.style.display = 'inline-flex';
         }
-        update();
       }
+
+      if (lexiconCount > 0 || communityCount > 0) update();
+      else if (stats) stats.textContent = stats.textContent; // refresh display
+
     } catch(e) {
+      const lb = document.getElementById('dict-fb-loading');
+      if (lb) lb.textContent = '⚠ Could not load Firebase words.';
       console.warn('Could not load words from Firebase:', e.message);
       update();
     }
