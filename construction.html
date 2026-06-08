@@ -5,8 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Language Construction &amp; Design — Joylang</title>
 <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+<!--BZ-CSS-START--><style id="bz-style">
+.bzg{display:inline-block;vertical-align:middle;width:30px;height:34px}
+.bz-base{fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.bz-faint{fill:none;stroke:currentColor;stroke-width:3;opacity:.4;stroke-linecap:round;stroke-linejoin:round}
+.bz-dia{fill:#8b2000;stroke:#8b2000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+td.bz{text-align:center;vertical-align:middle;white-space:nowrap}
+.bz-chart{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.bz-cell{width:60px;text-align:center;border:1px solid var(--border,#e3e3da);border-radius:8px;padding:6px 0;background:var(--bg-card,#fff)}
+.bz-cell .bzg{width:38px;height:42px}
+.bz-cell small{display:block;color:#888;font-size:11px;margin-top:3px}
+.bz-sent{margin:8px 0;line-height:0}
+.bz-sent .bzg{width:26px;height:30px}
+.bz-word{display:inline-block;margin:0 16px 6px 0;line-height:0}
+.bz-legend{display:flex;flex-wrap:wrap;gap:14px;margin:10px 0;font-size:13px}
+.bz-legend .bzg{width:30px;height:34px}
+.bzcw{display:inline-block;vertical-align:middle;margin:2px 16px 2px 0}
+.bz-joinrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;border:1px solid var(--border,#e3e3da);border-radius:8px;background:var(--bg-card,#fff);padding:8px 12px;margin:8px 0}
+.bz-joinrow .tag{width:120px;color:#888;font-size:13px}
+.bz-example .bzcw{height:42px}
+.bz-ex-line{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0}
+.bz-ex-line .rom{color:#888;font-size:13px;min-width:150px}
+</style><!--BZ-CSS-END--></head>
+<body><!--BZ-SPRITE-START--><svg id="bz-sprite" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"><symbol id="bz-a" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 52,10 C 62,14 64,28 60,40 C 56,56 42,66 24,62 L 16,52"/></symbol><symbol id="bz-i" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 30,16 L 30,66 M 16,26 L 46,14"/></symbol><symbol id="bz-u" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 14,14 L 14,46 Q 14,66 30,66 Q 46,66 46,46 L 46,14"/></symbol><symbol id="bz-e" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 8,28 C 20,14 38,16 46,28 C 54,40 50,58 36,62"/></symbol><symbol id="bz-o" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 10,16 L 50,16 C 62,16 62,32 54,50 C 48,62 38,68 28,68 C 18,68 8,62 4,50 C -2,32 0,16 10,16 Z"/></symbol><symbol id="bz-p" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 16,66 L 16,14 C 26,14 46,18 46,32 C 46,48 30,52 16,50"/></symbol><symbol id="bz-b" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 44,66 L 44,14 C 34,14 14,18 14,32 C 14,48 30,52 44,50"/></symbol><symbol id="bz-t" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 10,22 L 52,22 L 52,66"/></symbol><symbol id="bz-d" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 8,22 L 50,22 M 8,22 L 8,66"/></symbol><symbol id="bz-k" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 14,14 L 42,66 M 8,44 L 46,26"/></symbol><symbol id="bz-g" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 16,14 L 42,54 Q 50,66 40,70 Q 28,74 24,62"/></symbol><symbol id="bz-m" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 8,66 L 8,36 Q 8,18 22,18 Q 32,18 32,34 Q 32,18 48,18 Q 60,18 60,36 L 60,66"/></symbol><symbol id="bz-n" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 10,66 L 10,34 Q 10,14 30,14 Q 50,14 50,34 L 50,66"/></symbol><symbol id="bz-ng" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 32,36 Q 32,18 16,18 Q 6,18 6,30 Q 6,50 22,54 Q 34,56 34,44 L 52,66"/></symbol><symbol id="bz-s" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 50,16 C 60,16 62,30 48,38 C 32,46 18,48 14,58 C 10,66 18,72 28,68"/></symbol><symbol id="bz-f" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 24,12 L 24,66 M 24,28 L 50,28"/></symbol><symbol id="bz-v" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 10,14 Q 16,40 30,66 Q 44,40 50,14"/></symbol><symbol id="bz-h" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 12,66 L 12,26 C 12,10 48,10 48,26 L 48,66 M 12,44 L 48,44"/></symbol><symbol id="bz-l" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 22,12 L 22,54 Q 22,66 36,68 Q 50,66 56,56"/></symbol><symbol id="bz-r" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 18,66 L 18,18 Q 18,8 40,8 Q 52,8 52,22"/></symbol><symbol id="bz-y" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 10,12 L 30,42 M 52,12 L 30,42 L 22,66"/></symbol><symbol id="bz-ch" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 52,14 Q 26,10 10,26 Q 0,38 12,52 Q 26,64 52,60 M 28,38 L 46,38"/></symbol><symbol id="bz-j" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 44,12 Q 56,12 56,26 Q 56,38 46,38 L 46,58 Q 46,68 28,68 Q 14,66 12,54"/></symbol><symbol id="bz-sh" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 8,28 Q 18,12 32,12 Q 48,12 52,28 Q 58,44 46,54 L 38,68"/></symbol><symbol id="bz-ph" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 16,66 L 16,14 C 26,14 46,18 46,32 C 46,48 30,52 16,50"/><circle class="bz-dia" cx="22" cy="-2" r="3.4"/><circle class="bz-dia" cx="38" cy="-2" r="3.4"/></symbol><symbol id="bz-bh" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 44,66 L 44,14 C 34,14 14,18 14,32 C 14,48 30,52 44,50"/><circle class="bz-dia" cx="22" cy="-2" r="3.4"/><circle class="bz-dia" cx="38" cy="-2" r="3.4"/></symbol><symbol id="bz-th" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 10,22 L 52,22 L 52,66"/><circle class="bz-dia" cx="22" cy="-2" r="3.4"/><circle class="bz-dia" cx="38" cy="-2" r="3.4"/></symbol><symbol id="bz-dh" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 8,22 L 50,22 M 8,22 L 8,66"/><circle class="bz-dia" cx="22" cy="-2" r="3.4"/><circle class="bz-dia" cx="38" cy="-2" r="3.4"/></symbol><symbol id="bz-kh" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 14,14 L 42,66 M 8,44 L 46,26"/><circle class="bz-dia" cx="22" cy="-2" r="3.4"/><circle class="bz-dia" cx="38" cy="-2" r="3.4"/></symbol><symbol id="bz-gh" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 16,14 L 42,54 Q 50,66 40,70 Q 28,74 24,62"/><circle class="bz-dia" cx="22" cy="-2" r="3.4"/><circle class="bz-dia" cx="38" cy="-2" r="3.4"/></symbol><symbol id="bz-chh" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 52,14 Q 26,10 10,26 Q 0,38 12,52 Q 26,64 52,60 M 28,38 L 46,38"/><circle class="bz-dia" cx="22" cy="-2" r="3.4"/><circle class="bz-dia" cx="38" cy="-2" r="3.4"/></symbol><symbol id="bz-jh" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 44,12 Q 56,12 56,26 Q 56,38 46,38 L 46,58 Q 46,68 28,68 Q 14,66 12,54"/><circle class="bz-dia" cx="22" cy="-2" r="3.4"/><circle class="bz-dia" cx="38" cy="-2" r="3.4"/></symbol><symbol id="bz-tr" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 10,22 L 52,22 L 52,66"/><circle class="bz-dia" cx="30" cy="80" r="4"/></symbol><symbol id="bz-thr" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 10,22 L 52,22 L 52,66"/><circle class="bz-dia" cx="30" cy="80" r="4"/><circle class="bz-dia" cx="22" cy="-2" r="3.4"/><circle class="bz-dia" cx="38" cy="-2" r="3.4"/></symbol><symbol id="bz-dr" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 8,22 L 50,22 M 8,22 L 8,66"/><circle class="bz-dia" cx="30" cy="80" r="4"/></symbol><symbol id="bz-dhr" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 8,22 L 50,22 M 8,22 L 8,66"/><circle class="bz-dia" cx="30" cy="80" r="4"/><circle class="bz-dia" cx="22" cy="-2" r="3.4"/><circle class="bz-dia" cx="38" cy="-2" r="3.4"/></symbol><symbol id="bz-nr" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 10,66 L 10,34 Q 10,14 30,14 Q 50,14 50,34 L 50,66"/><circle class="bz-dia" cx="30" cy="80" r="4"/></symbol><symbol id="bz-rr" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 18,66 L 18,18 Q 18,8 40,8 Q 52,8 52,22"/><circle class="bz-dia" cx="30" cy="80" r="4"/></symbol><symbol id="bz-shr" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 8,28 Q 18,12 32,12 Q 48,12 52,28 Q 58,44 46,54 L 38,68"/><circle class="bz-dia" cx="30" cy="80" r="4"/></symbol><symbol id="bz-z" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 50,16 C 60,16 62,30 48,38 C 32,46 18,48 14,58 C 10,66 18,72 28,68"/><path class="bz-dia" fill="none" d="M 8,80 C 16,74 24,74 32,80 C 40,86 48,86 56,80"/></symbol><symbol id="bz-zh" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 8,28 Q 18,12 32,12 Q 48,12 52,28 Q 58,44 46,54 L 38,68"/><path class="bz-dia" fill="none" d="M 8,80 C 16,74 24,74 32,80 C 40,86 48,86 56,80"/></symbol><symbol id="bz-thv" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 10,22 L 52,22 L 52,66"/><path class="bz-dia" fill="none" d="M 8,80 C 16,74 24,74 32,80 C 40,86 48,86 56,80"/></symbol><symbol id="bz-thu" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 10,22 L 52,22 L 52,66"/><path class="bz-dia" fill="none" d="M 4,42 C 14,34 22,50 32,42 C 42,34 50,50 60,42"/></symbol><symbol id="bz-x" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 14,14 L 42,66 M 8,44 L 46,26"/><path class="bz-dia" fill="none" d="M 4,42 C 14,34 22,50 32,42 C 42,34 50,50 60,42"/></symbol><symbol id="bz-w" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 10,14 Q 16,40 30,66 Q 44,40 50,14"/><path class="bz-dia" fill="none" d="M 8,80 C 16,74 24,74 32,80 C 40,86 48,86 56,80"/></symbol><symbol id="bz-q" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 14,14 L 42,66 M 8,44 L 46,26"/><circle class="bz-dia" fill="none" cx="30" cy="82" r="6"/></symbol><symbol id="bz-qh" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 14,14 L 42,66 M 8,44 L 46,26"/><circle class="bz-dia" fill="none" cx="30" cy="82" r="6"/><path class="bz-dia" fill="none" d="M 8,80 C 16,74 24,74 32,80 C 40,86 48,86 56,80"/></symbol><symbol id="bz-ay" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 12,66 L 12,26 C 12,10 48,10 48,26 L 48,66 M 12,44 L 48,44"/><circle class="bz-dia" fill="none" cx="30" cy="82" r="6"/><path class="bz-dia" fill="none" d="M 8,80 C 16,74 24,74 32,80 C 40,86 48,86 56,80"/></symbol><symbol id="bz-hh" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 12,66 L 12,26 C 12,10 48,10 48,26 L 48,66 M 12,44 L 48,44"/><circle class="bz-dia" fill="none" cx="30" cy="82" r="6"/></symbol><symbol id="bz-ny" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 10,66 L 10,34 Q 10,14 30,14 Q 50,14 50,34 L 50,66"/><path class="bz-dia" fill="none" d="M 16,-2 Q 30,-12 44,-2"/></symbol><symbol id="bz-ly" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 22,12 L 22,54 Q 22,66 36,68 Q 50,66 56,56"/><path class="bz-dia" fill="none" d="M 16,-2 Q 30,-12 44,-2"/></symbol><symbol id="bz-ky" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 14,14 L 42,66 M 8,44 L 46,26"/><path class="bz-dia" fill="none" d="M 16,-2 Q 30,-12 44,-2"/></symbol><symbol id="bz-gy" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 16,14 L 42,54 Q 50,66 40,70 Q 28,74 24,62"/><path class="bz-dia" fill="none" d="M 16,-2 Q 30,-12 44,-2"/></symbol><symbol id="bz-kp" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 14,14 L 42,66 M 8,44 L 46,26"/><path class="bz-dia" fill="none" d="M 38,72 Q 54,76 54,60"/></symbol><symbol id="bz-gb" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 16,14 L 42,54 Q 50,66 40,70 Q 28,74 24,62"/><path class="bz-dia" fill="none" d="M 38,72 Q 54,76 54,60"/></symbol><symbol id="bz-click_c" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 52,14 Q 26,10 10,26 Q 0,38 12,52 Q 26,64 52,60 M 28,38 L 46,38"/><path class="bz-dia" fill="none" d="M 62,12 L 62,48"/><circle class="bz-dia" cx="62" cy="58" r="3"/></symbol><symbol id="bz-click_q" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 14,14 L 42,66 M 8,44 L 46,26"/><path class="bz-dia" fill="none" d="M 62,12 L 62,48"/><circle class="bz-dia" cx="62" cy="58" r="3"/></symbol><symbol id="bz-click_x" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 8,28 Q 18,12 32,12 Q 48,12 52,28 Q 58,44 46,54 L 38,68"/><path class="bz-dia" fill="none" d="M 62,12 L 62,48"/><circle class="bz-dia" cx="62" cy="58" r="3"/></symbol><symbol id="bz-ae" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 52,10 C 62,14 64,28 60,40 C 56,56 42,66 24,62 L 16,52"/><circle class="bz-dia" fill="none" cx="58" cy="4" r="5"/></symbol><symbol id="bz-ye" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 8,28 C 20,14 38,16 46,28 C 54,40 50,58 36,62"/><circle class="bz-dia" fill="none" cx="58" cy="4" r="5"/></symbol><symbol id="bz-eu" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 10,16 L 50,16 C 62,16 62,32 54,50 C 48,62 38,68 28,68 C 18,68 8,62 4,50 C -2,32 0,16 10,16 Z"/><circle class="bz-dia" fill="none" cx="58" cy="4" r="5"/></symbol><symbol id="bz-uy" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 14,14 L 14,46 Q 14,66 30,66 Q 46,66 46,46 L 46,14"/><circle class="bz-dia" fill="none" cx="58" cy="4" r="5"/></symbol><symbol id="bz-io" viewBox="-14 -16 92 110"><path class="bz-base" fill="none" d="M 30,16 L 30,66 M 16,26 L 46,14"/><circle class="bz-dia" fill="none" cx="58" cy="4" r="5"/></symbol><symbol id="bz-tone_high" viewBox="-14 -16 92 110"><path class="bz-faint" fill="none" d="M 52,10 C 62,14 64,28 60,40 C 56,56 42,66 24,62 L 16,52"/><path class="bz-dia" fill="none" d="M 22,2 L 40,-8"/></symbol><symbol id="bz-tone_low" viewBox="-14 -16 92 110"><path class="bz-faint" fill="none" d="M 52,10 C 62,14 64,28 60,40 C 56,56 42,66 24,62 L 16,52"/><path class="bz-dia" fill="none" d="M 22,-8 L 40,2"/></symbol><symbol id="bz-tone_fall" viewBox="-14 -16 92 110"><path class="bz-faint" fill="none" d="M 52,10 C 62,14 64,28 60,40 C 56,56 42,66 24,62 L 16,52"/><path class="bz-dia" fill="none" d="M 20,-6 L 30,-10 L 40,2"/></symbol><symbol id="bz-tone_rise" viewBox="-14 -16 92 110"><path class="bz-faint" fill="none" d="M 52,10 C 62,14 64,28 60,40 C 56,56 42,66 24,62 L 16,52"/><path class="bz-dia" fill="none" d="M 20,2 L 30,-10 L 40,-6"/></symbol><symbol id="bz-tone_mid" viewBox="-14 -16 92 110"><path class="bz-faint" fill="none" d="M 52,10 C 62,14 64,28 60,40 C 56,56 42,66 24,62 L 16,52"/><path class="bz-dia" fill="none" d="M 20,-4 L 40,-4"/></symbol></svg><!--BZ-SPRITE-END-->
 
 <nav class="topnav">
   <button class="menu-toggle">☰</button>
@@ -22,7 +43,7 @@
     <a href="dictionary.html">Dictionary</a>
     <a href="sentences.html">Sentences</a>
     <a href="n5.html">N5 Course</a>
-    <a href="n4.html">N4 Course</a><a href="tools.html">Tools</a>
+    <a href="n4.html">N4 Course</a><a href="script.html">Script</a><a href="tools.html">Tools</a>
   </div>
   <div class="topnav-search"><input type="text" placeholder="Search dictionary…"></div>
 </nav>
@@ -90,13 +111,13 @@
   <p>These five vowels exist in almost every major language — Hindi, Spanish, Italian, Japanese, Swahili, Tamil. A speaker of any of these has <strong>zero learning cost</strong>.</p>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Roman</th><th>Devanagari</th><th>Sound</th><th>English Hint</th><th>Hindi Example</th></tr></thead>
+      <thead><tr><th>Roman</th><th>Bhairavi</th><th>Devanagari</th><th>Sound</th><th>English Hint</th><th>Hindi Example</th></tr></thead>
       <tbody>
-        <tr><td class="td-joy">a</td><td>अ</td><td>"a" in "father"</td><td>spa</td><td>अब (ab)</td></tr>
-        <tr><td class="td-joy">i</td><td>इ</td><td>"i" in "machine"</td><td>feet</td><td>इस (is)</td></tr>
-        <tr><td class="td-joy">u</td><td>उ</td><td>"u" in "flute"</td><td>food</td><td>उस (us)</td></tr>
-        <tr><td class="td-joy">e</td><td>ए</td><td>"e" in "bed"</td><td>get</td><td>एक (ek)</td></tr>
-        <tr><td class="td-joy">o</td><td>ओ</td><td>"o" in "go"</td><td>so</td><td>ओर (or)</td></tr>
+        <tr><td class="td-joy">a</td><td class="bz"><svg class="bzg"><use href="#bz-a"/></svg></td><td>अ</td><td>"a" in "father"</td><td>spa</td><td>अब (ab)</td></tr>
+        <tr><td class="td-joy">i</td><td class="bz"><svg class="bzg"><use href="#bz-i"/></svg></td><td>इ</td><td>"i" in "machine"</td><td>feet</td><td>इस (is)</td></tr>
+        <tr><td class="td-joy">u</td><td class="bz"><svg class="bzg"><use href="#bz-u"/></svg></td><td>उ</td><td>"u" in "flute"</td><td>food</td><td>उस (us)</td></tr>
+        <tr><td class="td-joy">e</td><td class="bz"><svg class="bzg"><use href="#bz-e"/></svg></td><td>ए</td><td>"e" in "bed"</td><td>get</td><td>एक (ek)</td></tr>
+        <tr><td class="td-joy">o</td><td class="bz"><svg class="bzg"><use href="#bz-o"/></svg></td><td>ओ</td><td>"o" in "go"</td><td>so</td><td>ओर (or)</td></tr>
       </tbody>
     </table>
   </div>
@@ -109,27 +130,27 @@
   <p><strong>Filtering Rule:</strong> A consonant is included in Tier 2 only if it appears naturally in at least four of these language families: Indo-Aryan, Dravidian, East Asian, Semitic, Romance, Germanic, Bantu. Total: <strong>19 sounds</strong>.</p>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Roman</th><th>Devanagari</th><th>Sound</th><th>Example</th><th>Note</th></tr></thead>
+      <thead><tr><th>Roman</th><th>Bhairavi</th><th>Devanagari</th><th>Sound</th><th>Example</th><th>Note</th></tr></thead>
       <tbody>
-        <tr><td class="td-joy">p</td><td>प</td><td>p</td><td>"p" in "pen"</td><td>Universal stop</td></tr>
-        <tr><td class="td-joy">b</td><td>ब</td><td>b</td><td>"b" in "bat"</td><td>Universal stop</td></tr>
-        <tr><td class="td-joy">t</td><td>त</td><td>t</td><td>"t" in "top"</td><td>Use dental t (Hindi-style), not retroflex</td></tr>
-        <tr><td class="td-joy">d</td><td>द</td><td>d</td><td>"d" in "dog"</td><td>Dental, not retroflex</td></tr>
-        <tr><td class="td-joy">k</td><td>क</td><td>k</td><td>"k" in "kite"</td><td>Universal stop</td></tr>
-        <tr><td class="td-joy">g</td><td>ग</td><td>g</td><td>"g" in "go"</td><td>Universal stop</td></tr>
-        <tr><td class="td-joy">m</td><td>म</td><td>m</td><td>"m" in "man"</td><td>Universal nasal</td></tr>
-        <tr><td class="td-joy">n</td><td>न</td><td>n</td><td>"n" in "nun"</td><td>Universal nasal</td></tr>
-        <tr><td class="td-joy">s</td><td>स</td><td>s</td><td>"s" in "sun"</td><td>Universal fricative (never z-sound)</td></tr>
-        <tr><td class="td-joy">f</td><td>f</td><td>f</td><td>"f" in "fan"</td><td>Globally recognisable; included to reach moderate inventory</td></tr>
-        <tr><td class="td-joy">v</td><td>व</td><td>v</td><td>"v" in "vine"</td><td>May be pronounced as w — both acceptable</td></tr>
-        <tr><td class="td-joy">h</td><td>ह</td><td>h</td><td>"h" in "hat"</td><td>Universal fricative</td></tr>
-        <tr><td class="td-joy">l</td><td>ल</td><td>l</td><td>"l" in "love"</td><td>Universal approximant</td></tr>
-        <tr><td class="td-joy">r</td><td>र</td><td>r</td><td>"r" in "run"</td><td>Use a soft, single-tap r</td></tr>
-        <tr><td class="td-joy">y</td><td>य</td><td>y</td><td>"y" in "yes"</td><td>Universal glide</td></tr>
-        <tr><td class="td-joy">ch</td><td>च</td><td>ch</td><td>"ch" in "chair"</td><td>Very common across Indian + global languages</td></tr>
-        <tr><td class="td-joy">j</td><td>ज</td><td>j</td><td>"j" in "jump"</td><td>Common globally</td></tr>
-        <tr><td class="td-joy">sh</td><td>श</td><td>sh</td><td>"sh" in "shine"</td><td>Common in Hindi, English, Arabic, Persian</td></tr>
-        <tr><td class="td-joy">ng</td><td>ं</td><td>ng</td><td>"ng" in "sing"</td><td>Word-final only</td></tr>
+        <tr><td class="td-joy">p</td><td class="bz"><svg class="bzg"><use href="#bz-p"/></svg></td><td>प</td><td>p</td><td>"p" in "pen"</td><td>Universal stop</td></tr>
+        <tr><td class="td-joy">b</td><td class="bz"><svg class="bzg"><use href="#bz-b"/></svg></td><td>ब</td><td>b</td><td>"b" in "bat"</td><td>Universal stop</td></tr>
+        <tr><td class="td-joy">t</td><td class="bz"><svg class="bzg"><use href="#bz-t"/></svg></td><td>त</td><td>t</td><td>"t" in "top"</td><td>Use dental t (Hindi-style), not retroflex</td></tr>
+        <tr><td class="td-joy">d</td><td class="bz"><svg class="bzg"><use href="#bz-d"/></svg></td><td>द</td><td>d</td><td>"d" in "dog"</td><td>Dental, not retroflex</td></tr>
+        <tr><td class="td-joy">k</td><td class="bz"><svg class="bzg"><use href="#bz-k"/></svg></td><td>क</td><td>k</td><td>"k" in "kite"</td><td>Universal stop</td></tr>
+        <tr><td class="td-joy">g</td><td class="bz"><svg class="bzg"><use href="#bz-g"/></svg></td><td>ग</td><td>g</td><td>"g" in "go"</td><td>Universal stop</td></tr>
+        <tr><td class="td-joy">m</td><td class="bz"><svg class="bzg"><use href="#bz-m"/></svg></td><td>म</td><td>m</td><td>"m" in "man"</td><td>Universal nasal</td></tr>
+        <tr><td class="td-joy">n</td><td class="bz"><svg class="bzg"><use href="#bz-n"/></svg></td><td>न</td><td>n</td><td>"n" in "nun"</td><td>Universal nasal</td></tr>
+        <tr><td class="td-joy">s</td><td class="bz"><svg class="bzg"><use href="#bz-s"/></svg></td><td>स</td><td>s</td><td>"s" in "sun"</td><td>Universal fricative (never z-sound)</td></tr>
+        <tr><td class="td-joy">f</td><td class="bz"><svg class="bzg"><use href="#bz-f"/></svg></td><td>f</td><td>f</td><td>"f" in "fan"</td><td>Globally recognisable; included to reach moderate inventory</td></tr>
+        <tr><td class="td-joy">v</td><td class="bz"><svg class="bzg"><use href="#bz-v"/></svg></td><td>व</td><td>v</td><td>"v" in "vine"</td><td>May be pronounced as w — both acceptable</td></tr>
+        <tr><td class="td-joy">h</td><td class="bz"><svg class="bzg"><use href="#bz-h"/></svg></td><td>ह</td><td>h</td><td>"h" in "hat"</td><td>Universal fricative</td></tr>
+        <tr><td class="td-joy">l</td><td class="bz"><svg class="bzg"><use href="#bz-l"/></svg></td><td>ल</td><td>l</td><td>"l" in "love"</td><td>Universal approximant</td></tr>
+        <tr><td class="td-joy">r</td><td class="bz"><svg class="bzg"><use href="#bz-r"/></svg></td><td>र</td><td>r</td><td>"r" in "run"</td><td>Use a soft, single-tap r</td></tr>
+        <tr><td class="td-joy">y</td><td class="bz"><svg class="bzg"><use href="#bz-y"/></svg></td><td>य</td><td>y</td><td>"y" in "yes"</td><td>Universal glide</td></tr>
+        <tr><td class="td-joy">ch</td><td class="bz"><svg class="bzg"><use href="#bz-ch"/></svg></td><td>च</td><td>ch</td><td>"ch" in "chair"</td><td>Very common across Indian + global languages</td></tr>
+        <tr><td class="td-joy">j</td><td class="bz"><svg class="bzg"><use href="#bz-j"/></svg></td><td>ज</td><td>j</td><td>"j" in "jump"</td><td>Common globally</td></tr>
+        <tr><td class="td-joy">sh</td><td class="bz"><svg class="bzg"><use href="#bz-sh"/></svg></td><td>श</td><td>sh</td><td>"sh" in "shine"</td><td>Common in Hindi, English, Arabic, Persian</td></tr>
+        <tr><td class="td-joy">ng</td><td class="bz"><svg class="bzg"><use href="#bz-ng"/></svg></td><td>ं</td><td>ng</td><td>"ng" in "sing"</td><td>Word-final only</td></tr>
       </tbody>
     </table>
   </div>
@@ -273,13 +294,13 @@
   <h3>Regular Vowels — Tier 1</h3>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>#</th><th>Roman</th><th>Devanagari</th><th>IPA</th><th>Sound Hint</th></tr></thead>
+      <thead><tr><th>#</th><th>Roman</th><th>Bhairavi</th><th>Devanagari</th><th>IPA</th><th>Sound Hint</th></tr></thead>
       <tbody>
-        <tr><td>1</td><td class="td-joy">a</td><td>अ</td><td>/a/</td><td>"a" in <em>father</em></td></tr>
-        <tr><td>2</td><td class="td-joy">i</td><td>इ</td><td>/i/</td><td>"i" in <em>machine</em></td></tr>
-        <tr><td>3</td><td class="td-joy">u</td><td>उ</td><td>/u/</td><td>"u" in <em>flute</em></td></tr>
-        <tr><td>4</td><td class="td-joy">e</td><td>ए</td><td>/e/</td><td>"e" in <em>bed</em></td></tr>
-        <tr><td>5</td><td class="td-joy">o</td><td>ओ</td><td>/o/</td><td>"o" in <em>go</em></td></tr>
+        <tr><td>1</td><td class="td-joy">a</td><td class="bz"><svg class="bzg"><use href="#bz-a"/></svg></td><td>अ</td><td>/a/</td><td>"a" in <em>father</em></td></tr>
+        <tr><td>2</td><td class="td-joy">i</td><td class="bz"><svg class="bzg"><use href="#bz-i"/></svg></td><td>इ</td><td>/i/</td><td>"i" in <em>machine</em></td></tr>
+        <tr><td>3</td><td class="td-joy">u</td><td class="bz"><svg class="bzg"><use href="#bz-u"/></svg></td><td>उ</td><td>/u/</td><td>"u" in <em>flute</em></td></tr>
+        <tr><td>4</td><td class="td-joy">e</td><td class="bz"><svg class="bzg"><use href="#bz-e"/></svg></td><td>ए</td><td>/e/</td><td>"e" in <em>bed</em></td></tr>
+        <tr><td>5</td><td class="td-joy">o</td><td class="bz"><svg class="bzg"><use href="#bz-o"/></svg></td><td>ओ</td><td>/o/</td><td>"o" in <em>go</em></td></tr>
       </tbody>
     </table>
   </div>
@@ -287,27 +308,27 @@
   <h3>Regular Consonants — Tier 2</h3>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>#</th><th>Roman</th><th>Devanagari</th><th>IPA</th><th>Sound Hint</th></tr></thead>
+      <thead><tr><th>#</th><th>Roman</th><th>Bhairavi</th><th>Devanagari</th><th>IPA</th><th>Sound Hint</th></tr></thead>
       <tbody>
-        <tr><td>1</td><td class="td-joy">p</td><td>प</td><td>/p/</td><td>"p" in <em>pen</em></td></tr>
-        <tr><td>2</td><td class="td-joy">b</td><td>ब</td><td>/b/</td><td>"b" in <em>bat</em></td></tr>
-        <tr><td>3</td><td class="td-joy">t</td><td>त</td><td>/t/</td><td>"t" in <em>top</em> (dental)</td></tr>
-        <tr><td>4</td><td class="td-joy">d</td><td>द</td><td>/d/</td><td>"d" in <em>dog</em> (dental)</td></tr>
-        <tr><td>5</td><td class="td-joy">k</td><td>क</td><td>/k/</td><td>"k" in <em>kite</em></td></tr>
-        <tr><td>6</td><td class="td-joy">g</td><td>ग</td><td>/ɡ/</td><td>"g" in <em>go</em></td></tr>
-        <tr><td>7</td><td class="td-joy">m</td><td>म</td><td>/m/</td><td>"m" in <em>man</em></td></tr>
-        <tr><td>8</td><td class="td-joy">n</td><td>न</td><td>/n/</td><td>"n" in <em>nun</em></td></tr>
-        <tr><td>9</td><td class="td-joy">s</td><td>स</td><td>/s/</td><td>"s" in <em>sun</em></td></tr>
-        <tr><td>10</td><td class="td-joy">f</td><td>f</td><td>/f/</td><td>"f" in <em>fan</em></td></tr>
-        <tr><td>11</td><td class="td-joy">v</td><td>व</td><td>/v/</td><td>"v" in <em>vine</em></td></tr>
-        <tr><td>12</td><td class="td-joy">h</td><td>ह</td><td>/h/</td><td>"h" in <em>hat</em></td></tr>
-        <tr><td>13</td><td class="td-joy">l</td><td>ल</td><td>/l/</td><td>"l" in <em>love</em></td></tr>
-        <tr><td>14</td><td class="td-joy">r</td><td>र</td><td>/r/</td><td>"r" in <em>run</em> (soft tap)</td></tr>
-        <tr><td>15</td><td class="td-joy">y</td><td>य</td><td>/j/</td><td>"y" in <em>yes</em></td></tr>
-        <tr><td>16</td><td class="td-joy">ch</td><td>च</td><td>/tʃ/</td><td>"ch" in <em>chair</em></td></tr>
-        <tr><td>17</td><td class="td-joy">j</td><td>ज</td><td>/dʒ/</td><td>"j" in <em>jump</em></td></tr>
-        <tr><td>18</td><td class="td-joy">sh</td><td>श</td><td>/ʃ/</td><td>"sh" in <em>shine</em></td></tr>
-        <tr><td>19</td><td class="td-joy">ng</td><td>ं</td><td>/ŋ/</td><td>"ng" in <em>sing</em> (word-final only)</td></tr>
+        <tr><td>1</td><td class="td-joy">p</td><td class="bz"><svg class="bzg"><use href="#bz-p"/></svg></td><td>प</td><td>/p/</td><td>"p" in <em>pen</em></td></tr>
+        <tr><td>2</td><td class="td-joy">b</td><td class="bz"><svg class="bzg"><use href="#bz-b"/></svg></td><td>ब</td><td>/b/</td><td>"b" in <em>bat</em></td></tr>
+        <tr><td>3</td><td class="td-joy">t</td><td class="bz"><svg class="bzg"><use href="#bz-t"/></svg></td><td>त</td><td>/t/</td><td>"t" in <em>top</em> (dental)</td></tr>
+        <tr><td>4</td><td class="td-joy">d</td><td class="bz"><svg class="bzg"><use href="#bz-d"/></svg></td><td>द</td><td>/d/</td><td>"d" in <em>dog</em> (dental)</td></tr>
+        <tr><td>5</td><td class="td-joy">k</td><td class="bz"><svg class="bzg"><use href="#bz-k"/></svg></td><td>क</td><td>/k/</td><td>"k" in <em>kite</em></td></tr>
+        <tr><td>6</td><td class="td-joy">g</td><td class="bz"><svg class="bzg"><use href="#bz-g"/></svg></td><td>ग</td><td>/ɡ/</td><td>"g" in <em>go</em></td></tr>
+        <tr><td>7</td><td class="td-joy">m</td><td class="bz"><svg class="bzg"><use href="#bz-m"/></svg></td><td>म</td><td>/m/</td><td>"m" in <em>man</em></td></tr>
+        <tr><td>8</td><td class="td-joy">n</td><td class="bz"><svg class="bzg"><use href="#bz-n"/></svg></td><td>न</td><td>/n/</td><td>"n" in <em>nun</em></td></tr>
+        <tr><td>9</td><td class="td-joy">s</td><td class="bz"><svg class="bzg"><use href="#bz-s"/></svg></td><td>स</td><td>/s/</td><td>"s" in <em>sun</em></td></tr>
+        <tr><td>10</td><td class="td-joy">f</td><td class="bz"><svg class="bzg"><use href="#bz-f"/></svg></td><td>f</td><td>/f/</td><td>"f" in <em>fan</em></td></tr>
+        <tr><td>11</td><td class="td-joy">v</td><td class="bz"><svg class="bzg"><use href="#bz-v"/></svg></td><td>व</td><td>/v/</td><td>"v" in <em>vine</em></td></tr>
+        <tr><td>12</td><td class="td-joy">h</td><td class="bz"><svg class="bzg"><use href="#bz-h"/></svg></td><td>ह</td><td>/h/</td><td>"h" in <em>hat</em></td></tr>
+        <tr><td>13</td><td class="td-joy">l</td><td class="bz"><svg class="bzg"><use href="#bz-l"/></svg></td><td>ल</td><td>/l/</td><td>"l" in <em>love</em></td></tr>
+        <tr><td>14</td><td class="td-joy">r</td><td class="bz"><svg class="bzg"><use href="#bz-r"/></svg></td><td>र</td><td>/r/</td><td>"r" in <em>run</em> (soft tap)</td></tr>
+        <tr><td>15</td><td class="td-joy">y</td><td class="bz"><svg class="bzg"><use href="#bz-y"/></svg></td><td>य</td><td>/j/</td><td>"y" in <em>yes</em></td></tr>
+        <tr><td>16</td><td class="td-joy">ch</td><td class="bz"><svg class="bzg"><use href="#bz-ch"/></svg></td><td>च</td><td>/tʃ/</td><td>"ch" in <em>chair</em></td></tr>
+        <tr><td>17</td><td class="td-joy">j</td><td class="bz"><svg class="bzg"><use href="#bz-j"/></svg></td><td>ज</td><td>/dʒ/</td><td>"j" in <em>jump</em></td></tr>
+        <tr><td>18</td><td class="td-joy">sh</td><td class="bz"><svg class="bzg"><use href="#bz-sh"/></svg></td><td>श</td><td>/ʃ/</td><td>"sh" in <em>shine</em></td></tr>
+        <tr><td>19</td><td class="td-joy">ng</td><td class="bz"><svg class="bzg"><use href="#bz-ng"/></svg></td><td>ं</td><td>/ŋ/</td><td>"ng" in <em>sing</em> (word-final only)</td></tr>
       </tbody>
     </table>
   </div>
@@ -317,61 +338,61 @@
 
   <div class="table-wrap">
     <table>
-      <thead><tr><th>#</th><th>Joylang</th><th>IPA</th><th>Group</th><th>Sound Hint</th></tr></thead>
+      <thead><tr><th>#</th><th>Joylang</th><th>Bhairavi</th><th>IPA</th><th>Group</th><th>Sound Hint</th></tr></thead>
       <tbody>
-        <tr><td colspan="5" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 1 — Shvasuvu Varnu · Aspirated Stops</td></tr>
-        <tr><td>1</td><td class="td-joy">ph</td><td>/pʰ/</td><td>Aspirated</td><td>Hindi फ — "p" with strong puff</td></tr>
-        <tr><td>2</td><td class="td-joy">bh</td><td>/bʱ/</td><td>Aspirated</td><td>Hindi भ — breathy "b"</td></tr>
-        <tr><td>3</td><td class="td-joy">th</td><td>/tʰ/</td><td>Aspirated</td><td>Hindi थ — "t" with air burst</td></tr>
-        <tr><td>4</td><td class="td-joy">dh</td><td>/dʱ/</td><td>Aspirated</td><td>Hindi ध — breathy "d"</td></tr>
-        <tr><td>5</td><td class="td-joy">kh</td><td>/kʰ/</td><td>Aspirated</td><td>Hindi ख — "k" with aspiration</td></tr>
-        <tr><td>6</td><td class="td-joy">gh</td><td>/ɡʱ/</td><td>Aspirated</td><td>Hindi घ — breathy "g"</td></tr>
-        <tr><td>7</td><td class="td-joy">chh</td><td>/tʃʰ/</td><td>Aspirated</td><td>Hindi छ — aspirated "ch"</td></tr>
-        <tr><td>8</td><td class="td-joy">jh</td><td>/dʒʱ/</td><td>Aspirated</td><td>Hindi झ — aspirated "j"</td></tr>
-        <tr><td colspan="5" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 2 — Kurvitu Varnu · Retroflex Consonants</td></tr>
-        <tr><td>9</td><td class="td-joy">tr</td><td>/ʈ/</td><td>Retroflex</td><td>Hindi ट — tongue tip curled back</td></tr>
-        <tr><td>10</td><td class="td-joy">thr</td><td>/ʈʰ/</td><td>Retroflex</td><td>Hindi ठ — aspirated retroflex t</td></tr>
-        <tr><td>11</td><td class="td-joy">dr</td><td>/ɖ/</td><td>Retroflex</td><td>Hindi ड — retroflex d</td></tr>
-        <tr><td>12</td><td class="td-joy">dhr</td><td>/ɖʱ/</td><td>Retroflex</td><td>Hindi ढ — aspirated retroflex d</td></tr>
-        <tr><td>13</td><td class="td-joy">nr</td><td>/ɳ/</td><td>Retroflex</td><td>Hindi ण — retroflex n</td></tr>
-        <tr><td>14</td><td class="td-joy">rr</td><td>/ɽ/</td><td>Retroflex</td><td>Hindi ड़ — retroflex flap</td></tr>
-        <tr><td>15</td><td class="td-joy">shr</td><td>/ʂ/</td><td>Retroflex</td><td>Hindi ष — retroflex sh</td></tr>
-        <tr><td colspan="5" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 3 — Sushiru Varnu · Additional Fricatives</td></tr>
-        <tr><td>16</td><td class="td-joy">z</td><td>/z/</td><td>Fricative</td><td>English <em>zoo</em> — voiced "s"</td></tr>
-        <tr><td>17</td><td class="td-joy">zh</td><td>/ʒ/</td><td>Fricative</td><td>French <em>je</em> — voiced "sh"</td></tr>
-        <tr><td>18</td><td class="td-joy">thv</td><td>/ð/</td><td>Fricative</td><td>English <em>this</em> — voiced th</td></tr>
-        <tr><td>19</td><td class="td-joy">thu</td><td>/θ/</td><td>Fricative</td><td>English <em>think</em> — unvoiced th</td></tr>
-        <tr><td>20</td><td class="td-joy">x</td><td>/x/</td><td>Fricative</td><td>German <em>Bach</em> — velar friction</td></tr>
-        <tr><td>21</td><td class="td-joy">w</td><td>/w/</td><td>Fricative</td><td>English <em>wet</em> — labio-velar glide</td></tr>
-        <tr><td colspan="5" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 4 — Gutura Varnu · Uvular &amp; Pharyngeal</td></tr>
-        <tr><td>22</td><td class="td-joy">q</td><td>/q/</td><td>Uvular</td><td>Arabic ق — deep k at back of throat</td></tr>
-        <tr><td>23</td><td class="td-joy">qh</td><td>/χ/</td><td>Uvular</td><td>Arabic غ — guttural friction</td></tr>
-        <tr><td>24</td><td class="td-joy">ay</td><td>/ʕ/</td><td>Pharyngeal</td><td>Arabic ع — throat tightening</td></tr>
-        <tr><td>25</td><td class="td-joy">hh</td><td>/ħ/</td><td>Pharyngeal</td><td>Arabic ح — deep-throat h</td></tr>
-        <tr><td colspan="5" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 5 — Thaluku Varnu · Palatal Sounds</td></tr>
-        <tr><td>26</td><td class="td-joy">ny</td><td>/ɲ/</td><td>Palatal</td><td>Spanish ñ — palatal nasal</td></tr>
-        <tr><td>27</td><td class="td-joy">ly</td><td>/ʎ/</td><td>Palatal</td><td>Italian <em>gli</em> — palatal lateral</td></tr>
-        <tr><td>28</td><td class="td-joy">ky</td><td>/c/</td><td>Palatal</td><td>Hungarian <em>ty</em> — palatalized k</td></tr>
-        <tr><td>29</td><td class="td-joy">gy</td><td>/ɟ/</td><td>Palatal</td><td>Hungarian <em>gy</em> — palatalized g</td></tr>
-        <tr><td colspan="5" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 6 — Labioku Varnu · Labial-Velar Stops</td></tr>
-        <tr><td>30</td><td class="td-joy">kp</td><td>/k͡p/</td><td>Labial-Velar</td><td>Yoruba <em>kpọ</em> — k + p simultaneous</td></tr>
-        <tr><td>31</td><td class="td-joy">gb</td><td>/ɡ͡b/</td><td>Labial-Velar</td><td>Yoruba <em>gbà</em> — g + b simultaneous</td></tr>
-        <tr><td colspan="5" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 7 — Tachoku Varnu · Click Consonants</td></tr>
-        <tr><td>32</td><td class="td-joy">c!</td><td>/ǀ/</td><td>Click</td><td>Zulu/Xhosa — dental click ("tsk")</td></tr>
-        <tr><td>33</td><td class="td-joy">q!</td><td>/ǃ/</td><td>Click</td><td>Zulu/Xhosa — alveolar click (cork pop)</td></tr>
-        <tr><td>34</td><td class="td-joy">x!</td><td>/ǁ/</td><td>Click</td><td>Zulu/Xhosa — lateral click (horse click)</td></tr>
-        <tr><td colspan="5" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 8 — Naviku Svaru · Rare Vowels</td></tr>
-        <tr><td>35</td><td class="td-joy">ae</td><td>/æ/</td><td>Rare Vowel</td><td>English <em>cat</em> — open front a</td></tr>
-        <tr><td>36</td><td class="td-joy">io</td><td>/ə/</td><td>Rare Vowel</td><td>English <em>the</em> — schwa</td></tr>
-        <tr><td>37</td><td class="td-joy">eu</td><td>/ø/</td><td>Rare Vowel</td><td>German <em>schön</em> — rounded front o</td></tr>
-        <tr><td>38</td><td class="td-joy">uy</td><td>/y/</td><td>Rare Vowel</td><td>German <em>über</em> — rounded front u</td></tr>
-        <tr><td>39</td><td class="td-joy">ye</td><td>/ɛ/</td><td>Rare Vowel</td><td>French <em>père</em> — open e</td></tr>
-        <tr><td colspan="5" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 9 — Surunu Varnu · Tonal Markers (Joylang-Tonal branch only)</td></tr>
-        <tr><td>40</td><td class="td-joy">á (´)</td><td>high tone</td><td>Tonal</td><td>Mandarin 1st tone — pitch held high</td></tr>
-        <tr><td>41</td><td class="td-joy">à (`)</td><td>low tone</td><td>Tonal</td><td>Yoruba low — pitch held low</td></tr>
-        <tr><td>42</td><td class="td-joy">â (^)</td><td>falling tone</td><td>Tonal</td><td>Mandarin 4th tone — pitch falls</td></tr>
-        <tr><td>43</td><td class="td-joy">ǎ (ˇ)</td><td>rising tone</td><td>Tonal</td><td>Mandarin 2nd tone — pitch rises</td></tr>
-        <tr><td>44</td><td class="td-joy">ā (‒)</td><td>mid/level tone</td><td>Tonal</td><td>Thai mid tone — pitch held level</td></tr>
+        <tr><td colspan="6" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 1 — Shvasuvu Varnu · Aspirated Stops</td></tr>
+        <tr><td>1</td><td class="td-joy">ph</td><td class="bz"><svg class="bzg"><use href="#bz-ph"/></svg></td><td>/pʰ/</td><td>Aspirated</td><td>Hindi फ — "p" with strong puff</td></tr>
+        <tr><td>2</td><td class="td-joy">bh</td><td class="bz"><svg class="bzg"><use href="#bz-bh"/></svg></td><td>/bʱ/</td><td>Aspirated</td><td>Hindi भ — breathy "b"</td></tr>
+        <tr><td>3</td><td class="td-joy">th</td><td class="bz"><svg class="bzg"><use href="#bz-th"/></svg></td><td>/tʰ/</td><td>Aspirated</td><td>Hindi थ — "t" with air burst</td></tr>
+        <tr><td>4</td><td class="td-joy">dh</td><td class="bz"><svg class="bzg"><use href="#bz-dh"/></svg></td><td>/dʱ/</td><td>Aspirated</td><td>Hindi ध — breathy "d"</td></tr>
+        <tr><td>5</td><td class="td-joy">kh</td><td class="bz"><svg class="bzg"><use href="#bz-kh"/></svg></td><td>/kʰ/</td><td>Aspirated</td><td>Hindi ख — "k" with aspiration</td></tr>
+        <tr><td>6</td><td class="td-joy">gh</td><td class="bz"><svg class="bzg"><use href="#bz-gh"/></svg></td><td>/ɡʱ/</td><td>Aspirated</td><td>Hindi घ — breathy "g"</td></tr>
+        <tr><td>7</td><td class="td-joy">chh</td><td class="bz"><svg class="bzg"><use href="#bz-chh"/></svg></td><td>/tʃʰ/</td><td>Aspirated</td><td>Hindi छ — aspirated "ch"</td></tr>
+        <tr><td>8</td><td class="td-joy">jh</td><td class="bz"><svg class="bzg"><use href="#bz-jh"/></svg></td><td>/dʒʱ/</td><td>Aspirated</td><td>Hindi झ — aspirated "j"</td></tr>
+        <tr><td colspan="6" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 2 — Kurvitu Varnu · Retroflex Consonants</td></tr>
+        <tr><td>9</td><td class="td-joy">tr</td><td class="bz"><svg class="bzg"><use href="#bz-tr"/></svg></td><td>/ʈ/</td><td>Retroflex</td><td>Hindi ट — tongue tip curled back</td></tr>
+        <tr><td>10</td><td class="td-joy">thr</td><td class="bz"><svg class="bzg"><use href="#bz-thr"/></svg></td><td>/ʈʰ/</td><td>Retroflex</td><td>Hindi ठ — aspirated retroflex t</td></tr>
+        <tr><td>11</td><td class="td-joy">dr</td><td class="bz"><svg class="bzg"><use href="#bz-dr"/></svg></td><td>/ɖ/</td><td>Retroflex</td><td>Hindi ड — retroflex d</td></tr>
+        <tr><td>12</td><td class="td-joy">dhr</td><td class="bz"><svg class="bzg"><use href="#bz-dhr"/></svg></td><td>/ɖʱ/</td><td>Retroflex</td><td>Hindi ढ — aspirated retroflex d</td></tr>
+        <tr><td>13</td><td class="td-joy">nr</td><td class="bz"><svg class="bzg"><use href="#bz-nr"/></svg></td><td>/ɳ/</td><td>Retroflex</td><td>Hindi ण — retroflex n</td></tr>
+        <tr><td>14</td><td class="td-joy">rr</td><td class="bz"><svg class="bzg"><use href="#bz-rr"/></svg></td><td>/ɽ/</td><td>Retroflex</td><td>Hindi ड़ — retroflex flap</td></tr>
+        <tr><td>15</td><td class="td-joy">shr</td><td class="bz"><svg class="bzg"><use href="#bz-shr"/></svg></td><td>/ʂ/</td><td>Retroflex</td><td>Hindi ष — retroflex sh</td></tr>
+        <tr><td colspan="6" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 3 — Sushiru Varnu · Additional Fricatives</td></tr>
+        <tr><td>16</td><td class="td-joy">z</td><td class="bz"><svg class="bzg"><use href="#bz-z"/></svg></td><td>/z/</td><td>Fricative</td><td>English <em>zoo</em> — voiced "s"</td></tr>
+        <tr><td>17</td><td class="td-joy">zh</td><td class="bz"><svg class="bzg"><use href="#bz-zh"/></svg></td><td>/ʒ/</td><td>Fricative</td><td>French <em>je</em> — voiced "sh"</td></tr>
+        <tr><td>18</td><td class="td-joy">thv</td><td class="bz"><svg class="bzg"><use href="#bz-thv"/></svg></td><td>/ð/</td><td>Fricative</td><td>English <em>this</em> — voiced th</td></tr>
+        <tr><td>19</td><td class="td-joy">thu</td><td class="bz"><svg class="bzg"><use href="#bz-thu"/></svg></td><td>/θ/</td><td>Fricative</td><td>English <em>think</em> — unvoiced th</td></tr>
+        <tr><td>20</td><td class="td-joy">x</td><td class="bz"><svg class="bzg"><use href="#bz-x"/></svg></td><td>/x/</td><td>Fricative</td><td>German <em>Bach</em> — velar friction</td></tr>
+        <tr><td>21</td><td class="td-joy">w</td><td class="bz"><svg class="bzg"><use href="#bz-w"/></svg></td><td>/w/</td><td>Fricative</td><td>English <em>wet</em> — labio-velar glide</td></tr>
+        <tr><td colspan="6" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 4 — Gutura Varnu · Uvular &amp; Pharyngeal</td></tr>
+        <tr><td>22</td><td class="td-joy">q</td><td class="bz"><svg class="bzg"><use href="#bz-q"/></svg></td><td>/q/</td><td>Uvular</td><td>Arabic ق — deep k at back of throat</td></tr>
+        <tr><td>23</td><td class="td-joy">qh</td><td class="bz"><svg class="bzg"><use href="#bz-qh"/></svg></td><td>/χ/</td><td>Uvular</td><td>Arabic غ — guttural friction</td></tr>
+        <tr><td>24</td><td class="td-joy">ay</td><td class="bz"><svg class="bzg"><use href="#bz-ay"/></svg></td><td>/ʕ/</td><td>Pharyngeal</td><td>Arabic ع — throat tightening</td></tr>
+        <tr><td>25</td><td class="td-joy">hh</td><td class="bz"><svg class="bzg"><use href="#bz-hh"/></svg></td><td>/ħ/</td><td>Pharyngeal</td><td>Arabic ح — deep-throat h</td></tr>
+        <tr><td colspan="6" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 5 — Thaluku Varnu · Palatal Sounds</td></tr>
+        <tr><td>26</td><td class="td-joy">ny</td><td class="bz"><svg class="bzg"><use href="#bz-ny"/></svg></td><td>/ɲ/</td><td>Palatal</td><td>Spanish ñ — palatal nasal</td></tr>
+        <tr><td>27</td><td class="td-joy">ly</td><td class="bz"><svg class="bzg"><use href="#bz-ly"/></svg></td><td>/ʎ/</td><td>Palatal</td><td>Italian <em>gli</em> — palatal lateral</td></tr>
+        <tr><td>28</td><td class="td-joy">ky</td><td class="bz"><svg class="bzg"><use href="#bz-ky"/></svg></td><td>/c/</td><td>Palatal</td><td>Hungarian <em>ty</em> — palatalized k</td></tr>
+        <tr><td>29</td><td class="td-joy">gy</td><td class="bz"><svg class="bzg"><use href="#bz-gy"/></svg></td><td>/ɟ/</td><td>Palatal</td><td>Hungarian <em>gy</em> — palatalized g</td></tr>
+        <tr><td colspan="6" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 6 — Labioku Varnu · Labial-Velar Stops</td></tr>
+        <tr><td>30</td><td class="td-joy">kp</td><td class="bz"><svg class="bzg"><use href="#bz-kp"/></svg></td><td>/k͡p/</td><td>Labial-Velar</td><td>Yoruba <em>kpọ</em> — k + p simultaneous</td></tr>
+        <tr><td>31</td><td class="td-joy">gb</td><td class="bz"><svg class="bzg"><use href="#bz-gb"/></svg></td><td>/ɡ͡b/</td><td>Labial-Velar</td><td>Yoruba <em>gbà</em> — g + b simultaneous</td></tr>
+        <tr><td colspan="6" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 7 — Tachoku Varnu · Click Consonants</td></tr>
+        <tr><td>32</td><td class="td-joy">c!</td><td class="bz"><svg class="bzg"><use href="#bz-click_c"/></svg></td><td>/ǀ/</td><td>Click</td><td>Zulu/Xhosa — dental click ("tsk")</td></tr>
+        <tr><td>33</td><td class="td-joy">q!</td><td class="bz"><svg class="bzg"><use href="#bz-click_q"/></svg></td><td>/ǃ/</td><td>Click</td><td>Zulu/Xhosa — alveolar click (cork pop)</td></tr>
+        <tr><td>34</td><td class="td-joy">x!</td><td class="bz"><svg class="bzg"><use href="#bz-click_x"/></svg></td><td>/ǁ/</td><td>Click</td><td>Zulu/Xhosa — lateral click (horse click)</td></tr>
+        <tr><td colspan="6" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 8 — Naviku Svaru · Rare Vowels</td></tr>
+        <tr><td>35</td><td class="td-joy">ae</td><td class="bz"><svg class="bzg"><use href="#bz-ae"/></svg></td><td>/æ/</td><td>Rare Vowel</td><td>English <em>cat</em> — open front a</td></tr>
+        <tr><td>36</td><td class="td-joy">io</td><td class="bz"><svg class="bzg"><use href="#bz-io"/></svg></td><td>/ə/</td><td>Rare Vowel</td><td>English <em>the</em> — schwa</td></tr>
+        <tr><td>37</td><td class="td-joy">eu</td><td class="bz"><svg class="bzg"><use href="#bz-eu"/></svg></td><td>/ø/</td><td>Rare Vowel</td><td>German <em>schön</em> — rounded front o</td></tr>
+        <tr><td>38</td><td class="td-joy">uy</td><td class="bz"><svg class="bzg"><use href="#bz-uy"/></svg></td><td>/y/</td><td>Rare Vowel</td><td>German <em>über</em> — rounded front u</td></tr>
+        <tr><td>39</td><td class="td-joy">ye</td><td class="bz"><svg class="bzg"><use href="#bz-ye"/></svg></td><td>/ɛ/</td><td>Rare Vowel</td><td>French <em>père</em> — open e</td></tr>
+        <tr><td colspan="6" style="background:var(--bg-sidebar,#f5f5f5);font-weight:600;padding:.5rem .75rem;">Group 9 — Surunu Varnu · Tonal Markers (Joylang-Tonal branch only)</td></tr>
+        <tr><td>40</td><td class="td-joy">á (´)</td><td class="bz"><svg class="bzg"><use href="#bz-tone_high"/></svg></td><td>high tone</td><td>Tonal</td><td>Mandarin 1st tone — pitch held high</td></tr>
+        <tr><td>41</td><td class="td-joy">à (`)</td><td class="bz"><svg class="bzg"><use href="#bz-tone_low"/></svg></td><td>low tone</td><td>Tonal</td><td>Yoruba low — pitch held low</td></tr>
+        <tr><td>42</td><td class="td-joy">â (^)</td><td class="bz"><svg class="bzg"><use href="#bz-tone_fall"/></svg></td><td>falling tone</td><td>Tonal</td><td>Mandarin 4th tone — pitch falls</td></tr>
+        <tr><td>43</td><td class="td-joy">ǎ (ˇ)</td><td class="bz"><svg class="bzg"><use href="#bz-tone_rise"/></svg></td><td>rising tone</td><td>Tonal</td><td>Mandarin 2nd tone — pitch rises</td></tr>
+        <tr><td>44</td><td class="td-joy">ā (‒)</td><td class="bz"><svg class="bzg"><use href="#bz-tone_mid"/></svg></td><td>mid/level tone</td><td>Tonal</td><td>Thai mid tone — pitch held level</td></tr>
       </tbody>
     </table>
   </div>
@@ -814,7 +835,43 @@
     <li><strong>Aesthetic:</strong> Rounded, friendly shapes — matching the fun and warm personality of the language.</li>
     <li><strong>Legibility:</strong> Each glyph distinct enough that even messy handwriting is readable.</li>
     <li><strong>Tier marking:</strong> A built-in way to mark Tier 3 sounds without extra notation.</li>
-  </ul>
+  </ul><!--BZ-OWNSCRIPT-START-->
+  <h3 id="bhairavi-script">The Bhairavi Script &mdash; v1.0 (Finalized)</h3>
+  <p>The own script is no longer hypothetical. <strong>Bhairavi</strong> is an original alphabet
+  &mdash; not derived from Latin, Devanagari, or any existing writing system. It satisfies every
+  principle above: one glyph per sound, vowels are full letters (never marks), it runs left-to-right,
+  the strokes are rounded and pen-friendly (2&ndash;3 strokes each), and Tier&nbsp;3 sounds are marked
+  by a built-in <span style="color:#8b2000;font-weight:600">red diacritic</span> system rather than new letters.</p>
+
+  <h4>Vowels &mdash; Tier 1</h4>
+  <div class="bz-chart"><div class="bz-cell"><svg class="bzg"><use href="#bz-a"/></svg><small>a</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-i"/></svg><small>i</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-u"/></svg><small>u</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-e"/></svg><small>e</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-o"/></svg><small>o</small></div></div>
+
+  <h4>Consonants &mdash; Tier 2</h4>
+  <div class="bz-chart"><div class="bz-cell"><svg class="bzg"><use href="#bz-p"/></svg><small>p</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-b"/></svg><small>b</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-t"/></svg><small>t</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-d"/></svg><small>d</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-k"/></svg><small>k</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-g"/></svg><small>g</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-m"/></svg><small>m</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-n"/></svg><small>n</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-ng"/></svg><small>ng</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-s"/></svg><small>s</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-f"/></svg><small>f</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-v"/></svg><small>v</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-h"/></svg><small>h</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-l"/></svg><small>l</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-r"/></svg><small>r</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-y"/></svg><small>y</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-ch"/></svg><small>ch</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-j"/></svg><small>j</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-sh"/></svg><small>sh</small></div></div>
+
+  <h4>Tier 3 by diacritic</h4>
+  <p>A Tier&nbsp;2 base glyph plus one red mark yields an advanced sound: two dots above = aspiration,
+  a dot below = retroflex, a wave below = voiced/breathy, a tilde through = friction, an open ring below =
+  uvular/pharyngeal, an arc above = palatal, a bottom tie = labial-velar, a trailing <code>!</code> = click,
+  a small ring = rare vowel, and accents over a vowel = tone.</p>
+  <div class="bz-chart"><div class="bz-cell"><svg class="bzg"><use href="#bz-ph"/></svg><small>ph /pʰ/</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-tr"/></svg><small>tr /ʈ/</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-z"/></svg><small>z /z/</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-q"/></svg><small>q /q/</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-ny"/></svg><small>ny /ɲ/</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-ae"/></svg><small>ae /æ/</small></div><div class="bz-cell"><svg class="bzg"><use href="#bz-tone_high"/></svg><small>á high</small></div></div>
+
+  <h4>Sample text</h4>
+  <p class="note"><em>anu jinlo</em> &mdash; "I go":</p>
+  <div class="bz-sent"><span class="bz-word"><svg class="bzg"><use href="#bz-a"/></svg><svg class="bzg"><use href="#bz-n"/></svg><svg class="bzg"><use href="#bz-u"/></svg></span><span class="bz-word"><svg class="bzg"><use href="#bz-j"/></svg><svg class="bzg"><use href="#bz-i"/></svg><svg class="bzg"><use href="#bz-n"/></svg><svg class="bzg"><use href="#bz-l"/></svg><svg class="bzg"><use href="#bz-o"/></svg></span></div>
+  <p class="note"><em>mavi goloku</em> &mdash; "water is good":</p>
+  <div class="bz-sent"><span class="bz-word"><svg class="bzg"><use href="#bz-m"/></svg><svg class="bzg"><use href="#bz-a"/></svg><svg class="bzg"><use href="#bz-v"/></svg><svg class="bzg"><use href="#bz-i"/></svg></span><span class="bz-word"><svg class="bzg"><use href="#bz-g"/></svg><svg class="bzg"><use href="#bz-o"/></svg><svg class="bzg"><use href="#bz-l"/></svg><svg class="bzg"><use href="#bz-o"/></svg><svg class="bzg"><use href="#bz-k"/></svg><svg class="bzg"><use href="#bz-u"/></svg></span></div>
+  <p class="note"><em>shimi loku oku</em> &mdash; "the tree is big":</p>
+  <div class="bz-sent"><span class="bz-word"><svg class="bzg"><use href="#bz-sh"/></svg><svg class="bzg"><use href="#bz-i"/></svg><svg class="bzg"><use href="#bz-m"/></svg><svg class="bzg"><use href="#bz-i"/></svg></span><span class="bz-word"><svg class="bzg"><use href="#bz-l"/></svg><svg class="bzg"><use href="#bz-o"/></svg><svg class="bzg"><use href="#bz-k"/></svg><svg class="bzg"><use href="#bz-u"/></svg></span><span class="bz-word"><svg class="bzg"><use href="#bz-o"/></svg><svg class="bzg"><use href="#bz-k"/></svg><svg class="bzg"><use href="#bz-u"/></svg></span></div>
+
+  <h4>Writing words joined</h4>
+  <p>Glyphs need not stand apart. Bhairavi supports three ways of writing a word, in increasing
+  fluidity. <strong>Separate</strong> keeps each letter distinct (clearest for learners).
+  <strong>Headstroke</strong> hangs the letters from one continuous top bar &mdash; the method Devanagari
+  uses to bind a word into a single unit. <strong>Flow</strong> runs a wavy baseline beneath the letters
+  for a faster, cursive hand. All three read left-to-right and keep one glyph per sound.</p>
+  <div class="bz-joinrow"><span class="tag">Separate</span><svg class="bzcw" viewBox="-6 -12 208 94" style="height:46px;width:128px"><g transform="translate(0,0)"><path class="bz-base" fill="none" d="M 52,10 C 62,14 64,28 60,40 C 56,56 42,66 24,62 L 16,52"/></g><g transform="translate(66,0)"><path class="bz-base" fill="none" d="M 10,66 L 10,34 Q 10,14 30,14 Q 50,14 50,34 L 50,66"/></g><g transform="translate(132,0)"><path class="bz-base" fill="none" d="M 14,14 L 14,46 Q 14,66 30,66 Q 46,66 46,46 L 46,14"/></g></svg><svg class="bzcw" viewBox="-6 -12 340 94" style="height:46px;width:207px"><g transform="translate(0,0)"><path class="bz-base" fill="none" d="M 44,12 Q 56,12 56,26 Q 56,38 46,38 L 46,58 Q 46,68 28,68 Q 14,66 12,54"/></g><g transform="translate(66,0)"><path class="bz-base" fill="none" d="M 30,16 L 30,66 M 16,26 L 46,14"/></g><g transform="translate(132,0)"><path class="bz-base" fill="none" d="M 10,66 L 10,34 Q 10,14 30,14 Q 50,14 50,34 L 50,66"/></g><g transform="translate(198,0)"><path class="bz-base" fill="none" d="M 22,12 L 22,54 Q 22,66 36,68 Q 50,66 56,56"/></g><g transform="translate(264,0)"><path class="bz-base" fill="none" d="M 10,16 L 50,16 C 62,16 62,32 54,50 C 48,62 38,68 28,68 C 18,68 8,62 4,50 C -2,32 0,16 10,16 Z"/></g></svg><svg class="bzcw" viewBox="-6 -12 274 94" style="height:46px;width:168px"><g transform="translate(0,0)"><path class="bz-base" fill="none" d="M 8,66 L 8,36 Q 8,18 22,18 Q 32,18 32,34 Q 32,18 48,18 Q 60,18 60,36 L 60,66"/></g><g transform="translate(66,0)"><path class="bz-base" fill="none" d="M 52,10 C 62,14 64,28 60,40 C 56,56 42,66 24,62 L 16,52"/></g><g transform="translate(132,0)"><path class="bz-base" fill="none" d="M 10,14 Q 16,40 30,66 Q 44,40 50,14"/></g><g transform="translate(198,0)"><path class="bz-base" fill="none" d="M 30,16 L 30,66 M 16,26 L 46,14"/></g></svg><svg class="bzcw" viewBox="-6 -12 406 94" style="height:46px;width:247px"><g transform="translate(0,0)"><path class="bz-base" fill="none" d="M 16,14 L 42,54 Q 50,66 40,70 Q 28,74 24,62"/></g><g transform="translate(66,0)"><path class="bz-base" fill="none" d="M 10,16 L 50,16 C 62,16 62,32 54,50 C 48,62 38,68 28,68 C 18,68 8,62 4,50 C -2,32 0,16 10,16 Z"/></g><g transform="translate(132,0)"><path class="bz-base" fill="none" d="M 22,12 L 22,54 Q 22,66 36,68 Q 50,66 56,56"/></g><g transform="translate(198,0)"><path class="bz-base" fill="none" d="M 10,16 L 50,16 C 62,16 62,32 54,50 C 48,62 38,68 28,68 C 18,68 8,62 4,50 C -2,32 0,16 10,16 Z"/></g><g transform="translate(264,0)"><path class="bz-base" fill="none" d="M 14,14 L 42,66 M 8,44 L 46,26"/></g><g transform="translate(330,0)"><path class="bz-base" fill="none" d="M 14,14 L 14,46 Q 14,66 30,66 Q 46,66 46,46 L 46,14"/></g></svg></div><div class="bz-joinrow"><span class="tag">Headstroke</span><svg class="bzcw" viewBox="-6 -12 180 94" style="height:46px;width:111px"><path class="bz-base" fill="none" d="M -2,8 L 166,8"/><path class="bz-base" fill="none" d="M 28,8 L 28,18"/><path class="bz-base" fill="none" d="M 80,8 L 80,18"/><path class="bz-base" fill="none" d="M 132,8 L 132,18"/><g transform="translate(0,0)"><path class="bz-base" fill="none" d="M 52,10 C 62,14 64,28 60,40 C 56,56 42,66 24,62 L 16,52"/></g><g transform="translate(52,0)"><path class="bz-base" fill="none" d="M 10,66 L 10,34 Q 10,14 30,14 Q 50,14 50,34 L 50,66"/></g><g transform="translate(104,0)"><path class="bz-base" fill="none" d="M 14,14 L 14,46 Q 14,66 30,66 Q 46,66 46,46 L 46,14"/></g></svg><svg class="bzcw" viewBox="-6 -12 284 94" style="height:46px;width:174px"><path class="bz-base" fill="none" d="M -2,8 L 270,8"/><path class="bz-base" fill="none" d="M 28,8 L 28,18"/><path class="bz-base" fill="none" d="M 80,8 L 80,18"/><path class="bz-base" fill="none" d="M 132,8 L 132,18"/><path class="bz-base" fill="none" d="M 184,8 L 184,18"/><path class="bz-base" fill="none" d="M 236,8 L 236,18"/><g transform="translate(0,0)"><path class="bz-base" fill="none" d="M 44,12 Q 56,12 56,26 Q 56,38 46,38 L 46,58 Q 46,68 28,68 Q 14,66 12,54"/></g><g transform="translate(52,0)"><path class="bz-base" fill="none" d="M 30,16 L 30,66 M 16,26 L 46,14"/></g><g transform="translate(104,0)"><path class="bz-base" fill="none" d="M 10,66 L 10,34 Q 10,14 30,14 Q 50,14 50,34 L 50,66"/></g><g transform="translate(156,0)"><path class="bz-base" fill="none" d="M 22,12 L 22,54 Q 22,66 36,68 Q 50,66 56,56"/></g><g transform="translate(208,0)"><path class="bz-base" fill="none" d="M 10,16 L 50,16 C 62,16 62,32 54,50 C 48,62 38,68 28,68 C 18,68 8,62 4,50 C -2,32 0,16 10,16 Z"/></g></svg><svg class="bzcw" viewBox="-6 -12 232 94" style="height:46px;width:142px"><path class="bz-base" fill="none" d="M -2,8 L 218,8"/><path class="bz-base" fill="none" d="M 28,8 L 28,18"/><path class="bz-base" fill="none" d="M 80,8 L 80,18"/><path class="bz-base" fill="none" d="M 132,8 L 132,18"/><path class="bz-base" fill="none" d="M 184,8 L 184,18"/><g transform="translate(0,0)"><path class="bz-base" fill="none" d="M 8,66 L 8,36 Q 8,18 22,18 Q 32,18 32,34 Q 32,18 48,18 Q 60,18 60,36 L 60,66"/></g><g transform="translate(52,0)"><path class="bz-base" fill="none" d="M 52,10 C 62,14 64,28 60,40 C 56,56 42,66 24,62 L 16,52"/></g><g transform="translate(104,0)"><path class="bz-base" fill="none" d="M 10,14 Q 16,40 30,66 Q 44,40 50,14"/></g><g transform="translate(156,0)"><path class="bz-base" fill="none" d="M 30,16 L 30,66 M 16,26 L 46,14"/></g></svg><svg class="bzcw" viewBox="-6 -12 336 94" style="height:46px;width:205px"><path class="bz-base" fill="none" d="M -2,8 L 322,8"/><path class="bz-base" fill="none" d="M 28,8 L 28,18"/><path class="bz-base" fill="none" d="M 80,8 L 80,18"/><path class="bz-base" fill="none" d="M 132,8 L 132,18"/><path class="bz-base" fill="none" d="M 184,8 L 184,18"/><path class="bz-base" fill="none" d="M 236,8 L 236,18"/><path class="bz-base" fill="none" d="M 288,8 L 288,18"/><g transform="translate(0,0)"><path class="bz-base" fill="none" d="M 16,14 L 42,54 Q 50,66 40,70 Q 28,74 24,62"/></g><g transform="translate(52,0)"><path class="bz-base" fill="none" d="M 10,16 L 50,16 C 62,16 62,32 54,50 C 48,62 38,68 28,68 C 18,68 8,62 4,50 C -2,32 0,16 10,16 Z"/></g><g transform="translate(104,0)"><path class="bz-base" fill="none" d="M 22,12 L 22,54 Q 22,66 36,68 Q 50,66 56,56"/></g><g transform="translate(156,0)"><path class="bz-base" fill="none" d="M 10,16 L 50,16 C 62,16 62,32 54,50 C 48,62 38,68 28,68 C 18,68 8,62 4,50 C -2,32 0,16 10,16 Z"/></g><g transform="translate(208,0)"><path class="bz-base" fill="none" d="M 14,14 L 42,66 M 8,44 L 46,26"/></g><g transform="translate(260,0)"><path class="bz-base" fill="none" d="M 14,14 L 14,46 Q 14,66 30,66 Q 46,66 46,46 L 46,14"/></g></svg></div><div class="bz-joinrow"><span class="tag">Flow</span><svg class="bzcw" viewBox="-6 -12 180 94" style="height:46px;width:111px"><path class="bz-base" fill="none" d="M -2,69 Q 11.0,64 24.0,69 Q 37.0,74 50.0,69 Q 63.0,64 76.0,69 Q 89.0,74 102.0,69 Q 115.0,64 128.0,69 Q 141.0,74 154.0,69 Q 160.0,64 166,69"/><g transform="translate(0,0)"><path class="bz-base" fill="none" d="M 52,10 C 62,14 64,28 60,40 C 56,56 42,66 24,62 L 16,52"/></g><g transform="translate(52,0)"><path class="bz-base" fill="none" d="M 10,66 L 10,34 Q 10,14 30,14 Q 50,14 50,34 L 50,66"/></g><g transform="translate(104,0)"><path class="bz-base" fill="none" d="M 14,14 L 14,46 Q 14,66 30,66 Q 46,66 46,46 L 46,14"/></g></svg><svg class="bzcw" viewBox="-6 -12 284 94" style="height:46px;width:174px"><path class="bz-base" fill="none" d="M -2,69 Q 11.0,64 24.0,69 Q 37.0,74 50.0,69 Q 63.0,64 76.0,69 Q 89.0,74 102.0,69 Q 115.0,64 128.0,69 Q 141.0,74 154.0,69 Q 167.0,64 180.0,69 Q 193.0,74 206.0,69 Q 219.0,64 232.0,69 Q 245.0,74 258.0,69 Q 264.0,64 270,69"/><g transform="translate(0,0)"><path class="bz-base" fill="none" d="M 44,12 Q 56,12 56,26 Q 56,38 46,38 L 46,58 Q 46,68 28,68 Q 14,66 12,54"/></g><g transform="translate(52,0)"><path class="bz-base" fill="none" d="M 30,16 L 30,66 M 16,26 L 46,14"/></g><g transform="translate(104,0)"><path class="bz-base" fill="none" d="M 10,66 L 10,34 Q 10,14 30,14 Q 50,14 50,34 L 50,66"/></g><g transform="translate(156,0)"><path class="bz-base" fill="none" d="M 22,12 L 22,54 Q 22,66 36,68 Q 50,66 56,56"/></g><g transform="translate(208,0)"><path class="bz-base" fill="none" d="M 10,16 L 50,16 C 62,16 62,32 54,50 C 48,62 38,68 28,68 C 18,68 8,62 4,50 C -2,32 0,16 10,16 Z"/></g></svg><svg class="bzcw" viewBox="-6 -12 232 94" style="height:46px;width:142px"><path class="bz-base" fill="none" d="M -2,69 Q 11.0,64 24.0,69 Q 37.0,74 50.0,69 Q 63.0,64 76.0,69 Q 89.0,74 102.0,69 Q 115.0,64 128.0,69 Q 141.0,74 154.0,69 Q 167.0,64 180.0,69 Q 193.0,74 206.0,69 Q 212.0,64 218,69"/><g transform="translate(0,0)"><path class="bz-base" fill="none" d="M 8,66 L 8,36 Q 8,18 22,18 Q 32,18 32,34 Q 32,18 48,18 Q 60,18 60,36 L 60,66"/></g><g transform="translate(52,0)"><path class="bz-base" fill="none" d="M 52,10 C 62,14 64,28 60,40 C 56,56 42,66 24,62 L 16,52"/></g><g transform="translate(104,0)"><path class="bz-base" fill="none" d="M 10,14 Q 16,40 30,66 Q 44,40 50,14"/></g><g transform="translate(156,0)"><path class="bz-base" fill="none" d="M 30,16 L 30,66 M 16,26 L 46,14"/></g></svg><svg class="bzcw" viewBox="-6 -12 336 94" style="height:46px;width:205px"><path class="bz-base" fill="none" d="M -2,69 Q 11.0,64 24.0,69 Q 37.0,74 50.0,69 Q 63.0,64 76.0,69 Q 89.0,74 102.0,69 Q 115.0,64 128.0,69 Q 141.0,74 154.0,69 Q 167.0,64 180.0,69 Q 193.0,74 206.0,69 Q 219.0,64 232.0,69 Q 245.0,74 258.0,69 Q 271.0,64 284.0,69 Q 297.0,74 310.0,69 Q 316.0,64 322,69"/><g transform="translate(0,0)"><path class="bz-base" fill="none" d="M 16,14 L 42,54 Q 50,66 40,70 Q 28,74 24,62"/></g><g transform="translate(52,0)"><path class="bz-base" fill="none" d="M 10,16 L 50,16 C 62,16 62,32 54,50 C 48,62 38,68 28,68 C 18,68 8,62 4,50 C -2,32 0,16 10,16 Z"/></g><g transform="translate(104,0)"><path class="bz-base" fill="none" d="M 22,12 L 22,54 Q 22,66 36,68 Q 50,66 56,56"/></g><g transform="translate(156,0)"><path class="bz-base" fill="none" d="M 10,16 L 50,16 C 62,16 62,32 54,50 C 48,62 38,68 28,68 C 18,68 8,62 4,50 C -2,32 0,16 10,16 Z"/></g><g transform="translate(208,0)"><path class="bz-base" fill="none" d="M 14,14 L 42,66 M 8,44 L 46,26"/></g><g transform="translate(260,0)"><path class="bz-base" fill="none" d="M 14,14 L 14,46 Q 14,66 30,66 Q 46,66 46,46 L 46,14"/></g></svg></div>
+<!--BZ-OWNSCRIPT-END-->
 
   <!-- SUMMARY -->
   <h2 id="summary-phases">Design Summary</h2>
