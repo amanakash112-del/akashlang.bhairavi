@@ -184,9 +184,17 @@
     return '<span class="creator-badge creator-dev" title="Developer-verified word">Dev</span>';
   }
 
+  // Bhairavi-script row for a card. `src` is the bhairavi/joylang/root string.
+  function bzRow(src) {
+    const text = (src || '').replace(/["<>]/g, '').trim();
+    if (!text) return '';
+    return `<div class="card-bz"><span class="card-bz-label">Bhairavi</span>` +
+           `<span data-joy="${text}" data-bz="head"></span></div>`;
+  }
+
   function cardHtml(e) {
     if (e._fbLexicon) {
-      // Firebase lexicon format: joylang, english, hindi, pos, category, level
+      // Firebase lexicon format: joylang, english, hindi, pos, category, level, bhairavi
       return `<div class="dict-card">
         <div class="dict-card-header">
           <div class="dict-word">${e.joylang || ''}</div>
@@ -195,6 +203,7 @@
         </div>
         <div class="dict-meaning">${e.english || ''}</div>
         ${e.hindi ? `<div style="color:#e65100;font-size:.82rem;margin-bottom:4px;">${e.hindi}</div>` : ''}
+        ${bzRow(e.bhairavi || e.joylang)}
         <div class="dict-forms"><span title="Part of speech">POS: <span>${e.pos || '—'}</span></span>${e.level ? ` &nbsp;·&nbsp; <span title="Level">Lvl: <span>${e.level}</span></span>` : ''}</div>
       </div>`;
     }
@@ -211,6 +220,7 @@
       </div>
       <div class="dict-meaning">${e.en || ''}</div>
       ${e.hi ? `<div style="color:#e65100;font-size:.82rem;margin-bottom:4px;">${e.hi}</div>` : ''}
+      ${bzRow(e.bhairavi || e.root)}
       ${forms.length ? `<div class="dict-forms">${forms.join(' &nbsp;·&nbsp; ')}</div>` : ''}
       ${e.ex ? `<div class="dict-example">${e.ex}</div>` : ''}
     </div>`;
@@ -242,6 +252,7 @@
     }
 
     grid.innerHTML = pageEntries.map(cardHtml).join('');
+    if (window.Bhairavi) window.Bhairavi.render();
     renderPagination(filtered.length, totalPages);
     grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }

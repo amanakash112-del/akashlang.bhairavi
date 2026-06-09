@@ -431,6 +431,13 @@
 
   function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
 
+  function bzRow(src) {
+    const text = (src || '').replace(/["<>]/g, '').trim();
+    if (!text) return '';
+    return `<div class="card-bz"><span class="card-bz-label">Bhairavi</span>` +
+           `<span data-joy="${text}" data-bz="head"></span></div>`;
+  }
+
   const levelColors = {
     foundation:   '#e8f5e9', beginner: '#e3f2fd',
     intermediate: '#fff3e0', advanced: '#fce4ec'
@@ -446,6 +453,7 @@
     const lCol = levelText[lvl]  || '#555';
     return `<div class="pcl-card">
       <div class="pcl-joy">${s.joylang || ''}</div>
+      ${bzRow(s.bhairavi || s.joylang)}
       <div class="pcl-eng">${s.english || ''}</div>
       ${s.hindi ? `<div class="pcl-hin">${s.hindi}</div>` : ''}
       ${s.type  ? `<span class="pcl-badge">${capitalize(s.type)}</span>` : ''}
@@ -479,6 +487,7 @@
     container.innerHTML = filtered.length
       ? `<div class="pcl-grid">${filtered.slice(start, end).map(sentCard).join('')}</div>`
       : '<div class="pcl-loading" style="color:var(--text-muted);">No results.</div>';
+    if (window.Bhairavi) window.Bhairavi.render();
 
     // Pagination
     if (totalPages <= 1) { pgEl.innerHTML = ''; return; }
@@ -563,6 +572,7 @@
   function renderPhraseCard(p) {
     return `<div class="pcl-card" data-category="${p.category || ''}">
       <div class="pcl-joy">${p.joylang || ''}</div>
+      ${bzRow(p.bhairavi || p.joylang)}
       <div class="pcl-eng">${p.english || ''}</div>
       <div class="pcl-hin">${p.hindi || ''}</div>
       <span class="pcl-badge">${capitalize(p.category || '')}</span>
@@ -573,6 +583,7 @@
   function renderClauseCard(c) {
     return `<div class="pcl-card" data-type="${c.type || ''}">
       <div class="pcl-joy">${c.joylang || ''}</div>
+      ${bzRow(c.bhairavi || c.joylang)}
       <div class="pcl-eng">${c.english || ''}</div>
       <div class="pcl-hin">${c.hindi || ''}</div>
       <span class="pcl-badge">${capitalize(c.type || '')}</span>
@@ -597,6 +608,7 @@
     container.innerHTML = collection === 'phrases'
       ? filtered.map(renderPhraseCard).join('')
       : filtered.map(renderClauseCard).join('');
+    if (window.Bhairavi) window.Bhairavi.render();
   }
 
   window.filterPcl = function (collection, value) {

@@ -724,6 +724,26 @@ tbody td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-a
   font-weight: 600;
   color: var(--green);
 }
+/* Bhairavi-script row shown inside dictionary / sentence / phrase / clause cards */
+.card-bz {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 6px 0;
+  padding: 5px 8px;
+  background: var(--bg-card, #faf7f2);
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+}
+.card-bz .card-bz-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  flex: 0 0 auto;
+}
+.card-bz .bzcw { margin: 0 6px 0 0; }
 .dict-meaning { font-size: 0.9rem; color: var(--text); margin-bottom: 6px; }
 .dict-example {
   font-size: 0.82rem;

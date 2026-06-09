@@ -5,7 +5,8 @@
     "joylang": "Namashte!",
     "hindi": "नमस्ते!",
     "category": "greeting",
-    "notes": "Universal greeting; adopted from Sanskrit"
+    "notes": "Universal greeting; adopted from Sanskrit",
+    "bhairavi": "namashte"
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "joylang": "Moru goloku!",
     "hindi": "सुप्रभात! / शुभ सुबह!",
     "category": "greeting",
-    "notes": "Moru=morning, goloku=good (adj)"
+    "notes": "Moru=morning, goloku=good (adj)",
+    "bhairavi": "moru goloku"
   },
   {
     "id": 3,
@@ -21,7 +23,8 @@
     "joylang": "Shitu goloku!",
     "hindi": "शुभ संध्या! / शुभ शाम!",
     "category": "greeting",
-    "notes": "Shitu=evening"
+    "notes": "Shitu=evening",
+    "bhairavi": "shitu goloku"
   },
   {
     "id": 4,
@@ -29,7 +32,8 @@
     "joylang": "Bushi goloku!",
     "hindi": "शुभ रात्रि!",
     "category": "greeting",
-    "notes": "Bushi=night"
+    "notes": "Bushi=night",
+    "bhairavi": "bushi goloku"
   },
   {
     "id": 5,
@@ -37,7 +41,8 @@
     "joylang": "Pela goluko belo!",
     "hindi": "अलविदा! / फिर मिलेंगे!",
     "category": "greeting",
-    "notes": "Lit: Please come back well"
+    "notes": "Lit: Please come back well",
+    "bhairavi": "pela goluko belo"
   },
   {
     "id": 6,
@@ -45,7 +50,8 @@
     "joylang": "Dola tenu-ko doshibo!",
     "hindi": "बाद में मिलते हैं!",
     "category": "greeting",
-    "notes": "Dola=later, doshibo=will see"
+    "notes": "Dola=later, doshibo=will see",
+    "bhairavi": "dola tenuko doshibo"
   },
   {
     "id": 7,
@@ -53,7 +59,8 @@
     "joylang": "Tenu-ko mililo joviombu!",
     "hindi": "आपसे मिलकर खुशी हुई!",
     "category": "greeting",
-    "notes": "Lit: Meeting you is joy"
+    "notes": "Lit: Meeting you is joy",
+    "bhairavi": "tenuko mililo joviombu"
   },
   {
     "id": 8,
@@ -61,7 +68,8 @@
     "joylang": "Svagato!",
     "hindi": "स्वागत है!",
     "category": "greeting",
-    "notes": "Standard Joylang welcome interjection"
+    "notes": "Standard Joylang welcome interjection",
+    "bhairavi": "svagato"
   },
   {
     "id": 9,
@@ -69,7 +77,8 @@
     "joylang": "Ka tenu goloku melo?",
     "hindi": "आप कैसे हैं?",
     "category": "greeting",
-    "notes": "Ka=question marker; goloku=good"
+    "notes": "Ka=question marker; goloku=good",
+    "bhairavi": "ka tenu goloku melo"
   },
   {
     "id": 10,
@@ -77,7 +86,8 @@
     "joylang": "Anu goloku melo. Krupanu.",
     "hindi": "मैं ठीक हूँ, धन्यवाद।",
     "category": "greeting",
-    "notes": "Krupanu=thank you (interjection)"
+    "notes": "Krupanu=thank you (interjection)",
+    "bhairavi": "anu goloku melo krupanu"
   },
   {
     "id": 11,
@@ -85,7 +95,8 @@
     "joylang": "Ka tenu goloku melome?",
     "hindi": "आप कैसे रहे?",
     "category": "greeting",
-    "notes": "-me=past tense on melo"
+    "notes": "-me=past tense on melo",
+    "bhairavi": "ka tenu goloku melome"
   },
   {
     "id": 12,
@@ -93,7 +104,8 @@
     "joylang": "Pari lokuku! Tenu-ko vedoshibo!",
     "hindi": "बहुत दिनों बाद!",
     "category": "greeting",
-    "notes": "Lit: Long time! Did not see you!"
+    "notes": "Lit: Long time! Did not see you!",
+    "bhairavi": "pari lokuku tenuko vedoshibo"
   },
   {
     "id": 13,
@@ -101,7 +113,8 @@
     "joylang": "Krupanu.",
     "hindi": "धन्यवाद।",
     "category": "courtesy",
-    "notes": "Standard Joylang thank-you"
+    "notes": "Standard Joylang thank-you",
+    "bhairavi": "krupanu"
   },
   {
     "id": 14,
@@ -109,7 +122,8 @@
     "joylang": "Krupanu lokuoku!",
     "hindi": "बहुत-बहुत धन्यवाद!",
     "category": "courtesy",
-    "notes": "Lokuoku=very big/much"
+    "notes": "Lokuoku=very big/much",
+    "bhairavi": "krupanu lokuoku"
   },
   {
     "id": 15,
@@ -117,7 +131,8 @@
     "joylang": "Goloku melo.",
     "hindi": "कोई बात नहीं। / आपका स्वागत है।",
     "category": "courtesy",
-    "notes": "Lit: It is good"
+    "notes": "Lit: It is good",
+    "bhairavi": "goloku melo"
   },
   {
     "id": 16,
@@ -125,7 +140,8 @@
     "joylang": "Pela.",
     "hindi": "कृपया।",
     "category": "courtesy",
-    "notes": "Pela=politeness/please marker"
+    "notes": "Pela=politeness/please marker",
+    "bhairavi": "pela"
   },
   {
     "id": 17,
@@ -133,7 +149,8 @@
     "joylang": "Anu dushome.",
     "hindi": "माफ़ कीजिए। / क्षमा करें।",
     "category": "courtesy",
-    "notes": "Lit: I was sad (about it); dushome=past of dushuvu"
+    "notes": "Lit: I was sad (about it); dushome=past of dushuvu",
+    "bhairavi": "anu dushome"
   },
   {
     "id": 18,
@@ -141,7 +158,8 @@
     "joylang": "Veshova melo.",
     "hindi": "कोई बात नहीं। / कोई परेशानी नहीं।",
     "category": "courtesy",
-    "notes": "Veshova=no hardship, melo=is"
+    "notes": "Veshova=no hardship, melo=is",
+    "bhairavi": "veshova melo"
   },
   {
     "id": 19,
@@ -149,7 +167,8 @@
     "joylang": "Shika goloku.",
     "hindi": "ज़रूर। / बिल्कुल।",
     "category": "courtesy",
-    "notes": "Shika=truth, goloku=good; lit: It is certainly true"
+    "notes": "Shika=truth, goloku=good; lit: It is certainly true",
+    "bhairavi": "shika goloku"
   },
   {
     "id": 20,
@@ -157,7 +176,8 @@
     "joylang": "Venoba velo.",
     "hindi": "चिंता मत करो।",
     "category": "courtesy",
-    "notes": "Venoba=not afraid/worried"
+    "notes": "Venoba=not afraid/worried",
+    "bhairavi": "venoba velo"
   },
   {
     "id": 21,
@@ -165,7 +185,8 @@
     "joylang": "Goloku melo.",
     "hindi": "सब ठीक है।",
     "category": "courtesy",
-    "notes": "Goloku=good"
+    "notes": "Goloku=good",
+    "bhairavi": "goloku melo"
   },
   {
     "id": 22,
@@ -173,7 +194,8 @@
     "joylang": "Pela tenu-ko shopi golo!",
     "hindi": "अपना ख़याल रखना!",
     "category": "courtesy",
-    "notes": "Shopi=clean/healthy, golo=be (imperative)"
+    "notes": "Shopi=clean/healthy, golo=be (imperative)",
+    "bhairavi": "pela tenuko shopi golo"
   },
   {
     "id": 23,
@@ -181,7 +203,8 @@
     "joylang": "Yolu tenu-ra goloku melo!",
     "hindi": "आपका दिन शुभ हो!",
     "category": "courtesy",
-    "notes": "Yolu=day/life, tenu-ra=for you"
+    "notes": "Yolu=day/life, tenu-ra=for you",
+    "bhairavi": "yolu tenura goloku melo"
   },
   {
     "id": 24,
@@ -189,7 +212,8 @@
     "joylang": "Pela tenu ekanu velo.",
     "hindi": "पहले आप।",
     "category": "courtesy",
-    "notes": "Ekanu=first, tenu=you"
+    "notes": "Ekanu=first, tenu=you",
+    "bhairavi": "pela tenu ekanu velo"
   },
   {
     "id": 25,
@@ -197,7 +221,8 @@
     "joylang": "Pela tenu-shi kachilo.",
     "hindi": "आप खुद लें। / बिना संकोच के।",
     "category": "courtesy",
-    "notes": "Tenu-shi=yourself, kachilo=eat/take"
+    "notes": "Tenu-shi=yourself, kachilo=eat/take",
+    "bhairavi": "pela tenushi kachilo"
   },
   {
     "id": 26,
@@ -205,7 +230,8 @@
     "joylang": "Sholo! Tenu goloku banime!",
     "hindi": "बधाई हो!",
     "category": "courtesy",
-    "notes": "Sholo=well done interjection, banime=achieved/built"
+    "notes": "Sholo=well done interjection, banime=achieved/built",
+    "bhairavi": "sholo tenu goloku banime"
   },
   {
     "id": 27,
@@ -213,7 +239,8 @@
     "joylang": "Pela tenu goloku melo!",
     "hindi": "शुभकामनाएँ!",
     "category": "courtesy",
-    "notes": "Lit: May it be good for you"
+    "notes": "Lit: May it be good for you",
+    "bhairavi": "pela tenu goloku melo"
   },
   {
     "id": 28,
@@ -221,7 +248,8 @@
     "joylang": "Tenu shopombu yolu goloku!",
     "hindi": "जन्मदिन मुबारक!",
     "category": "courtesy",
-    "notes": "Shopombu=birth, yolu=day/life"
+    "notes": "Shopombu=birth, yolu=day/life",
+    "bhairavi": "tenu shopombu yolu goloku"
   },
   {
     "id": 29,
@@ -229,7 +257,8 @@
     "joylang": "Tenu-ni namu chenu melo?",
     "hindi": "आपका नाम क्या है?",
     "category": "communication",
-    "notes": "Tenu-ni=your (genitive), namu=name (from Update Pack), chenu=what"
+    "notes": "Tenu-ni=your (genitive), namu=name (from Update Pack), chenu=what",
+    "bhairavi": "tenuni namu chenu melo"
   },
   {
     "id": 30,
@@ -237,7 +266,8 @@
     "joylang": "Anu-ni namu ... melo.",
     "hindi": "मेरा नाम ... है।",
     "category": "communication",
-    "notes": "Anu-ni=my (genitive)"
+    "notes": "Anu-ni=my (genitive)",
+    "bhairavi": "anuni namu melo"
   },
   {
     "id": 31,
@@ -245,7 +275,8 @@
     "joylang": "Tenu kanu-ta belome?",
     "hindi": "आप कहाँ से हैं?",
     "category": "communication",
-    "notes": "Kanu=where, -ta=ablative (from), belome=came"
+    "notes": "Kanu=where, -ta=ablative (from), belome=came",
+    "bhairavi": "tenu kanuta belome"
   },
   {
     "id": 32,
@@ -253,7 +284,8 @@
     "joylang": "Anu ...-ta belome.",
     "hindi": "मैं ... से हूँ।",
     "category": "communication",
-    "notes": "-ta=ablative suffix (from)"
+    "notes": "-ta=ablative suffix (from)",
+    "bhairavi": "anu ta belome"
   },
   {
     "id": 33,
@@ -261,7 +293,8 @@
     "joylang": "Ka tenu Inglishi shapilo?",
     "hindi": "क्या आप अंग्रेज़ी बोलते हैं?",
     "category": "communication",
-    "notes": "Shapilo=speak (present), Inglishi=English (loanword)"
+    "notes": "Shapilo=speak (present), Inglishi=English (loanword)",
+    "bhairavi": "ka tenu inglishi shapilo"
   },
   {
     "id": 34,
@@ -269,7 +302,8 @@
     "joylang": "Anu vesamilo.",
     "hindi": "मुझे समझ नहीं आया।",
     "category": "communication",
-    "notes": "Ve-+samilo=not understand"
+    "notes": "Ve-+samilo=not understand",
+    "bhairavi": "anu vesamilo"
   },
   {
     "id": 35,
@@ -277,7 +311,8 @@
     "joylang": "Pela dhirenu shapibo.",
     "hindi": "कृपया धीरे बोलिए।",
     "category": "communication",
-    "notes": "Dhirenu=slowly, shapibo=will speak"
+    "notes": "Dhirenu=slowly, shapibo=will speak",
+    "bhairavi": "pela dhirenu shapibo"
   },
   {
     "id": 36,
@@ -285,7 +320,8 @@
     "joylang": "Ka tenu oshi dola shapibo?",
     "hindi": "क्या आप इसे फिर से कह सकते हैं?",
     "category": "communication",
-    "notes": "Oshi=that, dola=again"
+    "notes": "Oshi=that, dola=again",
+    "bhairavi": "ka tenu oshi dola shapibo"
   },
   {
     "id": 37,
@@ -293,7 +329,8 @@
     "joylang": "Eshi chenu shapilo?",
     "hindi": "इसका क्या मतलब है?",
     "category": "communication",
-    "notes": "Eshi=this, chenu=what, shapilo=says/means"
+    "notes": "Eshi=this, chenu=what, shapilo=says/means",
+    "bhairavi": "eshi chenu shapilo"
   },
   {
     "id": 38,
@@ -301,7 +338,8 @@
     "joylang": "Anu vejanilo.",
     "hindi": "मुझे नहीं पता।",
     "category": "communication",
-    "notes": "Ve-+janilo=not know"
+    "notes": "Ve-+janilo=not know",
+    "bhairavi": "anu vejanilo"
   },
   {
     "id": 39,
@@ -309,7 +347,8 @@
     "joylang": "Ka tenu anu-ra gupibo?",
     "hindi": "क्या आप मेरी मदद कर सकते हैं?",
     "category": "communication",
-    "notes": "Anu-ra=for me, gupibo=will help"
+    "notes": "Anu-ra=for me, gupibo=will help",
+    "bhairavi": "ka tenu anura gupibo"
   },
   {
     "id": 40,
@@ -317,7 +356,8 @@
     "joylang": "Anu gupombu chahilo.",
     "hindi": "मुझे मदद चाहिए।",
     "category": "communication",
-    "notes": "Gupombu=help (noun), chahilo=need"
+    "notes": "Gupombu=help (noun), chahilo=need",
+    "bhairavi": "anu gupombu chahilo"
   },
   {
     "id": 41,
@@ -325,7 +365,8 @@
     "joylang": "Pela botu lupi.",
     "hindi": "एक पल रुकिए।",
     "category": "communication",
-    "notes": "Botu=moment, lupi=wait (informal)"
+    "notes": "Botu=moment, lupi=wait (informal)",
+    "bhairavi": "pela botu lupi"
   },
   {
     "id": 42,
@@ -333,7 +374,8 @@
     "joylang": "Anu shika melo yenu.",
     "hindi": "मैं सहमत हूँ।",
     "category": "communication",
-    "notes": "Lit: I am truth because/yes"
+    "notes": "Lit: I am truth because/yes",
+    "bhairavi": "anu shika melo yenu"
   },
   {
     "id": 43,
@@ -341,7 +383,8 @@
     "joylang": "Anu veshika melo.",
     "hindi": "मैं असहमत हूँ।",
     "category": "communication",
-    "notes": "Ve-+shika=not truth"
+    "notes": "Ve-+shika=not truth",
+    "bhairavi": "anu veshika melo"
   },
   {
     "id": 44,
@@ -349,7 +392,8 @@
     "joylang": "Oshi shika melo.",
     "hindi": "यह सही है।",
     "category": "communication",
-    "notes": "Oshi=that, shika=truth"
+    "notes": "Oshi=that, shika=truth",
+    "bhairavi": "oshi shika melo"
   },
   {
     "id": 45,
@@ -357,7 +401,8 @@
     "joylang": "Anu oshi yochilo.",
     "hindi": "मुझे ऐसा लगता है।",
     "category": "communication",
-    "notes": "Yochilo=think"
+    "notes": "Yochilo=think",
+    "bhairavi": "anu oshi yochilo"
   },
   {
     "id": 46,
@@ -365,7 +410,8 @@
     "joylang": "Shika?",
     "hindi": "सच में?",
     "category": "communication",
-    "notes": "Shika=truth (used as question)"
+    "notes": "Shika=truth (used as question)",
+    "bhairavi": "shika"
   },
   {
     "id": 47,
@@ -373,7 +419,8 @@
     "joylang": "Anu tenu-ko ronolo.",
     "hindi": "मैं तुमसे प्यार करता/करती हूँ।",
     "category": "communication",
-    "notes": "Ronolo=love (present tense)"
+    "notes": "Ronolo=love (present tense)",
+    "bhairavi": "anu tenuko ronolo"
   },
   {
     "id": 48,
@@ -381,7 +428,8 @@
     "joylang": "Anu tenu-ko dolu doshibo mansilo.",
     "hindi": "मैं तुम्हें याद करता/करती हूँ।",
     "category": "communication",
-    "notes": "Lit: I want to see you tomorrow"
+    "notes": "Lit: I want to see you tomorrow",
+    "bhairavi": "anu tenuko dolu doshibo mansilo"
   },
   {
     "id": 49,
@@ -389,7 +437,8 @@
     "joylang": "... kanu melo?",
     "hindi": "... कहाँ है?",
     "category": "direction",
-    "notes": "Kanu=where"
+    "notes": "Kanu=where",
+    "bhairavi": "kanu melo"
   },
   {
     "id": 50,
@@ -397,7 +446,8 @@
     "joylang": "Henu duri melo?",
     "hindi": "यह कितनी दूर है?",
     "category": "direction",
-    "notes": "Henu=how, duri=distance"
+    "notes": "Henu=how, duri=distance",
+    "bhairavi": "henu duri melo"
   },
   {
     "id": 51,
@@ -405,7 +455,8 @@
     "joylang": "Vamuku velo.",
     "hindi": "बाईं तरफ़ मुड़ें।",
     "category": "direction",
-    "notes": "Vamuku=to the left"
+    "notes": "Vamuku=to the left",
+    "bhairavi": "vamuku velo"
   },
   {
     "id": 52,
@@ -413,7 +464,8 @@
     "joylang": "Daxuku velo.",
     "hindi": "दाईं तरफ़ मुड़ें।",
     "category": "direction",
-    "notes": "Daxuku=to the right"
+    "notes": "Daxuku=to the right",
+    "bhairavi": "daxuku velo"
   },
   {
     "id": 53,
@@ -421,7 +473,8 @@
     "joylang": "Pelanu velo.",
     "hindi": "सीधे जाएँ।",
     "category": "direction",
-    "notes": "Pelanu=straight/forward"
+    "notes": "Pelanu=straight/forward",
+    "bhairavi": "pelanu velo"
   },
   {
     "id": 54,
@@ -429,7 +482,8 @@
     "joylang": "Eshi boshi shimaoku melo.",
     "hindi": "यह यहाँ के पास है।",
     "category": "direction",
-    "notes": "Boshi=inside/near, shimaoku=small (distance)"
+    "notes": "Boshi=inside/near, shimaoku=small (distance)",
+    "bhairavi": "eshi boshi shimaoku melo"
   },
   {
     "id": 55,
@@ -437,7 +491,8 @@
     "joylang": "Anu dishi vejanilo.",
     "hindi": "मैं खो गया/गई हूँ।",
     "category": "direction",
-    "notes": "Dishi=direction, vejanilo=don't know"
+    "notes": "Dishi=direction, vejanilo=don't know",
+    "bhairavi": "anu dishi vejanilo"
   },
   {
     "id": 56,
@@ -445,7 +500,8 @@
     "joylang": "Vamu-me.",
     "hindi": "बाईं ओर।",
     "category": "direction",
-    "notes": "-me=locative"
+    "notes": "-me=locative",
+    "bhairavi": "vamume"
   },
   {
     "id": 57,
@@ -453,7 +509,8 @@
     "joylang": "Daxu-me.",
     "hindi": "दाईं ओर।",
     "category": "direction",
-    "notes": "-me=locative"
+    "notes": "-me=locative",
+    "bhairavi": "daxume"
   },
   {
     "id": 58,
@@ -461,7 +518,8 @@
     "joylang": "Pelanu.",
     "hindi": "सीधे आगे।",
     "category": "direction",
-    "notes": "Pelanu=straight direction"
+    "notes": "Pelanu=straight direction",
+    "bhairavi": "pelanu"
   },
   {
     "id": 59,
@@ -469,7 +527,8 @@
     "joylang": "Anu kachombu chahilo.",
     "hindi": "मुझे भूख लगी है।",
     "category": "need",
-    "notes": "Kachombu=food, chahilo=need/want"
+    "notes": "Kachombu=food, chahilo=need/want",
+    "bhairavi": "anu kachombu chahilo"
   },
   {
     "id": 60,
@@ -477,7 +536,8 @@
     "joylang": "Anu maviombu chahilo.",
     "hindi": "मुझे प्यास लगी है।",
     "category": "need",
-    "notes": "Maviombu=water, chahilo=need"
+    "notes": "Maviombu=water, chahilo=need",
+    "bhairavi": "anu maviombu chahilo"
   },
   {
     "id": 61,
@@ -485,7 +545,8 @@
     "joylang": "Anu chomioku melo.",
     "hindi": "मैं थका/थकी हूँ।",
     "category": "need",
-    "notes": "Chomioku=rest-like/tired"
+    "notes": "Chomioku=rest-like/tired",
+    "bhairavi": "anu chomioku melo"
   },
   {
     "id": 62,
@@ -493,7 +554,8 @@
     "joylang": "Anu movi veoku melo.",
     "hindi": "मुझे ठंड लग रही है।",
     "category": "need",
-    "notes": "Movi=warm, ve-=not; not-warm=cold"
+    "notes": "Movi=warm, ve-=not; not-warm=cold",
+    "bhairavi": "anu movi veoku melo"
   },
   {
     "id": 63,
@@ -501,7 +563,8 @@
     "joylang": "Anu chovuoku melo.",
     "hindi": "मुझे गर्मी लग रही है।",
     "category": "need",
-    "notes": "Chovuoku=heat-like"
+    "notes": "Chovuoku=heat-like",
+    "bhairavi": "anu chovuoku melo"
   },
   {
     "id": 64,
@@ -509,7 +572,8 @@
     "joylang": "Anu nokioku melo.",
     "hindi": "मैं बीमार हूँ।",
     "category": "need",
-    "notes": "Nokioku=illness-like"
+    "notes": "Nokioku=illness-like",
+    "bhairavi": "anu nokioku melo"
   },
   {
     "id": 65,
@@ -517,7 +581,8 @@
     "joylang": "Pela bikuvachi-ko kalu!",
     "hindi": "डॉक्टर को बुलाओ!",
     "category": "need",
-    "notes": "Bikuvachi=medicine-agent=doctor, kalu=call"
+    "notes": "Bikuvachi=medicine-agent=doctor, kalu=call",
+    "bhairavi": "pela bikuvachiko kalu"
   },
   {
     "id": 66,
@@ -525,7 +590,8 @@
     "joylang": "Gupi! / Pela gupi!",
     "hindi": "मदद! / मदद करो!",
     "category": "need",
-    "notes": "Gupi=help (root used as imperative)"
+    "notes": "Gupi=help (root used as imperative)",
+    "bhairavi": "gupi pela gupi"
   },
   {
     "id": 67,
@@ -533,7 +599,8 @@
     "joylang": "Pela shoma!",
     "hindi": "सावधान! / ध्यान रखो!",
     "category": "need",
-    "notes": "Shoma=observe/watch (imperative)"
+    "notes": "Shoma=observe/watch (imperative)",
+    "bhairavi": "pela shoma"
   },
   {
     "id": 68,
@@ -541,7 +608,8 @@
     "joylang": "Pela helo velo!",
     "hindi": "जल्दी करो!",
     "category": "need",
-    "notes": "Helo=fast, velo=go"
+    "notes": "Helo=fast, velo=go",
+    "bhairavi": "pela helo velo"
   },
   {
     "id": 69,
@@ -549,7 +617,8 @@
     "joylang": "Manu tohu melo?",
     "hindi": "क्या बजा है? / अभी कितने बजे हैं?",
     "category": "time",
-    "notes": "Manu=when, tohu=hour"
+    "notes": "Manu=when, tohu=hour",
+    "bhairavi": "manu tohu melo"
   },
   {
     "id": 70,
@@ -557,7 +626,8 @@
     "joylang": "Yolu eshi.",
     "hindi": "आज।",
     "category": "time",
-    "notes": "Yolu=day/life, eshi=this"
+    "notes": "Yolu=day/life, eshi=this",
+    "bhairavi": "yolu eshi"
   },
   {
     "id": 71,
@@ -565,7 +635,8 @@
     "joylang": "Dolu.",
     "hindi": "कल।",
     "category": "time",
-    "notes": "Dolu=tomorrow (just future)"
+    "notes": "Dolu=tomorrow (just future)",
+    "bhairavi": "dolu"
   },
   {
     "id": 72,
@@ -573,7 +644,8 @@
     "joylang": "Yolu oshi.",
     "hindi": "कल।",
     "category": "time",
-    "notes": "Yolu=day, oshi=that (past)"
+    "notes": "Yolu=day, oshi=that (past)",
+    "bhairavi": "yolu oshi"
   },
   {
     "id": 73,
@@ -581,7 +653,8 @@
     "joylang": "Goku.",
     "hindi": "अभी।",
     "category": "time",
-    "notes": "Goku=now (root)"
+    "notes": "Goku=now (root)",
+    "bhairavi": "goku"
   },
   {
     "id": 74,
@@ -589,7 +662,8 @@
     "joylang": "Dola.",
     "hindi": "बाद में।",
     "category": "time",
-    "notes": "Dola=later"
+    "notes": "Dola=later",
+    "bhairavi": "dola"
   },
   {
     "id": 75,
@@ -597,7 +671,8 @@
     "joylang": "Yodu.",
     "hindi": "जल्दी।",
     "category": "time",
-    "notes": "Yodu=soon"
+    "notes": "Yodu=soon",
+    "bhairavi": "yodu"
   },
   {
     "id": 76,
@@ -605,7 +680,8 @@
     "joylang": "Nuji.",
     "hindi": "हमेशा।",
     "category": "time",
-    "notes": "Nuji=always (time root)"
+    "notes": "Nuji=always (time root)",
+    "bhairavi": "nuji"
   },
   {
     "id": 77,
@@ -613,7 +689,8 @@
     "joylang": "Nuji ve-.",
     "hindi": "कभी नहीं।",
     "category": "time",
-    "notes": "Ve-=not; nuji=always → always-not=never"
+    "notes": "Ve-=not; nuji=always → always-not=never",
+    "bhairavi": "nuji ve"
   },
   {
     "id": 78,
@@ -621,7 +698,8 @@
     "joylang": "Komi yolu.",
     "hindi": "कभी-कभी।",
     "category": "time",
-    "notes": "Komi=some, yolu=day/time"
+    "notes": "Komi=some, yolu=day/time",
+    "bhairavi": "komi yolu"
   },
   {
     "id": 79,
@@ -629,7 +707,8 @@
     "joylang": "Eshi henu toku melo?",
     "hindi": "यह कितने में है?",
     "category": "shopping",
-    "notes": "Toku=wealth/price, henu=how much"
+    "notes": "Toku=wealth/price, henu=how much",
+    "bhairavi": "eshi henu toku melo"
   },
   {
     "id": 80,
@@ -637,7 +716,8 @@
     "joylang": "Eshi toku lokuoku melo.",
     "hindi": "यह बहुत महँगा है।",
     "category": "shopping",
-    "notes": "Toku=price, lokuoku=very big"
+    "notes": "Toku=price, lokuoku=very big",
+    "bhairavi": "eshi toku lokuoku melo"
   },
   {
     "id": 81,
@@ -645,7 +725,8 @@
     "joylang": "Anu oshi lanubo.",
     "hindi": "मैं यह लूँगा/लूँगी।",
     "category": "shopping",
-    "notes": "Lanubo=will buy"
+    "notes": "Lanubo=will buy",
+    "bhairavi": "anu oshi lanubo"
   },
   {
     "id": 82,
@@ -653,7 +734,8 @@
     "joylang": "Ka tenu ... mansilo?",
     "hindi": "क्या आपके पास ... है?",
     "category": "shopping",
-    "notes": "Mansilo=have/want"
+    "notes": "Mansilo=have/want",
+    "bhairavi": "ka tenu mansilo"
   },
   {
     "id": 83,
@@ -661,7 +743,8 @@
     "joylang": "Pela toku mesu.",
     "hindi": "कृपया बिल दीजिए।",
     "category": "shopping",
-    "notes": "Toku=price/bill, mesu=message/note"
+    "notes": "Toku=price/bill, mesu=message/note",
+    "bhairavi": "pela toku mesu"
   },
   {
     "id": 84,
@@ -669,7 +752,8 @@
     "joylang": "Botu lokuoku pela.",
     "hindi": "थोड़ा और।",
     "category": "shopping",
-    "notes": "Botu=moment/bit, lokuoku=more/bigger"
+    "notes": "Botu=moment/bit, lokuoku=more/bigger",
+    "bhairavi": "botu lokuoku pela"
   },
   {
     "id": 85,
@@ -677,7 +761,8 @@
     "joylang": "Botu shimaoku pela.",
     "hindi": "थोड़ा कम।",
     "category": "shopping",
-    "notes": "Shimaoku=smaller/less"
+    "notes": "Shimaoku=smaller/less",
+    "bhairavi": "botu shimaoku pela"
   },
   {
     "id": 86,
@@ -685,7 +770,8 @@
     "joylang": "... kanu doshibo?",
     "hindi": "... कहाँ मिलेगा?",
     "category": "shopping",
-    "notes": "Kanu=where, doshibo=will find/see"
+    "notes": "Kanu=where, doshibo=will find/see",
+    "bhairavi": "kanu doshibo"
   },
   {
     "id": 87,
@@ -693,7 +779,8 @@
     "joylang": "Ka eshi mansibo?",
     "hindi": "क्या यह उपलब्ध है?",
     "category": "shopping",
-    "notes": "Mansibo=will be available/wanted"
+    "notes": "Mansibo=will be available/wanted",
+    "bhairavi": "ka eshi mansibo"
   },
   {
     "id": 88,
@@ -701,7 +788,8 @@
     "joylang": "Anu botu doshilo.",
     "hindi": "मैं सिर्फ देख रहा/रही हूँ।",
     "category": "shopping",
-    "notes": "Doshilo=seeing/looking"
+    "notes": "Doshilo=seeing/looking",
+    "bhairavi": "anu botu doshilo"
   },
   {
     "id": 89,
@@ -709,7 +797,8 @@
     "joylang": "Oshi dashombu melo.",
     "hindi": "यह उपहार है।",
     "category": "shopping",
-    "notes": "Dashombu=gift/given thing"
+    "notes": "Dashombu=gift/given thing",
+    "bhairavi": "oshi dashombu melo"
   },
   {
     "id": 90,
@@ -717,7 +806,8 @@
     "joylang": "Ka tenu kadu lanuibo?",
     "hindi": "क्या आप कार्ड स्वीकार करते हैं?",
     "category": "shopping",
-    "notes": "Kadu=card (loanword), lanuibo=accept/buy"
+    "notes": "Kadu=card (loanword), lanuibo=accept/buy",
+    "bhairavi": "ka tenu kadu lanuibo"
   },
   {
     "id": 91,
@@ -725,7 +815,8 @@
     "joylang": "Vehu! Vebo!",
     "hindi": "नहीं! बिल्कुल नहीं!",
     "category": "expression",
-    "notes": "Vehu=emphatic no!"
+    "notes": "Vehu=emphatic no!",
+    "bhairavi": "vehu vebo"
   },
   {
     "id": 92,
@@ -733,7 +824,8 @@
     "joylang": "Vaho!",
     "hindi": "अविश्वसनीय! / अद्भुत!",
     "category": "expression",
-    "notes": "Vaho=wow/amazing interjection"
+    "notes": "Vaho=wow/amazing interjection",
+    "bhairavi": "vaho"
   },
   {
     "id": 93,
@@ -741,7 +833,8 @@
     "joylang": "Sholo! / Shathu!",
     "hindi": "शाबाश! / बहुत बढ़िया!",
     "category": "expression",
-    "notes": "Sholo/Shathu=celebration interjections"
+    "notes": "Sholo/Shathu=celebration interjections",
+    "bhairavi": "sholo shathu"
   },
   {
     "id": 94,
@@ -749,7 +842,8 @@
     "joylang": "Oye!",
     "hindi": "ओह नहीं! / अरे!",
     "category": "expression",
-    "notes": "Oye=mild alarm interjection"
+    "notes": "Oye=mild alarm interjection",
+    "bhairavi": "oye"
   },
   {
     "id": 95,
@@ -757,7 +851,8 @@
     "joylang": "Chalu!",
     "hindi": "चलो!",
     "category": "expression",
-    "notes": "Chalu=encouragement to move"
+    "notes": "Chalu=encouragement to move",
+    "bhairavi": "chalu"
   },
   {
     "id": 96,
@@ -765,7 +860,8 @@
     "joylang": "Oshi lokuoku goloku melo!",
     "hindi": "यह बहुत अच्छा है!",
     "category": "expression",
-    "notes": "Lokuoku=very big/great, goloku=good"
+    "notes": "Lokuoku=very big/great, goloku=good",
+    "bhairavi": "oshi lokuoku goloku melo"
   },
   {
     "id": 97,
@@ -773,7 +869,8 @@
     "joylang": "Tenu-ra palo!",
     "hindi": "आपको भी!",
     "category": "expression",
-    "notes": "Tenu-ra=for you, palo=equal/same"
+    "notes": "Tenu-ra=for you, palo=equal/same",
+    "bhairavi": "tenura palo"
   },
   {
     "id": 98,
@@ -781,7 +878,8 @@
     "joylang": "Ayoyo! Dushombu lokuoku!",
     "hindi": "कितने अफ़सोस की बात!",
     "category": "expression",
-    "notes": "Ayoyo=concern interjection"
+    "notes": "Ayoyo=concern interjection",
+    "bhairavi": "ayoyo dushombu lokuoku"
   },
   {
     "id": 99,
@@ -789,7 +887,8 @@
     "joylang": "Tenu mansibo pela.",
     "hindi": "जैसी आपकी इच्छा।",
     "category": "expression",
-    "notes": "Mansibo=as you want"
+    "notes": "Mansibo=as you want",
+    "bhairavi": "tenu mansibo pela"
   },
   {
     "id": 100,
@@ -797,6 +896,7 @@
     "joylang": "Pela botu.",
     "hindi": "एक पल, कृपया।",
     "category": "expression",
-    "notes": "Botu=moment"
+    "notes": "Botu=moment",
+    "bhairavi": "pela botu"
   }
 ]
