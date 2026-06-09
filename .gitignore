@@ -1,0 +1,8 @@
+# --- Secrets: never commit Firebase / Google service-account keys ---
+serviceAccount*.json
+*serviceAccount*.json
+*-firebase-adminsdk-*.json
+*.serviceaccount.json
+
+# Node
+node_modules/
